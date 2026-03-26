@@ -2,26 +2,152 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background system */
+  --bg-base: #080b14;
+  --bg-surface: #0d1117;
+  --bg-elevated: #161b27;
+  --bg-overlay: #1e2535;
+
+  /* Text system */
+  --text-primary: #e8eaf0;
+  --text-secondary: #8892a4;
+  --text-muted: #4b5568;
+
+  /* Era accent colors — aligned with tailwind.config.ts era palette */
+  --era-caesar: #c9a227;
+  --era-des:    #e8850a;
+  --era-aes:    #00a3ff;
+  --era-rsa:    #a855f7;
+  --era-ecc:    #10b981;
+  --era-pqc:    #22d3ee;
+
+  /* Active era vars — updated dynamically via Station.tsx useEffect */
+  --era-active-color:   #c9a227;
+  --era-active-bg:      #1a1208;
+  --era-active-surface: #2d1f0a;
+  --era-active-text:    #e8d5a3;
+  --era-active-glow:    rgba(201,162,39,0.22);
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.12);
+
+  /* Spacing */
+  --station-height: 100vh;
+  --progress-width: 3px;
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-base: 600ms;
+  --duration-slow: 1000ms;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-mono, "Courier New", monospace);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(6, 182, 212, 0.3);
+    color: var(--text-primary);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-default);
+    border-radius: 2px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── Timeline Layout ────────────────────────────────────────────────────── */
+@layer components {
+  .station-section {
+    min-height: var(--station-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 5rem 1.5rem;
+  }
+
+  .era-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold tracking-widest uppercase;
+    border: 1px solid currentColor;
+    opacity: 0.8;
+  }
+
+  .station-card {
+    @apply relative w-full max-w-5xl mx-auto;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+
+  .demo-container {
+    @apply p-6 rounded-xl;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .code-display {
+    @apply p-4 rounded-lg font-mono text-sm leading-relaxed;
+    background: var(--bg-base);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    word-break: break-all;
+    min-height: 3rem;
+  }
+
+  .interactive-input {
+    @apply w-full px-4 py-3 rounded-lg font-mono text-sm outline-none transition-all duration-200;
+    background: var(--bg-base);
+    border: 1px solid var(--border-default);
+    color: var(--text-primary);
+  }
+
+  .interactive-input:focus {
+    border-color: currentColor;
+    box-shadow: 0 0 0 2px rgba(currentColor, 0.15);
+  }
 }
 
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .gradient-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+
+  .glow {
+    box-shadow: 0 0 40px -10px currentColor;
+  }
+
+  .glow-sm {
+    box-shadow: 0 0 20px -8px currentColor;
   }
 }
