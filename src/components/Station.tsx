@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { type Era, ERA_STATUS_LABELS, ERA_STATUS_COLORS } from "@/lib/constants";
 
@@ -12,94 +12,170 @@ interface StationProps {
 
 export default function Station({ era, index, children }: StationProps) {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-20% 0px -20% 0px" });
+  const isInView = useInView(ref, { once: false, margin: "-25% 0px -25% 0px" });
 
-  const isEven = index % 2 === 0;
+  // Dynamically update CSS custom properties on <html> when this era is centered
+  useEffect(() => {
+    if (!isInView) return;
+    const root = document.documentElement;
+    root.style.setProperty("--era-active-color",   era.color);
+    root.style.setProperty("--era-active-bg",      era.bgColor);
+    root.style.setProperty("--era-active-surface", era.surfaceColor);
+    root.style.setProperty("--era-active-text",    era.textColor);
+    root.style.setProperty("--era-active-glow",    era.glowColor);
+    // Also update the legacy vars used by ScrollProgress + globals
+    root.style.setProperty("--bg-base",            era.bgColor);
+  }, [isInView, era]);
 
   return (
     <section
       ref={ref}
       id={era.id}
       className="station-section"
+      aria-label={`${era.name} — ${era.year}`}
       style={{ "--era-color": era.color } as React.CSSProperties}
     >
-      {/* Background glow */}
+      {/* Full-bleed era background transition */}
       <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0"
-        animate={{ opacity: isInView ? 0.04 : 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-        style={{ background: `radial-gradient(ellipse at ${isEven ? "20%" : "80%"} 50%, ${era.color}, transparent 70%)` }}
+        className="pointer-events-none absolute inset-0 -z-10"
+        animate={{ backgroundColor: isInView ? era.bgColor : "transparent" }}
+        transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
       />
 
-      {/* Timeline connector line */}
-      <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--border-subtle)]" />
-
-      {/* Timeline dot */}
+      {/* Atmospheric radial glow */}
       <motion.div
-        className="absolute left-1/2 top-1/2 flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-        initial={{ scale: 0 }}
-        animate={{ scale: isInView ? 1 : 0 }}
-        transition={{ duration: 0.4, ease: "backOut" }}
+        className="pointer-events-none absolute inset-0 -z-10"
+        animate={{ opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+        style={{
+          background: `radial-gradient(ellipse 80% 60% at 50% 40%, ${era.glowColor} 0%, transparent 70%)`,
+        }}
+      />
+
+      {/* Subtle corner accent glow */}
+      <motion.div
+        className="pointer-events-none absolute -z-10"
+        animate={{ opacity: isInView ? 0.6 : 0 }}
+        transition={{ duration: 1, ease: "easeInOut", delay: 0.2 }}
+        style={{
+          inset: 0,
+          background: `radial-gradient(circle at ${index % 2 === 0 ? "10% 90%" : "90% 10%"}, ${era.glowColor} 0%, transparent 45%)`,
+        }}
+      />
+
+      {/* Vertical timeline connector */}
+      <div
+        className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2"
+        style={{ background: `linear-gradient(to bottom, ${era.color}00, ${era.color}30 20%, ${era.color}30 80%, ${era.color}00)` }}
+      />
+
+      {/* Timeline node dot */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: isInView ? 1 : 0, opacity: isInView ? 1 : 0 }}
+        transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay: 0.1 }}
       >
-        <div
-          className="h-4 w-4 rounded-full border-2"
-          style={{ borderColor: era.color, backgroundColor: era.color + "33" }}
+        {/* Outer ring ping */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{ width: 32, height: 32, backgroundColor: era.color }}
+          animate={{ scale: [1, 2.5], opacity: [0.4, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
         />
+        {/* Inner dot */}
         <div
-          className="absolute h-8 w-8 rounded-full opacity-30 animate-ping"
-          style={{ backgroundColor: era.color }}
+          className="relative z-10 h-4 w-4 rounded-full border-2"
+          style={{ borderColor: era.color, backgroundColor: era.color + "44" }}
         />
       </motion.div>
 
       {/* Station card */}
       <motion.div
-        className="station-card w-full max-w-5xl"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 40 }}
-        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+        className="relative z-10 w-full max-w-5xl"
+        initial={{ opacity: 0, y: 48 }}
+        animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 48 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
       >
-        {/* Card header */}
+        {/* Card shell */}
         <div
-          className="border-b border-[var(--border-subtle)] p-6 md:p-8"
-          style={{ borderLeftColor: era.color, borderLeftWidth: 4 }}
+          className="overflow-hidden rounded-2xl border"
+          style={{
+            backgroundColor: era.surfaceColor,
+            borderColor: era.color + "28",
+            boxShadow: `0 0 0 1px ${era.color}12, 0 8px 40px rgba(0,0,0,0.6), 0 0 80px -20px ${era.glowColor}`,
+          }}
         >
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <div className="mb-3 flex items-center gap-3">
-                <span className="era-badge" style={{ color: era.color }}>
-                  {era.year}
-                </span>
-                <span
-                  className={`era-badge ${ERA_STATUS_COLORS[era.status]}`}
+          {/* Top accent line */}
+          <div className="h-0.5 w-full" style={{ background: `linear-gradient(90deg, transparent, ${era.color}, transparent)` }} />
+
+          {/* Card header */}
+          <div className="border-b p-6 md:p-8" style={{ borderColor: era.color + "18", borderLeftColor: era.color, borderLeftWidth: 4 }}>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                {/* Era year + status badges */}
+                <div className="mb-3 flex flex-wrap items-center gap-2.5">
+                  <span
+                    className="inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest"
+                    style={{ color: era.color, borderColor: era.color + "50", backgroundColor: era.color + "14" }}
+                  >
+                    {era.year}
+                  </span>
+                  <span className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${ERA_STATUS_COLORS[era.status]}`}>
+                    {ERA_STATUS_LABELS[era.status]}
+                  </span>
+                </div>
+
+                {/* Station title */}
+                <h2
+                  className="text-3xl font-bold tracking-tight md:text-4xl"
+                  style={{ color: era.textColor }}
                 >
-                  {ERA_STATUS_LABELS[era.status]}
-                </span>
+                  {era.name}
+                </h2>
+                <p className="mt-1 font-mono text-sm" style={{ color: era.color + "99" }}>
+                  {era.subtitle}
+                </p>
               </div>
-              <h2 className="text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
-                {era.name}
-              </h2>
-              <p className="mt-1 font-mono text-sm text-[var(--text-muted)]">{era.subtitle}</p>
+
+              {/* Station number badge */}
+              <motion.div
+                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-xl font-bold font-mono"
+                style={{ backgroundColor: era.color + "18", color: era.color }}
+                animate={{ rotate: isInView ? 0 : -10, scale: isInView ? 1 : 0.8 }}
+                transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1], delay: 0.2 }}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </motion.div>
             </div>
-            <div
-              className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-2xl font-bold"
-              style={{ backgroundColor: era.color + "20", color: era.color }}
+
+            {/* Description */}
+            <p className="mt-4 max-w-3xl text-base leading-relaxed" style={{ color: era.textColor, opacity: 0.8 }}>
+              {era.description}
+            </p>
+
+            {/* Key fact panel */}
+            <motion.div
+              className="mt-4 flex items-start gap-3 rounded-xl border px-4 py-3 font-mono text-xs leading-relaxed"
+              style={{
+                borderColor: era.color + "35",
+                color: era.color,
+                backgroundColor: era.color + "0d",
+              }}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: isInView ? 1 : 0, x: isInView ? 0 : -12 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              {String(index + 1).padStart(2, "0")}
-            </div>
+              <span className="mt-0.5 shrink-0 text-base">⚡</span>
+              <span>{era.keyFact}</span>
+            </motion.div>
           </div>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)]">
-            {era.description}
-          </p>
-          <div
-            className="mt-4 rounded-lg border px-4 py-3 font-mono text-xs"
-            style={{ borderColor: era.color + "40", color: era.color, backgroundColor: era.color + "10" }}
-          >
-            ⚡ {era.keyFact}
+
+          {/* Station interactive content */}
+          <div className="p-6 md:p-8" style={{ backgroundColor: era.bgColor + "80" }}>
+            {children}
           </div>
         </div>
-
-        {/* Station content (demo + attack) */}
-        <div className="p-6 md:p-8">{children}</div>
       </motion.div>
     </section>
   );
