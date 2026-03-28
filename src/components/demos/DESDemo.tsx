@@ -45,11 +45,14 @@ export default function DESDemo({ era }: Props) {
         <p className="text-sm text-[var(--text-secondary)]">DES Feistel network — 16 rounds of encryption</p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2" role="group" aria-label="Encryption mode">
         {(["encrypt", "decrypt"] as const).map((m) => (
           <button
             key={m}
+            data-testid={`des-${m}-btn`}
             onClick={() => { setMode(m); setOutput(""); setRounds([]); setError(""); }}
+            aria-pressed={mode === m}
+            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -68,6 +71,7 @@ export default function DESDemo({ era }: Props) {
         onChange={(e) => { setPlaintext(e.target.value); setOutput(""); }}
         placeholder={mode === "encrypt" ? "Enter text..." : "Paste hex output..."}
         accentColor={era.color}
+        data-testid="des-input"
       />
 
       <InteractiveInput
@@ -77,12 +81,14 @@ export default function DESDemo({ era }: Props) {
         placeholder="SECRET01"
         accentColor={era.color}
         maxLength={8}
+        helpText={`Key length: ${key.length}/8 characters`}
+        data-testid="des-key"
       />
-      <p className="font-mono text-xs text-[var(--text-muted)]">Key length: {key.length}/8 characters</p>
 
       <button
         onClick={run}
         disabled={!plaintext.trim() || !key.trim()}
+        data-testid="des-run-btn"
         className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
@@ -102,7 +108,7 @@ export default function DESDemo({ era }: Props) {
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
             {mode === "encrypt" ? "Ciphertext (hex)" : "Plaintext"}
           </label>
-          <div className="code-display break-all text-sm tracking-wider" style={{ color: era.color }}>
+          <div className="code-display break-all text-sm tracking-wider" data-testid="des-output" style={{ color: era.color }}>
             {output}
           </div>
         </motion.div>

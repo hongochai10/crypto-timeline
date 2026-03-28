@@ -1,11 +1,8 @@
 /**
  * E2E test suite — Crypto Timeline
  *
- * Status: PENDING IMPLEMENTATION
- * Blocked by: TEC-304 (interactive demos), TEC-306 (station components)
- *
- * These tests will run against the live Next.js dev server.
- * Activate once all 6 stations are rendered in the DOM.
+ * Covers all 6 crypto stations: Caesar, DES, AES, RSA, ECC, PQC.
+ * Tests run against the live Next.js dev server via Playwright.
  */
 import { test, expect } from "@playwright/test";
 
@@ -157,37 +154,222 @@ test.describe("Caesar Cipher demo", () => {
 });
 
 test.describe("DES demo", () => {
-  test("encrypts and decrypts with matching key", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: add DES-specific selectors once TEC-304 delivers the component
+    const desSection = page.locator("#des h2");
+    await desSection.scrollIntoViewIfNeeded();
+    await expect(desSection).toBeVisible({ timeout: 10000 });
+  });
+
+  test("encrypts and decrypts with matching key", async ({ page }) => {
+    // Ensure encrypt mode
+    await page.locator('[data-testid="des-encrypt-btn"]').click();
+
+    // Fill plaintext and key
+    await page.locator('[data-testid="des-input"]').fill("HELLO DES");
+    await page.locator('[data-testid="des-key"]').fill("SECRET01");
+
+    // Click encrypt
+    await page.locator('[data-testid="des-run-btn"]').click();
+
+    // Wait for output to appear
+    const output = page.locator('[data-testid="des-output"]');
+    await expect(output).toBeVisible({ timeout: 10000 });
+    const ciphertextHex = await output.textContent();
+    expect(ciphertextHex).toBeTruthy();
+    expect(ciphertextHex!.length).toBeGreaterThan(0);
+
+    // Switch to decrypt mode
+    await page.locator('[data-testid="des-decrypt-btn"]').click();
+
+    // Fill ciphertext hex and same key
+    await page.locator('[data-testid="des-input"]').fill(ciphertextHex!);
+    await page.locator('[data-testid="des-key"]').fill("SECRET01");
+
+    // Click decrypt
+    await page.locator('[data-testid="des-run-btn"]').click();
+
+    // Verify decrypted output matches original plaintext
+    await expect(output).toBeVisible({ timeout: 10000 });
+    await expect(output).toHaveText("HELLO DES");
+  });
+
+  test("shows error for invalid decrypt input", async ({ page }) => {
+    await page.locator('[data-testid="des-decrypt-btn"]').click();
+    await page.locator('[data-testid="des-input"]').fill("INVALID");
+    await page.locator('[data-testid="des-key"]').fill("SECRET01");
+    await page.locator('[data-testid="des-run-btn"]').click();
+
+    // Error message should appear
+    await expect(page.locator("text=Invalid input")).toBeVisible({ timeout: 5000 });
   });
 });
 
 test.describe("AES demo", () => {
-  test("AES-256 encrypt/decrypt round-trip", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: add AES selectors
+    const aesSection = page.locator("#aes h2");
+    await aesSection.scrollIntoViewIfNeeded();
+    await expect(aesSection).toBeVisible({ timeout: 10000 });
+  });
+
+  test("AES-256 encrypt/decrypt round-trip", async ({ page }) => {
+    // Ensure encrypt mode
+    await page.locator('[data-testid="aes-encrypt-btn"]').click();
+
+    // Set passphrase and plaintext
+    await page.locator('[data-testid="aes-passphrase"]').fill("test-passphrase");
+    await page.locator('[data-testid="aes-plaintext"]').fill("Hello, AES-256!");
+
+    // Click encrypt
+    await page.locator('[data-testid="aes-encrypt-run-btn"]').click();
+
+    // Wait for ciphertext to appear
+    await expect(page.locator('[data-testid="aes-ciphertext"]')).toBeVisible({ timeout: 15000 });
+
+    // Switch to decrypt mode and decrypt
+    await page.locator('[data-testid="aes-decrypt-btn"]').click();
+    await page.locator('[data-testid="aes-decrypt-run-btn"]').click();
+
+    // Verify decrypted text matches original
+    await expect(page.locator('[data-testid="aes-decrypted"]')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('[data-testid="aes-decrypted"]')).toHaveText("Hello, AES-256!");
+  });
+
+  test("encrypt button is disabled without passphrase", async ({ page }) => {
+    await page.locator('[data-testid="aes-encrypt-btn"]').click();
+    await page.locator('[data-testid="aes-passphrase"]').fill("");
+    await page.locator('[data-testid="aes-plaintext"]').fill("Some text");
+
+    await expect(page.locator('[data-testid="aes-encrypt-run-btn"]')).toBeDisabled();
   });
 });
 
 test.describe("RSA demo", () => {
-  test("generates key pair and encrypts/decrypts", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: key gen may take a few seconds — use explicit wait
+    const rsaSection = page.locator("#rsa h2");
+    await rsaSection.scrollIntoViewIfNeeded();
+    await expect(rsaSection).toBeVisible({ timeout: 10000 });
+  });
+
+  test("generates key pair and encrypts/decrypts", async ({ page }) => {
+    // Step 1: Generate RSA-2048 key pair
+    await page.locator('[data-testid="rsa-generate-btn"]').click();
+
+    // Wait for key generation (can take a few seconds)
+    await expect(page.locator("text=✓ Ready").first()).toBeVisible({ timeout: 30000 });
+
+    // Step 2: Fill message and encrypt
+    await page.locator('[data-testid="rsa-message"]').fill("Hello RSA!");
+    await page.locator('[data-testid="rsa-encrypt-btn"]').click();
+
+    // Wait for ciphertext
+    await expect(page.locator('[data-testid="rsa-ciphertext"]')).toBeVisible({ timeout: 15000 });
+
+    // Step 3: Decrypt
+    await page.locator('[data-testid="rsa-decrypt-btn"]').click();
+
+    // Verify decrypted message matches
+    await expect(page.locator('[data-testid="rsa-decrypted"]')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('[data-testid="rsa-decrypted"]')).toHaveText("Hello RSA!");
+  });
+
+  test("encrypt button is disabled before key generation", async ({ page }) => {
+    await expect(page.locator('[data-testid="rsa-encrypt-btn"]')).toBeDisabled();
   });
 });
 
 test.describe("ECC demo", () => {
-  test("signs message and verifies signature", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: add ECC selectors
+    const eccSection = page.locator("#ecc h2");
+    await eccSection.scrollIntoViewIfNeeded();
+    await expect(eccSection).toBeVisible({ timeout: 10000 });
+  });
+
+  test("signs message and verifies signature", async ({ page }) => {
+    // Step 1: Generate ECDSA key pair
+    await page.locator('[data-testid="ecc-generate-btn"]').click();
+    await expect(page.locator("text=✓ Ready").first()).toBeVisible({ timeout: 15000 });
+
+    // Step 2: Sign the message
+    await page.locator('[data-testid="ecc-message"]').fill("Sign this message!");
+    await page.locator('[data-testid="ecc-sign-btn"]').click();
+
+    // Wait for signature to appear (Step 3 section becomes visible)
+    await expect(page.locator('[data-testid="ecc-verify-btn"]')).toBeVisible({ timeout: 10000 });
+
+    // Step 3: Verify without tampering — should be valid
+    await page.locator('[data-testid="ecc-verify-btn"]').click();
+    await expect(page.locator('[data-testid="ecc-verify-result"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('[data-testid="ecc-verify-result"]')).toContainText("Valid");
+  });
+
+  test("detects tampered message as invalid", async ({ page }) => {
+    // Generate keys
+    await page.locator('[data-testid="ecc-generate-btn"]').click();
+    await expect(page.locator("text=✓ Ready").first()).toBeVisible({ timeout: 15000 });
+
+    // Sign
+    await page.locator('[data-testid="ecc-message"]').fill("Sign this message!");
+    await page.locator('[data-testid="ecc-sign-btn"]').click();
+    await expect(page.locator('[data-testid="ecc-verify-btn"]')).toBeVisible({ timeout: 10000 });
+
+    // Enable tampering and verify — should be invalid
+    await page.locator('[data-testid="ecc-tamper-checkbox"]').check();
+    await page.locator('[data-testid="ecc-verify-btn"]').click();
+    await expect(page.locator('[data-testid="ecc-verify-result"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('[data-testid="ecc-verify-result"]')).toContainText("Invalid");
   });
 });
 
 test.describe("PQC demo", () => {
-  test("lattice-based demo produces output", async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: add PQC selectors
+    const pqcSection = page.locator("#pqc h2");
+    await pqcSection.scrollIntoViewIfNeeded();
+    await expect(pqcSection).toBeVisible({ timeout: 10000 });
+  });
+
+  test("lattice-based encrypt/decrypt bit=1 round-trip", async ({ page }) => {
+    // Step 1: Generate LWE key pair
+    await page.locator('[data-testid="pqc-generate-btn"]').click();
+
+    // Wait for key pair to appear (bit selection becomes visible)
+    await expect(page.locator('[data-testid="pqc-bit-1-btn"]')).toBeVisible({ timeout: 10000 });
+
+    // Step 2: Select bit 1 and encrypt
+    await page.locator('[data-testid="pqc-bit-1-btn"]').click();
+    await page.locator('[data-testid="pqc-encrypt-btn"]').click();
+
+    // Wait for decrypt button
+    await expect(page.locator('[data-testid="pqc-decrypt-btn"]')).toBeVisible({ timeout: 10000 });
+
+    // Step 3: Decrypt
+    await page.locator('[data-testid="pqc-decrypt-btn"]').click();
+
+    // Verify correct decryption
+    await expect(page.locator('[data-testid="pqc-decrypt-result"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('[data-testid="pqc-decrypt-result"]')).toContainText("Correct");
+  });
+
+  test("lattice-based encrypt/decrypt bit=0 round-trip", async ({ page }) => {
+    // Generate keys
+    await page.locator('[data-testid="pqc-generate-btn"]').click();
+    await expect(page.locator('[data-testid="pqc-bit-0-btn"]')).toBeVisible({ timeout: 10000 });
+
+    // Select bit 0 and encrypt
+    await page.locator('[data-testid="pqc-bit-0-btn"]').click();
+    await page.locator('[data-testid="pqc-encrypt-btn"]').click();
+
+    // Decrypt
+    await expect(page.locator('[data-testid="pqc-decrypt-btn"]')).toBeVisible({ timeout: 10000 });
+    await page.locator('[data-testid="pqc-decrypt-btn"]').click();
+
+    // Verify
+    await expect(page.locator('[data-testid="pqc-decrypt-result"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('[data-testid="pqc-decrypt-result"]')).toContainText("Correct");
   });
 });
 
@@ -196,13 +378,38 @@ test.describe("PQC demo", () => {
 test.describe("Scroll behaviour", () => {
   test("scrolling down reveals subsequent stations", async ({ page }) => {
     await page.goto("/");
-    await page.evaluate(() => window.scrollTo(0, window.innerHeight * 2));
-    // TODO: assert that station 2 (DES) becomes visible after scroll
+
+    // DES station should not be visible initially (below the fold)
+    const desHeading = page.locator("#des h2");
+
+    // Scroll down to the DES section
+    await desHeading.scrollIntoViewIfNeeded();
+
+    // Assert DES heading is now visible
+    await expect(desHeading).toBeVisible({ timeout: 10000 });
   });
 
-  test("scroll progress indicator updates", async ({ page }) => {
+  test("all stations become visible when scrolled to", async ({ page }) => {
     await page.goto("/");
-    await page.evaluate(() => window.scrollTo(0, window.innerHeight));
-    // TODO: assert ScrollProgress component reflects current position
+    const stationIds = ["caesar", "des", "aes", "rsa", "ecc", "pqc"];
+
+    for (const id of stationIds) {
+      const heading = page.locator(`#${id} h2`);
+      await heading.scrollIntoViewIfNeeded();
+      await expect(heading).toBeVisible({ timeout: 10000 });
+    }
+  });
+
+  test("page is scrollable through all content", async ({ page }) => {
+    await page.goto("/");
+
+    // Scroll to the last station (PQC) to verify full page is scrollable
+    const pqcHeading = page.locator("#pqc h2");
+    await pqcHeading.scrollIntoViewIfNeeded();
+    await expect(pqcHeading).toBeVisible({ timeout: 10000 });
+
+    // Verify we actually scrolled down
+    const scrollTop = await page.evaluate(() => window.scrollY);
+    expect(scrollTop).toBeGreaterThan(0);
   });
 });

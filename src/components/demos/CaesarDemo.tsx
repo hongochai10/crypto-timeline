@@ -30,12 +30,14 @@ export default function CaesarDemo({ era }: Props) {
         <p className="text-sm text-[var(--text-secondary)]">Caesar shift cipher — adjust key and text</p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2" role="group" aria-label="Encryption mode">
         {(["encrypt", "decrypt"] as const).map((m) => (
           <button
             key={m}
             data-testid={`caesar-${m}-btn`}
             onClick={() => setMode(m)}
+            aria-pressed={mode === m}
+            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -58,14 +60,19 @@ export default function CaesarDemo({ era }: Props) {
       />
 
       <div>
-        <label className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+        <label htmlFor="caesar-shift-slider" className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
           Shift Key: {shift}
         </label>
         <input
+          id="caesar-shift-slider"
           type="range"
           min={1}
           max={25}
           value={shift}
+          aria-valuemin={1}
+          aria-valuemax={25}
+          aria-valuenow={shift}
+          aria-label={`Caesar shift key: ${shift}`}
           onChange={(e) => setShift(Number(e.target.value))}
           className="w-full"
           style={{ accentColor: era.color }}
@@ -78,10 +85,17 @@ export default function CaesarDemo({ era }: Props) {
       </div>
 
       <div>
-        <label className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+        <label id="caesar-output-label" className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
           {mode === "encrypt" ? "Ciphertext" : "Plaintext"}
         </label>
-        <div className="code-display tracking-widest" style={{ color: era.color }} data-testid="caesar-output">
+        <div
+          className="code-display tracking-widest"
+          style={{ color: era.color }}
+          data-testid="caesar-output"
+          role="status"
+          aria-live="polite"
+          aria-labelledby="caesar-output-label"
+        >
           {output || "—"}
         </div>
       </div>

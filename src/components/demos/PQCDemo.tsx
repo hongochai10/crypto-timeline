@@ -134,6 +134,7 @@ export default function PQCDemo({ era }: Props) {
       {/* Step 1 */}
       <button
         onClick={generate}
+        data-testid="pqc-generate-btn"
         className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
@@ -157,6 +158,7 @@ export default function PQCDemo({ era }: Props) {
             {([0, 1] as const).map((b) => (
               <button
                 key={b}
+                data-testid={`pqc-bit-${b}-btn`}
                 onClick={() => { setBit(b); setCiphertext(null); setDecrypted(null); }}
                 className="flex-1 rounded-lg py-2 font-mono text-sm font-bold transition-all"
                 style={
@@ -171,6 +173,7 @@ export default function PQCDemo({ era }: Props) {
           </div>
           <button
             onClick={encrypt}
+            data-testid="pqc-encrypt-btn"
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -190,6 +193,7 @@ export default function PQCDemo({ era }: Props) {
         <div className="flex flex-col gap-3">
           <button
             onClick={decrypt}
+            data-testid="pqc-decrypt-btn"
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -201,7 +205,7 @@ export default function PQCDemo({ era }: Props) {
               animate={{ opacity: 1, y: 0 }}
               className={`rounded-lg border p-3 ${decrypted === bit ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
-              <p className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>
+              <p data-testid="pqc-decrypt-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>
                 Decrypted bit = {decrypted} {decrypted === bit ? "✓ Correct" : "✗ Error"}
               </p>
               <p className="font-mono text-[10px] text-[var(--text-muted)]">

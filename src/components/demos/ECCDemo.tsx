@@ -82,6 +82,7 @@ export default function ECCDemo({ era }: Props) {
         <button
           onClick={generateKeys}
           disabled={genStatus === "loading"}
+          data-testid="ecc-generate-btn"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -105,10 +106,12 @@ export default function ECCDemo({ era }: Props) {
           onChange={(e) => { setMessage(e.target.value); setSignature(""); setVerifyResult(null); }}
           placeholder="Enter message..."
           accentColor={era.color}
+          data-testid="ecc-message"
         />
         <button
           onClick={sign}
           disabled={!keyPair || signStatus === "loading" || !message.trim()}
+          data-testid="ecc-sign-btn"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -131,6 +134,7 @@ export default function ECCDemo({ era }: Props) {
               type="checkbox"
               checked={tampered}
               onChange={(e) => { setTampered(e.target.checked); setVerifyResult(null); }}
+              data-testid="ecc-tamper-checkbox"
               className="rounded"
             />
             Simulate message tampering
@@ -138,6 +142,7 @@ export default function ECCDemo({ era }: Props) {
           <button
             onClick={verify}
             disabled={verifyStatus === "loading"}
+            data-testid="ecc-verify-btn"
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -149,7 +154,7 @@ export default function ECCDemo({ era }: Props) {
               animate={{ opacity: 1, y: 0 }}
               className={`rounded-lg border p-3 ${verifyResult.valid ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
-              <p className={`font-mono text-xs uppercase tracking-widest mb-1 ${verifyResult.valid ? "text-green-400" : "text-red-400"}`}>
+              <p data-testid="ecc-verify-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${verifyResult.valid ? "text-green-400" : "text-red-400"}`}>
                 {verifyResult.valid ? "✓ Valid" : "✗ Invalid"}
               </p>
               <p className="font-mono text-xs text-[var(--text-secondary)]">{verifyResult.message}</p>

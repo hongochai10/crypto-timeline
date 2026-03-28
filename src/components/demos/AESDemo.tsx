@@ -62,6 +62,7 @@ export default function AESDemo({ era }: Props) {
         {(["encrypt", "decrypt"] as const).map((m) => (
           <button
             key={m}
+            data-testid={`aes-${m}-btn`}
             onClick={() => { setMode(m); setStatus("idle"); }}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
@@ -82,6 +83,7 @@ export default function AESDemo({ era }: Props) {
         placeholder="my-secret-key"
         accentColor={era.color}
         type="password"
+        data-testid="aes-passphrase"
       />
 
       {mode === "encrypt" ? (
@@ -92,10 +94,12 @@ export default function AESDemo({ era }: Props) {
             onChange={(e) => { setPlaintext(e.target.value); setCiphertext(""); setStatus("idle"); }}
             placeholder="Enter message to encrypt..."
             accentColor={era.color}
+            data-testid="aes-plaintext"
           />
           <button
             onClick={handleEncrypt}
             disabled={status === "loading" || !plaintext.trim() || !passphrase.trim()}
+            data-testid="aes-encrypt-run-btn"
             className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -106,6 +110,7 @@ export default function AESDemo({ era }: Props) {
         <button
           onClick={handleDecrypt}
           disabled={status === "loading" || !ciphertext || !activeKey}
+          data-testid="aes-decrypt-run-btn"
           className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -130,7 +135,7 @@ export default function AESDemo({ era }: Props) {
       {ciphertext && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-2">
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">Ciphertext (base64)</label>
-          <div className="code-display break-all text-xs" style={{ color: era.color }}>
+          <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }}>
             {ciphertext.slice(0, 80)}…
           </div>
         </motion.div>
@@ -143,7 +148,7 @@ export default function AESDemo({ era }: Props) {
           className="rounded-lg border border-green-500/30 bg-green-500/10 p-3"
         >
           <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Decrypted</p>
-          <p className="font-mono text-sm text-[var(--text-primary)]">{decrypted}</p>
+          <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted">{decrypted}</p>
         </motion.div>
       )}
 

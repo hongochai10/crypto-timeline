@@ -69,6 +69,7 @@ export default function RSADemo({ era }: Props) {
         <button
           onClick={generateKeys}
           disabled={genStatus === "loading"}
+          data-testid="rsa-generate-btn"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -95,10 +96,12 @@ export default function RSADemo({ era }: Props) {
           onChange={(e) => { setMessage(e.target.value); setCiphertext(""); setDecrypted(""); }}
           placeholder="Enter short message..."
           accentColor={era.color}
+          data-testid="rsa-message"
         />
         <button
           onClick={encrypt}
           disabled={!keyPair || encStatus === "loading" || !message.trim()}
+          data-testid="rsa-encrypt-btn"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -107,7 +110,7 @@ export default function RSADemo({ era }: Props) {
         {ciphertext && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-1">
             <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">Ciphertext (base64)</p>
-            <p className="font-mono text-[10px] break-all" style={{ color: era.color }}>{ciphertext.slice(0, 80)}…</p>
+            <p className="font-mono text-[10px] break-all" data-testid="rsa-ciphertext" style={{ color: era.color }}>{ciphertext.slice(0, 80)}…</p>
           </motion.div>
         )}
       </div>
@@ -120,6 +123,7 @@ export default function RSADemo({ era }: Props) {
         <button
           onClick={decrypt}
           disabled={!keyPair || !ciphertext || decStatus === "loading"}
+          data-testid="rsa-decrypt-btn"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -132,7 +136,7 @@ export default function RSADemo({ era }: Props) {
             className="rounded-lg border border-green-500/30 bg-green-500/10 p-3"
           >
             <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Decrypted</p>
-            <p className="font-mono text-sm text-[var(--text-primary)]">{decrypted}</p>
+            <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="rsa-decrypted">{decrypted}</p>
           </motion.div>
         )}
         {decStatus === "error" && (
