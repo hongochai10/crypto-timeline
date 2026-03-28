@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { reportWebVitals, getVitalsLog, initWebVitals } from "./web-vitals";
+import { reportWebVitals, getVitalsLog } from "./web-vitals";
 import type { Metric } from "web-vitals";
 
 function makeMetric(overrides: Partial<Metric> = {}): Metric {
