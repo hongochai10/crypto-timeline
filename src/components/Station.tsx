@@ -128,6 +128,7 @@ export default function Station({ era, index, children }: StationProps) {
 
                 {/* Station title */}
                 <h2
+                  id={`station-title-${era.id}`}
                   className="text-3xl font-bold tracking-tight md:text-4xl"
                   style={{ color: era.textColor }}
                 >
@@ -172,7 +173,12 @@ export default function Station({ era, index, children }: StationProps) {
           </div>
 
           {/* Station interactive content */}
-          <div className="p-6 md:p-8" style={{ backgroundColor: era.bgColor + "80" }}>
+          <div
+            className="p-6 md:p-8"
+            style={{ backgroundColor: era.bgColor + "80" }}
+            role="region"
+            aria-labelledby={`station-title-${era.id}`}
+          >
             {children}
           </div>
         </div>

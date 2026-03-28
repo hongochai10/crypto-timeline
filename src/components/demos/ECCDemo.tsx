@@ -83,6 +83,7 @@ export default function ECCDemo({ era }: Props) {
           onClick={generateKeys}
           disabled={genStatus === "loading"}
           data-testid="ecc-generate-btn"
+          aria-label="Generate ECDSA P-256 key pair"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -112,6 +113,7 @@ export default function ECCDemo({ era }: Props) {
           onClick={sign}
           disabled={!keyPair || signStatus === "loading" || !message.trim()}
           data-testid="ecc-sign-btn"
+          aria-label="Sign message with ECDSA private key"
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -135,6 +137,7 @@ export default function ECCDemo({ era }: Props) {
               checked={tampered}
               onChange={(e) => { setTampered(e.target.checked); setVerifyResult(null); }}
               data-testid="ecc-tamper-checkbox"
+              aria-label="Simulate message tampering"
               className="rounded"
             />
             Simulate message tampering
@@ -143,6 +146,7 @@ export default function ECCDemo({ era }: Props) {
             onClick={verify}
             disabled={verifyStatus === "loading"}
             data-testid="ecc-verify-btn"
+            aria-label="Verify signature with ECDSA public key"
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -152,6 +156,8 @@ export default function ECCDemo({ era }: Props) {
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
+              role="status"
+              aria-live="polite"
               className={`rounded-lg border p-3 ${verifyResult.valid ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
               <p data-testid="ecc-verify-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${verifyResult.valid ? "text-green-400" : "text-red-400"}`}>

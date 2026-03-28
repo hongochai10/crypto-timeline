@@ -58,12 +58,14 @@ export default function AESDemo({ era }: Props) {
         <p className="text-sm text-[var(--text-secondary)]">AES-256-GCM — authenticated encryption via Web Crypto</p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2" role="group" aria-label="Encryption mode">
         {(["encrypt", "decrypt"] as const).map((m) => (
           <button
             key={m}
             data-testid={`aes-${m}-btn`}
             onClick={() => { setMode(m); setStatus("idle"); }}
+            aria-pressed={mode === m}
+            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -100,6 +102,7 @@ export default function AESDemo({ era }: Props) {
             onClick={handleEncrypt}
             disabled={status === "loading" || !plaintext.trim() || !passphrase.trim()}
             data-testid="aes-encrypt-run-btn"
+            aria-label="Encrypt with AES-256"
             className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -111,6 +114,7 @@ export default function AESDemo({ era }: Props) {
           onClick={handleDecrypt}
           disabled={status === "loading" || !ciphertext || !activeKey}
           data-testid="aes-decrypt-run-btn"
+          aria-label="Decrypt with AES-256"
           className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
@@ -135,7 +139,7 @@ export default function AESDemo({ era }: Props) {
       {ciphertext && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-2">
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">Ciphertext (base64)</label>
-          <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }}>
+          <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }} role="status" aria-live="polite">
             {ciphertext.slice(0, 80)}…
           </div>
         </motion.div>
@@ -148,12 +152,12 @@ export default function AESDemo({ era }: Props) {
           className="rounded-lg border border-green-500/30 bg-green-500/10 p-3"
         >
           <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Decrypted</p>
-          <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted">{decrypted}</p>
+          <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted" role="status" aria-live="polite">{decrypted}</p>
         </motion.div>
       )}
 
       {status === "error" && (
-        <p className="font-mono text-xs text-red-400">Decryption failed — wrong key or tampered ciphertext.</p>
+        <p role="alert" className="font-mono text-xs text-red-400">Decryption failed — wrong key or tampered ciphertext.</p>
       )}
     </div>
   );

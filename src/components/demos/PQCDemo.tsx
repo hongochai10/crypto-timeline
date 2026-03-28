@@ -60,7 +60,7 @@ export default function PQCDemo({ era }: Props) {
       <div className="rounded-lg border p-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
         <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Lattice visualization — the hard problem</p>
         <div className="flex justify-center">
-          <svg width={svgSize} height={svgSize} className="overflow-visible">
+          <svg width={svgSize} height={svgSize} className="overflow-visible" role="img" aria-label="Lattice point visualization showing the hard problem in LWE encryption">
             {/* Lattice points */}
             {lattice.points.map(([x, y], i) => (
               <circle
@@ -135,6 +135,7 @@ export default function PQCDemo({ era }: Props) {
       <button
         onClick={generate}
         data-testid="pqc-generate-btn"
+        aria-label="Generate LWE key pair"
         className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
@@ -154,12 +155,14 @@ export default function PQCDemo({ era }: Props) {
       {keyPair && (
         <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
           <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>Encrypt a single bit</span>
-          <div className="flex gap-3">
+          <div className="flex gap-3" role="group" aria-label="Select bit value to encrypt">
             {([0, 1] as const).map((b) => (
               <button
                 key={b}
                 data-testid={`pqc-bit-${b}-btn`}
                 onClick={() => { setBit(b); setCiphertext(null); setDecrypted(null); }}
+                aria-pressed={bit === b}
+                aria-label={`Select bit ${b}`}
                 className="flex-1 rounded-lg py-2 font-mono text-sm font-bold transition-all"
                 style={
                   bit === b
@@ -174,6 +177,7 @@ export default function PQCDemo({ era }: Props) {
           <button
             onClick={encrypt}
             data-testid="pqc-encrypt-btn"
+            aria-label={`Encrypt bit ${bit} with LWE`}
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -194,6 +198,7 @@ export default function PQCDemo({ era }: Props) {
           <button
             onClick={decrypt}
             data-testid="pqc-decrypt-btn"
+            aria-label="Decrypt LWE ciphertext"
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
@@ -203,6 +208,8 @@ export default function PQCDemo({ era }: Props) {
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
+              role="status"
+              aria-live="polite"
               className={`rounded-lg border p-3 ${decrypted === bit ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
               <p data-testid="pqc-decrypt-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>

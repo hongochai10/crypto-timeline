@@ -89,6 +89,7 @@ export default function DESDemo({ era }: Props) {
         onClick={run}
         disabled={!plaintext.trim() || !key.trim()}
         data-testid="des-run-btn"
+        aria-label={mode === "encrypt" ? "Encrypt with DES" : "Decrypt with DES"}
         className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
@@ -96,7 +97,7 @@ export default function DESDemo({ era }: Props) {
       </button>
 
       {error && (
-        <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{error}</p>
+        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{error}</p>
       )}
 
       {output && (
@@ -108,7 +109,7 @@ export default function DESDemo({ era }: Props) {
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
             {mode === "encrypt" ? "Ciphertext (hex)" : "Plaintext"}
           </label>
-          <div className="code-display break-all text-sm tracking-wider" data-testid="des-output" style={{ color: era.color }}>
+          <div className="code-display break-all text-sm tracking-wider" data-testid="des-output" style={{ color: era.color }} role="status" aria-live="polite">
             {output}
           </div>
         </motion.div>
@@ -118,6 +119,8 @@ export default function DESDemo({ era }: Props) {
         <div>
           <button
             onClick={() => setShowRounds((s) => !s)}
+            aria-expanded={showRounds}
+            aria-label={`${showRounds ? "Hide" : "Show"} 16 Feistel rounds`}
             className="font-mono text-xs tracking-widest uppercase transition-colors"
             style={{ color: era.color + "80" }}
           >
