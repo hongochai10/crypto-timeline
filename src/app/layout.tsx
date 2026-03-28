@@ -16,6 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://crypto-timeline.techbi.dev"),
   title: "Crypto Timeline — A History of Cryptography",
   description:
     "An interactive museum-exhibit experience walking through the evolution of cryptography: from Caesar Cipher to Post-Quantum Cryptography.",
@@ -25,6 +26,39 @@ export const metadata: Metadata = {
     title: "Crypto Timeline",
     description: "From Caesar to Quantum — An Interactive Cryptography Journey",
     type: "website",
+    siteName: "Crypto Timeline",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Crypto Timeline — A History of Cryptography",
+    description: "From Caesar to Quantum — An Interactive Cryptography Journey",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Crypto Timeline",
+  description:
+    "An interactive museum-exhibit experience walking through the evolution of cryptography: from Caesar Cipher to Post-Quantum Cryptography.",
+  applicationCategory: "EducationalApplication",
+  operatingSystem: "Any",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+  author: {
+    "@type": "Organization",
+    name: "TechBi Company",
+  },
+  educationalLevel: "Beginner to Advanced",
+  about: {
+    "@type": "Thing",
+    name: "Cryptography",
+    description:
+      "The history and evolution of cryptographic algorithms from classical ciphers to post-quantum cryptography.",
   },
 };
 
@@ -42,6 +76,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <WebVitalsReporter />
         <ErrorBoundary>
           {children}
