@@ -22,6 +22,14 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
 
+  /* Visual regression snapshot settings */
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.005,
+      animations: "disabled",
+    },
+  },
+
   projects: [
     // ── Desktop browsers ────────────────────────────────────────────────────
     {
