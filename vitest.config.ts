@@ -11,11 +11,6 @@ export default defineConfig({
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
     exclude: ["src/e2e/**"],
     pool: "forks",
-    poolOptions: {
-      forks: {
-        maxForks: 2,
-      },
-    },
     testTimeout: 30000,
     coverage: {
       provider: "v8",
