@@ -17,6 +17,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
 
+        // ── CSS Variable Design Tokens (from globals.css :root) ──
+        "bg-base":      "var(--bg-base)",
+        "bg-surface":   "var(--bg-surface)",
+        "bg-elevated":  "var(--bg-elevated)",
+        "bg-overlay":   "var(--bg-overlay)",
+        "text-primary":   "var(--text-primary)",
+        "text-secondary": "var(--text-secondary)",
+        "text-muted":     "var(--text-muted)",
+
         // ── Era Color Palettes ────────────────────────────────────
         // 1. Caesar Cipher (50 BC) — Ancient stone, papyrus, gold
         caesar: {
