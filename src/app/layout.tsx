@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
+import OfflineIndicator from "@/components/OfflineIndicator";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -22,6 +23,12 @@ export const metadata: Metadata = {
     "An interactive museum-exhibit experience walking through the evolution of cryptography: from Caesar Cipher to Post-Quantum Cryptography.",
   keywords: ["cryptography", "AES", "RSA", "ECC", "post-quantum", "DES", "Caesar cipher"],
   authors: [{ name: "TechBi Company" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Crypto Timeline",
+  },
   openGraph: {
     title: "Crypto Timeline",
     description: "From Caesar to Quantum — An Interactive Cryptography Journey",
@@ -75,12 +82,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <WebVitalsReporter />
+        <OfflineIndicator />
         <ErrorBoundary>
           {children}
         </ErrorBoundary>
