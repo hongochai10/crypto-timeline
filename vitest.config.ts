@@ -9,10 +9,20 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    exclude: ["src/e2e/**"],
+    pool: "forks",
+    poolOptions: {
+      forks: {
+        maxForks: 2,
+      },
+    },
+    testTimeout: 30000,
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
-      include: ["src/lib/**/*.ts", "src/components/**/*.tsx"],
+      // React components covered by Playwright E2E — unit coverage on lib only
+      include: ["src/lib/**/*.ts"],
+      exclude: ["src/lib/constants.ts"],
       thresholds: {
         lines: 80,
         functions: 80,

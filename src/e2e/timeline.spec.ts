@@ -28,24 +28,18 @@ test.describe("Page load", () => {
 test.describe("Cross-browser smoke", () => {
   test("renders main timeline container", async ({ page }) => {
     await page.goto("/");
-    // TODO: update selector once Timeline.tsx is implemented
     await expect(page.locator('[data-testid="timeline"]')).toBeVisible();
   });
 
   test("all 6 station headings are visible", async ({ page }) => {
     await page.goto("/");
-    const stations = [
-      "Caesar Cipher",
-      "DES",
-      "AES",
-      "RSA",
-      "ECC",
-      "Post-Quantum",
-    ];
-    for (const station of stations) {
-      await expect(
-        page.getByRole("heading", { name: new RegExp(station, "i") })
-      ).toBeVisible();
+    // Use h2 selectors scoped to each station section to avoid substring collisions
+    // (e.g. /AES/i also matches "Caesar" and sub-headings)
+    const stationIds = ["caesar", "des", "aes", "rsa", "ecc", "pqc"];
+    for (const id of stationIds) {
+      const heading = page.locator(`#${id} h2`);
+      await heading.scrollIntoViewIfNeeded();
+      await expect(heading).toBeVisible({ timeout: 10000 });
     }
   });
 });
@@ -127,25 +121,38 @@ test.describe("Accessibility — WCAG 2.1 AA", () => {
 test.describe("Caesar Cipher demo", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
-    // TODO: scroll/navigate to Caesar station once implemented
+    // Scroll to Caesar station to trigger framer-motion visibility
+    const caesarHeading = page.getByRole("heading", { name: /Caesar Cipher/i });
+    await caesarHeading.scrollIntoViewIfNeeded();
+    await expect(caesarHeading).toBeVisible({ timeout: 10000 });
   });
 
-  test("encrypts 'hello' with shift 3 to 'khoor'", async ({ page }) => {
-    await page.locator('[data-testid="caesar-input"]').fill("hello");
-    await page.locator('[data-testid="caesar-shift"]').fill("3");
+  test("encrypts 'HELLO' with shift 3 to 'KHOOR'", async ({ page }) => {
+    // Ensure encrypt mode is active
     await page.locator('[data-testid="caesar-encrypt-btn"]').click();
-    await expect(page.locator('[data-testid="caesar-output"]')).toHaveText(
-      "khoor"
-    );
+    // Fill input (component auto-uppercases)
+    await page.locator('[data-testid="caesar-input"]').fill("HELLO");
+    // Set range slider to shift 3 via JS evaluate
+    await page.locator('[data-testid="caesar-shift"]').evaluate((el) => {
+      (el as HTMLInputElement).value = "3";
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    await expect(page.locator('[data-testid="caesar-output"]')).toHaveText("KHOOR");
   });
 
-  test("decrypts 'khoor' with shift 3 back to 'hello'", async ({ page }) => {
-    await page.locator('[data-testid="caesar-input"]').fill("khoor");
-    await page.locator('[data-testid="caesar-shift"]').fill("3");
+  test("decrypts 'KHOOR' with shift 3 back to 'HELLO'", async ({ page }) => {
+    // Switch to decrypt mode
     await page.locator('[data-testid="caesar-decrypt-btn"]').click();
-    await expect(page.locator('[data-testid="caesar-output"]')).toHaveText(
-      "hello"
-    );
+    // Fill ciphertext (component auto-uppercases)
+    await page.locator('[data-testid="caesar-input"]').fill("KHOOR");
+    // Set range slider to shift 3 via JS evaluate
+    await page.locator('[data-testid="caesar-shift"]').evaluate((el) => {
+      (el as HTMLInputElement).value = "3";
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+      el.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    await expect(page.locator('[data-testid="caesar-output"]')).toHaveText("HELLO");
   });
 });
 

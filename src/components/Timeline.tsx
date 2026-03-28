@@ -73,7 +73,7 @@ export default function Timeline() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="timeline">
       {/* Fixed scroll progress indicator */}
       <ScrollProgress />
 

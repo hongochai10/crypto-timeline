@@ -34,6 +34,7 @@ export default function CaesarDemo({ era }: Props) {
         {(["encrypt", "decrypt"] as const).map((m) => (
           <button
             key={m}
+            data-testid={`caesar-${m}-btn`}
             onClick={() => setMode(m)}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
@@ -53,6 +54,7 @@ export default function CaesarDemo({ era }: Props) {
         onChange={(e) => setPlaintext(e.target.value.toUpperCase())}
         placeholder="Enter text..."
         accentColor={era.color}
+        data-testid="caesar-input"
       />
 
       <div>
@@ -67,6 +69,7 @@ export default function CaesarDemo({ era }: Props) {
           onChange={(e) => setShift(Number(e.target.value))}
           className="w-full"
           style={{ accentColor: era.color }}
+          data-testid="caesar-shift"
         />
         <div className="mt-1 flex justify-between font-mono text-xs text-[var(--text-muted)]">
           <span>1</span>
@@ -78,7 +81,7 @@ export default function CaesarDemo({ era }: Props) {
         <label className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
           {mode === "encrypt" ? "Ciphertext" : "Plaintext"}
         </label>
-        <div className="code-display tracking-widest" style={{ color: era.color }}>
+        <div className="code-display tracking-widest" style={{ color: era.color }} data-testid="caesar-output">
           {output || "—"}
         </div>
       </div>
