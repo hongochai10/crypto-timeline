@@ -98,7 +98,7 @@ export default function CaesarAttack({ era }: Props) {
         onClick={handleCrack}
         disabled={isRunning || !ciphertext.trim()}
         className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-        style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.4)" }}
+        style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
       >
         {isRunning ? "Cracking..." : "⚡ Run Frequency Attack"}
       </button>
@@ -128,12 +128,14 @@ function InteractiveTextarea({
   onChange: (v: string) => void;
   color: string;
 }) {
+  const id = `caesar-textarea-${label.toLowerCase().replace(/\s+/g, "-")}`;
   return (
     <div>
-      <label className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+      <label htmlFor={id} className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
         {label}
       </label>
       <textarea
+        id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={3}

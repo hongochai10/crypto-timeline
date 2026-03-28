@@ -25,8 +25,8 @@ const KEY_FIGURES = [
 ];
 
 const THREAT_COMPARISON = [
-  { algo: "Caesar", threat: "Classical", icon: "⚔️", status: "broken", color: "#ef4444" },
-  { algo: "DES", threat: "Classical", icon: "💻", status: "broken", color: "#ef4444" },
+  { algo: "Caesar", threat: "Classical", icon: "⚔️", status: "broken", color: "#f87171" },
+  { algo: "DES", threat: "Classical", icon: "💻", status: "broken", color: "#f87171" },
   { algo: "AES-256", threat: "Quantum (Grover)", icon: "⚛️", status: "weakened", color: "#f59e0b", note: "Halves key strength — AES-256 → AES-128 equivalent" },
   { algo: "RSA/ECC", threat: "Quantum (Shor)", icon: "⚛️", status: "broken", color: "#ef4444", note: "Polynomial time factoring — both broken by Shor" },
   { algo: "Kyber/Dilithium", threat: "Quantum", icon: "🔒", status: "safe", color: "#10b981", note: "Lattice problems resist both classical and quantum attacks" },
@@ -167,7 +167,7 @@ export default function PQCStation({ era }: StationProps) {
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
                 <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{fig.name}</p>
-                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "99" }}>{fig.role}</p>
+                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "cc" }}>{fig.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{fig.note}</p>
               </motion.div>
             ))}

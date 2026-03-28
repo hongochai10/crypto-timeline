@@ -13,9 +13,9 @@ const TIMELINE = [
   { year: "1977", event: "DES standardized — 56-bit key deemed secure", color: "#22c55e" },
   { year: "1993", event: "Michael Wiener estimates $1M machine cracks in 3.5h", color: "#f59e0b" },
   { year: "1997", event: "RSA DES Challenge cracked in 96 days by internet volunteers", color: "#f97316" },
-  { year: "1998", event: "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K", color: "#ef4444" },
-  { year: "1999", event: "Deep Crack + distributed.net: 22 hours 15 minutes", color: "#ef4444" },
-  { year: "2008", event: "COPACOBANA FPGA cluster: ~6 days, cost ~$10K", color: "#dc2626" },
+  { year: "1998", event: "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K", color: "#f87171" },
+  { year: "1999", event: "Deep Crack + distributed.net: 22 hours 15 minutes", color: "#f87171" },
+  { year: "2008", event: "COPACOBANA FPGA cluster: ~6 days, cost ~$10K", color: "#f87171" },
 ];
 
 function formatDuration(ms: number): string {
@@ -83,7 +83,7 @@ export default function DESAttack({ era }: Props) {
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase text-red-400">
           Attack Demo
         </h3>
-        <p className="text-sm" style={{ color: era.color + "99" }}>Brute force — 2⁵⁶ keyspace visualization</p>
+        <p className="text-sm" style={{ color: era.color + "cc" }}>Brute force — 2⁵⁶ keyspace visualization</p>
       </div>
 
       {/* Keyspace stats */}
@@ -126,7 +126,7 @@ export default function DESAttack({ era }: Props) {
           onClick={runSimulation}
           disabled={isRunning}
           className="flex-1 rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-          style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.4)" }}
+          style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
         >
           {isRunning ? "Brute-forcing…" : "⚡ Simulate Brute Force"}
         </button>

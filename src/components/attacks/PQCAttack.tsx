@@ -107,14 +107,14 @@ export default function PQCAttack({ era }: Props) {
               }}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="font-mono text-xs font-bold" style={{ color: t.broken ? "#ef4444" : era.color }}>
+                <span className="font-mono text-xs font-bold" style={{ color: t.broken ? "#f87171" : era.color }}>
                   {t.algorithm}
                 </span>
                 <span
                   className="font-mono text-[9px] rounded-full px-2 py-0.5"
                   style={{
                     backgroundColor: t.broken ? "#ef444430" : era.color + "25",
-                    color: t.broken ? "#ef4444" : era.color,
+                    color: t.broken ? "#f87171" : era.color,
                   }}
                 >
                   {t.broken ? "⚠ BROKEN by quantum" : "✓ Quantum-safe"}

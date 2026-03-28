@@ -97,7 +97,7 @@ export default function DESStation({ era }: StationProps) {
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
                 <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{fig.name}</p>
-                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "99" }}>{fig.role}</p>
+                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "cc" }}>{fig.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{fig.note}</p>
               </motion.div>
             ))}

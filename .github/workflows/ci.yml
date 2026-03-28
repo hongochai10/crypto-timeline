@@ -110,6 +110,43 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
+  a11y-audit:
+    name: Accessibility Audit (axe-core)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
+          restore-keys: |
+            nextjs-${{ hashFiles('package-lock.json') }}-
+
+      - name: Run accessibility audit
+        run: npx playwright test --project=chromium src/e2e/accessibility.spec.ts
+
+      - name: Upload a11y report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: a11y-report
+          path: a11y-report/
+          retention-days: 14
+
   lighthouse-ci:
     name: Lighthouse CI — Performance Budget
     runs-on: ubuntu-latest
@@ -154,7 +191,7 @@ jobs:
   deploy:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
-    needs: [lint-typecheck, unit-tests, build, e2e-tests, lighthouse-ci]
+    needs: [lint-typecheck, unit-tests, build, e2e-tests, a11y-audit, lighthouse-ci]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4

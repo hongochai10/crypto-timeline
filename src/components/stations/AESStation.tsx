@@ -105,7 +105,7 @@ export default function AESStation({ era }: StationProps) {
                 backgroundColor: item.warn ? "rgba(239,68,68,0.07)" : era.color + "08",
               }}
             >
-              <p className="text-xs mb-1" style={{ color: item.warn ? "#ef4444" : era.color + "99" }}>{item.label}</p>
+              <p className="text-xs mb-1" style={{ color: item.warn ? "#ef4444" : era.color + "cc" }}>{item.label}</p>
               <p className="text-2xl font-bold" style={{ color: item.warn ? "#ef4444" : era.color }}>{item.value}</p>
               <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>{item.sub}</p>
               <p className="text-xs mt-1 font-semibold" style={{ color: item.warn ? "#ef4444" : "var(--text-secondary)" }}>{item.note}</p>
@@ -132,7 +132,7 @@ export default function AESStation({ era }: StationProps) {
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
                 <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{fig.name}</p>
-                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "99" }}>{fig.role}</p>
+                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "cc" }}>{fig.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{fig.note}</p>
               </motion.div>
             ))}

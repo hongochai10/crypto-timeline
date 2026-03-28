@@ -13,13 +13,13 @@
   /* Text system */
   --text-primary: #e8eaf0;
   --text-secondary: #8892a4;
-  --text-muted: #7a8599;
+  --text-muted: #8b96a9;
 
   /* Era accent colors — aligned with tailwind.config.ts era palette */
   --era-caesar: #c9a227;
   --era-des:    #e8850a;
   --era-aes:    #00a3ff;
-  --era-rsa:    #a855f7;
+  --era-rsa:    #c084fc;
   --era-ecc:    #10b981;
   --era-pqc:    #22d3ee;
 

@@ -85,11 +85,11 @@ export const ERAS: Era[] = [
     subtitle: "The Public Key Revolution",
     description:
       "Rivest, Shamir and Adleman solved the key distribution problem. RSA lets strangers share secrets over an open channel — the foundation of HTTPS and modern internet security.",
-    color: "#a855f7",
+    color: "#c084fc",
     bgColor: "#0f0a1e",
     surfaceColor: "#1a1030",
     textColor: "#d8c8f0",
-    glowColor: "rgba(168,85,247,0.22)",
+    glowColor: "rgba(192,132,252,0.22)",
     bgClass: "bg-rsa-bg",
     textClass: "text-rsa-accent",
     borderClass: "border-rsa-border",

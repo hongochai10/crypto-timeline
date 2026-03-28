@@ -102,7 +102,7 @@ export default function ECCStation({ era }: StationProps) {
             <div key={row.rsa} className="rounded-lg border p-2.5" style={{ borderColor: era.color + "22", backgroundColor: era.color + "08" }}>
               <p className="text-[10px] mb-1" style={{ color: "var(--text-muted)" }}>Security</p>
               <p className="font-bold text-sm mb-2" style={{ color: era.color }}>{row.security}</p>
-              <p className="text-[10px] mb-0.5" style={{ color: "rgba(168,85,247,0.8)" }}>{row.rsa}</p>
+              <p className="text-[10px] mb-0.5" style={{ color: "var(--text-muted)" }}>{row.rsa}</p>
               <p className="text-[10px]" style={{ color: era.color + "cc" }}>{row.ecc}</p>
             </div>
           ))}
@@ -127,7 +127,7 @@ export default function ECCStation({ era }: StationProps) {
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
                 <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{fig.name}</p>
-                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "99" }}>{fig.role}</p>
+                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "cc" }}>{fig.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{fig.note}</p>
               </motion.div>
             ))}

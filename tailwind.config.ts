@@ -68,7 +68,7 @@ const config: Config = {
           bg:      "#0f0a1e",
           surface: "#1a1030",
           border:  "#281848",
-          accent:  "#a855f7",
+          accent:  "#c084fc",
           muted:   "#4a2d7a",
           text:    "#d8c8f0",
           dim:     "#a898cc",

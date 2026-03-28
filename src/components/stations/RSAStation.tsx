@@ -104,7 +104,7 @@ export default function RSAStation({ era }: StationProps) {
               className="rounded-lg border p-3"
               style={{ borderColor: era.color + "22", backgroundColor: era.color + "08" }}
             >
-              <p className="text-[10px] tracking-widest mb-1" style={{ color: era.color + "80" }}>STEP {item.step}</p>
+              <p className="text-[10px] tracking-widest mb-1" style={{ color: era.color }}>STEP {item.step}</p>
               <p className="font-semibold text-xs mb-1" style={{ color: "var(--text-primary)" }}>{item.label}</p>
               <p className="text-sm font-bold mb-1" style={{ color: era.color }}>{item.value}</p>
               <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>{item.detail}</p>
@@ -131,7 +131,7 @@ export default function RSAStation({ era }: StationProps) {
                 transition={{ duration: 0.45, delay: i * 0.1 }}
               >
                 <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{fig.name}</p>
-                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "99" }}>{fig.role}</p>
+                <p className="font-mono text-xs mt-0.5 mb-1.5" style={{ color: era.color + "cc" }}>{fig.role}</p>
                 <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>{fig.note}</p>
               </motion.div>
             ))}

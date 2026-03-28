@@ -242,7 +242,7 @@ export default function Timeline() {
         <p className="max-w-md text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
           The story continues — quantum computing evolves every day. The race to migrate begins now.
         </p>
-        <p className="font-mono text-xs" style={{ color: "var(--text-muted)", opacity: 0.7 }}>
+        <p className="font-mono text-xs" style={{ color: "var(--text-muted)" }}>
           TechBi Labs · {new Date().getFullYear()}
         </p>
       </footer>

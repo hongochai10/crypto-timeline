@@ -67,7 +67,7 @@ export default function RSAAttack({ era }: Props) {
               className="rounded-lg px-3 py-1.5 font-mono text-xs transition-all"
               style={
                 selectedExample.n === ex.n
-                  ? { backgroundColor: "#ef444420", color: "#ef4444", border: "1px solid #ef4444" }
+                  ? { backgroundColor: "#ef444420", color: "#f87171", border: "1px solid #f87171" }
                   : { color: "var(--text-muted)", border: "1px solid var(--border-default)", backgroundColor: "transparent" }
               }
             >
@@ -88,7 +88,7 @@ export default function RSAAttack({ era }: Props) {
           onClick={runFactoring}
           disabled={isRunning}
           className="w-full rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-          style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.4)" }}
+          style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
         >
           {isRunning ? `Trying divisor ${animStep}…` : "⚡ Run Trial Division Attack"}
         </button>
@@ -108,7 +108,7 @@ export default function RSAAttack({ era }: Props) {
                 <p><span className="text-[var(--text-muted)]">q = </span><span style={{ color: era.color }}>{result.q}</span></p>
                 <p><span className="text-[var(--text-muted)]">Steps: </span><span className="text-[var(--text-primary)]">{result.steps} divisions</span></p>
               </div>
-              <p className="mt-2 font-mono text-[10px] text-red-400/70">
+              <p className="mt-2 font-mono text-[10px] text-red-400">
                 Toy RSA cracked in {result.steps} steps. Real RSA-2048 would require ~10²⁰ steps.
               </p>
             </motion.div>
@@ -130,14 +130,14 @@ export default function RSAAttack({ era }: Props) {
               }}
             >
               <div>
-                <span className="font-mono text-xs font-bold" style={{ color: sz.status === "broken" || sz.status === "weak" ? "#ef4444" : era.color }}>
+                <span className="font-mono text-xs font-bold" style={{ color: sz.status === "broken" || sz.status === "weak" ? "#f87171" : era.color }}>
                   RSA-{sz.bits}
                 </span>
                 <span
                   className="ml-2 font-mono text-[9px] uppercase tracking-widest px-1.5 py-0.5 rounded"
                   style={{
-                    backgroundColor: sz.status === "broken" ? "#ef444430" : sz.status === "weak" ? "#f9741630" : "#22c55e30",
-                    color: sz.status === "broken" ? "#ef4444" : sz.status === "weak" ? "#f97316" : "#22c55e",
+                    backgroundColor: sz.status === "broken" ? "#f8717120" : sz.status === "weak" ? "#fb923c20" : "#4ade8020",
+                    color: sz.status === "broken" ? "#f87171" : sz.status === "weak" ? "#fb923c" : "#4ade80",
                   }}
                 >
                   {sz.status}
