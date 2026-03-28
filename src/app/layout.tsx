@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import WebVitalsReporter from "@/components/WebVitalsReporter";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -40,7 +42,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <WebVitalsReporter />
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
       </body>
     </html>
   );
