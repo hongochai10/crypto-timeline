@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import { ERAS } from "@/lib/constants";
 import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
@@ -74,6 +74,7 @@ export default function Timeline() {
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="relative" data-testid="timeline">
       {/* Fixed scroll progress indicator */}
       <ScrollProgress />
@@ -241,10 +242,11 @@ export default function Timeline() {
         <p className="max-w-md text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
           The story continues — quantum computing evolves every day. The race to migrate begins now.
         </p>
-        <p className="font-mono text-xs" style={{ color: "var(--text-muted)", opacity: 0.5 }}>
+        <p className="font-mono text-xs" style={{ color: "var(--text-muted)", opacity: 0.7 }}>
           TechBi Labs · {new Date().getFullYear()}
         </p>
       </footer>
     </div>
+    </MotionConfig>
   );
 }

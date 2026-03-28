@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { type Era, ERA_STATUS_LABELS, ERA_STATUS_COLORS } from "@/lib/constants";
+import { type Era, ERAS, ERA_STATUS_LABELS, ERA_STATUS_COLORS } from "@/lib/constants";
 
 interface StationProps {
   era: Era;
@@ -134,7 +134,7 @@ export default function Station({ era, index, children }: StationProps) {
                 >
                   {era.name}
                 </h2>
-                <p className="mt-1 font-mono text-sm" style={{ color: era.color + "99" }}>
+                <p className="mt-1 font-mono text-sm" style={{ color: era.color }}>
                   {era.subtitle}
                 </p>
               </div>
@@ -182,6 +182,16 @@ export default function Station({ era, index, children }: StationProps) {
             {children}
           </div>
         </div>
+
+        {/* Skip-to-next-station link for keyboard users */}
+        {index < ERAS.length - 1 && (
+          <a
+            href={`#${ERAS[index + 1].id}`}
+            className="station-skip-nav"
+          >
+            Skip to {ERAS[index + 1].name} →
+          </a>
+        )}
       </motion.div>
     </section>
   );

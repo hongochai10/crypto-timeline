@@ -13,7 +13,7 @@
   /* Text system */
   --text-primary: #e8eaf0;
   --text-secondary: #8892a4;
-  --text-muted: #4b5568;
+  --text-muted: #7a8599;
 
   /* Era accent colors — aligned with tailwind.config.ts era palette */
   --era-caesar: #c9a227;
@@ -126,9 +126,80 @@
     color: var(--text-primary);
   }
 
-  .interactive-input:focus {
-    border-color: currentColor;
-    box-shadow: 0 0 0 2px rgba(currentColor, 0.15);
+  .interactive-input:focus-visible {
+    border-color: var(--era-active-color, currentColor);
+    box-shadow: 0 0 0 2px rgba(var(--era-active-color, currentColor), 0.15);
+    outline: none;
+  }
+
+  /* ─── Skip Link ─────────────────────────────────────────────────────────── */
+  .skip-link {
+    @apply fixed z-[100] rounded-lg px-4 py-2 font-mono text-sm font-semibold;
+    top: -100%;
+    left: 1rem;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border: 2px solid var(--era-active-color, #22d3ee);
+    transition: top 0.2s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+    outline: 2px solid var(--era-active-color, #22d3ee);
+    outline-offset: 2px;
+  }
+
+  /* ─── Station Skip Nav ──────────────────────────────────────────────────── */
+  .station-skip-nav {
+    @apply fixed z-[99] rounded-lg px-3 py-1.5 font-mono text-xs font-semibold;
+    top: -100%;
+    left: 1rem;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    transition: top 0.2s ease;
+  }
+
+  .station-skip-nav:focus {
+    top: 3.5rem;
+    outline: 2px solid var(--era-active-color, #22d3ee);
+    outline-offset: 2px;
+  }
+}
+
+/* ─── Focus-Visible: Global ─────────────────────────────────────────────── */
+@layer base {
+  /* All interactive elements get a visible focus ring */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  input[type="range"]:focus-visible {
+    outline: 2px solid var(--era-active-color, #22d3ee);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Suppress default outline when using mouse */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
 
