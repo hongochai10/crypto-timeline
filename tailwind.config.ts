@@ -109,9 +109,11 @@ const config: Config = {
         // Primary display — era titles, station numbers
         display: ["'Cinzel'", "Georgia", "serif"],
         // Body prose — historical context, descriptions
-        body:    ["'Inter'", "var(--font-geist-sans)", "system-ui", "sans-serif"],
+        body:    ["var(--font-sans)", "system-ui", "sans-serif"],
+        // Sans — mapped to Geist Sans loaded in layout.tsx
+        sans:    ["var(--font-sans)", "system-ui", "sans-serif"],
         // Monospace — keys, cipher text, code snippets
-        mono:    ["'Geist Mono'", "var(--font-geist-mono)", "'JetBrains Mono'", "monospace"],
+        mono:    ["var(--font-mono)", "'JetBrains Mono'", "monospace"],
       },
 
       boxShadow: {
