@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { rsaGenerateKeyPair, rsaEncrypt, rsaDecrypt, type RSAKeyPair } from "@/lib/crypto/rsa";
+import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
 
 interface Props {
@@ -15,39 +16,63 @@ export default function RSADemo({ era }: Props) {
   const [keyPair, setKeyPair] = useState<RSAKeyPair | null>(null);
   const [ciphertext, setCiphertext] = useState("");
   const [decrypted, setDecrypted] = useState("");
-  const [genStatus, setGenStatus] = useState<"idle" | "loading" | "done">("idle");
-  const [encStatus, setEncStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [genStatus, setGenStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [encStatus, setEncStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [decStatus, setDecStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const generateKeys = async () => {
     setGenStatus("loading");
+    setErrorMsg("");
     setCiphertext("");
     setDecrypted("");
-    const kp = await rsaGenerateKeyPair(2048);
-    setKeyPair(kp);
-    setGenStatus("done");
+    try {
+      const kp = await rsaGenerateKeyPair(2048);
+      setKeyPair(kp);
+      setGenStatus("done");
+    } catch (err) {
+      setGenStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "rsa-keygen"));
+    }
   };
 
   const encrypt = async () => {
     if (!keyPair) return;
     setEncStatus("loading");
+    setErrorMsg("");
     setDecrypted("");
-    const result = await rsaEncrypt(message, keyPair.publicKey);
-    setCiphertext(result.ciphertext);
-    setEncStatus("done");
+    try {
+      const result = await rsaEncrypt(message, keyPair.publicKey);
+      setCiphertext(result.ciphertext);
+      setEncStatus("done");
+    } catch (err) {
+      setEncStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "rsa-encrypt"));
+    }
   };
 
   const decrypt = async () => {
     if (!keyPair || !ciphertext) return;
     setDecStatus("loading");
+    setErrorMsg("");
     try {
       const result = await rsaDecrypt(ciphertext, keyPair.privateKey);
       setDecrypted(result.plaintext);
       setDecStatus("done");
-    } catch {
+    } catch (err) {
       setDecStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "rsa-decrypt"));
     }
   };
+
+  if (!isWebCryptoAvailable()) {
+    return (
+      <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
+        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">Web Crypto API Unavailable</p>
+        <p className="text-sm text-[var(--text-secondary)]">This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).</p>
+      </div>
+    );
+  }
 
   return (
     <div className="demo-container flex flex-col gap-5">
@@ -142,10 +167,14 @@ export default function RSADemo({ era }: Props) {
             <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="rsa-decrypted" role="status" aria-live="polite">{decrypted}</p>
           </motion.div>
         )}
-        {decStatus === "error" && (
-          <p role="alert" className="font-mono text-xs text-red-400">Decryption failed.</p>
+        {decStatus === "error" && errorMsg && (
+          <p role="alert" className="font-mono text-xs text-red-400">{errorMsg}</p>
         )}
       </div>
+
+      {(genStatus === "error" || encStatus === "error") && errorMsg && (
+        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{errorMsg}</p>
+      )}
     </div>
   );
 }

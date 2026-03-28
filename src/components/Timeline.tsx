@@ -12,6 +12,7 @@ import AESStation from "./stations/AESStation";
 import RSAStation from "./stations/RSAStation";
 import ECCStation from "./stations/ECCStation";
 import PQCStation from "./stations/PQCStation";
+import ErrorBoundary from "./ui/ErrorBoundary";
 
 const STATION_COMPONENTS = {
   caesar: CaesarStation,
@@ -214,7 +215,9 @@ export default function Timeline() {
         return (
           <div key={era.id}>
             <Station era={era} index={index}>
-              <StationContent era={era} />
+              <ErrorBoundary stationName={era.name} accentColor={era.color}>
+                <StationContent era={era} />
+              </ErrorBoundary>
             </Station>
 
             {/* Era-to-era cinematic transition */}

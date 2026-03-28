@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { eccGenerateSigningKeyPair, eccSign, eccVerify, eccVsRsaComparison, type ECCKeyPair } from "@/lib/crypto/ecc";
+import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
 
 interface Props {
@@ -16,40 +17,68 @@ export default function ECCDemo({ era }: Props) {
   const [signature, setSignature] = useState("");
   const [verifyResult, setVerifyResult] = useState<{ valid: boolean; message: string } | null>(null);
   const [tampered, setTampered] = useState(false);
-  const [genStatus, setGenStatus] = useState<"idle" | "loading" | "done">("idle");
-  const [signStatus, setSignStatus] = useState<"idle" | "loading" | "done">("idle");
-  const [verifyStatus, setVerifyStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [genStatus, setGenStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [signStatus, setSignStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [verifyStatus, setVerifyStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const comparison = eccVsRsaComparison();
 
   const generateKeys = async () => {
     setGenStatus("loading");
+    setErrorMsg("");
     setSignature("");
     setVerifyResult(null);
     setTampered(false);
-    const kp = await eccGenerateSigningKeyPair("P-256");
-    setKeyPair(kp);
-    setGenStatus("done");
+    try {
+      const kp = await eccGenerateSigningKeyPair("P-256");
+      setKeyPair(kp);
+      setGenStatus("done");
+    } catch (err) {
+      setGenStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "ecc-keygen"));
+    }
   };
 
   const sign = async () => {
     if (!keyPair) return;
     setSignStatus("loading");
+    setErrorMsg("");
     setVerifyResult(null);
     setTampered(false);
-    const result = await eccSign(message, keyPair.privateKey);
-    setSignature(result.signature);
-    setSignStatus("done");
+    try {
+      const result = await eccSign(message, keyPair.privateKey);
+      setSignature(result.signature);
+      setSignStatus("done");
+    } catch (err) {
+      setSignStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "ecc-sign"));
+    }
   };
 
   const verify = async () => {
     if (!keyPair || !signature) return;
     setVerifyStatus("loading");
-    const msgToVerify = tampered ? message + "X" : message;
-    const result = await eccVerify(msgToVerify, signature, keyPair.publicKey);
-    setVerifyResult(result);
-    setVerifyStatus("done");
+    setErrorMsg("");
+    try {
+      const msgToVerify = tampered ? message + "X" : message;
+      const result = await eccVerify(msgToVerify, signature, keyPair.publicKey);
+      setVerifyResult(result);
+      setVerifyStatus("done");
+    } catch (err) {
+      setVerifyStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "ecc-verify"));
+    }
   };
+
+  if (!isWebCryptoAvailable()) {
+    return (
+      <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
+        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">Web Crypto API Unavailable</p>
+        <p className="text-sm text-[var(--text-secondary)]">This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).</p>
+      </div>
+    );
+  }
 
   return (
     <div className="demo-container flex flex-col gap-5">
@@ -167,6 +196,10 @@ export default function ECCDemo({ era }: Props) {
             </motion.div>
           )}
         </div>
+      )}
+
+      {errorMsg && (
+        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{errorMsg}</p>
       )}
     </div>
   );

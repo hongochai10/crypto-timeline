@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { aesKeyFromPassphrase, aesEncrypt, aesDecrypt, type AESKey } from "@/lib/crypto/aes";
+import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
 
 interface Props {
@@ -19,9 +20,11 @@ export default function AESDemo({ era }: Props) {
   const [activeKey, setActiveKey] = useState<AESKey | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleEncrypt = async () => {
     setStatus("loading");
+    setErrorMsg("");
     setCiphertext("");
     setDecrypted("");
     try {
@@ -31,23 +34,35 @@ export default function AESDemo({ era }: Props) {
       setActiveKey(key);
       setCiphertext(result.ciphertext);
       setStatus("done");
-    } catch {
+    } catch (err) {
       setStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "aes-encrypt"));
     }
   };
 
   const handleDecrypt = async () => {
     if (!activeKey || !ciphertext) return;
     setStatus("loading");
+    setErrorMsg("");
     setDecrypted("");
     try {
       const result = await aesDecrypt(ciphertext, activeKey);
       setDecrypted(result.plaintext);
       setStatus("done");
-    } catch {
+    } catch (err) {
       setStatus("error");
+      setErrorMsg(getCryptoErrorMessage(err, "aes-decrypt"));
     }
   };
+
+  if (!isWebCryptoAvailable()) {
+    return (
+      <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
+        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">Web Crypto API Unavailable</p>
+        <p className="text-sm text-[var(--text-secondary)]">This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).</p>
+      </div>
+    );
+  }
 
   return (
     <div className="demo-container flex flex-col gap-5">
@@ -156,8 +171,8 @@ export default function AESDemo({ era }: Props) {
         </motion.div>
       )}
 
-      {status === "error" && (
-        <p role="alert" className="font-mono text-xs text-red-400">Decryption failed — wrong key or tampered ciphertext.</p>
+      {status === "error" && errorMsg && (
+        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{errorMsg}</p>
       )}
     </div>
   );
