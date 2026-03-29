@@ -45,7 +45,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
         // Silently fall back — the deep-merged English value is already present
         return;
       }
-      console.error(error);
+      if (process.env.NODE_ENV === "development") {
+        console.error(error);
+      }
     },
     getMessageFallback({ namespace, key }) {
       return namespace ? `${namespace}.${key}` : key;

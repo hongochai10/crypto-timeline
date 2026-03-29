@@ -118,6 +118,16 @@ describe("measureCryptoOp", () => {
 // ─── printCryptoTimingSummary ────────────────────────────────────────────────
 
 describe("printCryptoTimingSummary", () => {
+  const originalEnv = process.env.NODE_ENV;
+
+  beforeEach(() => {
+    process.env.NODE_ENV = "development";
+  });
+
+  afterEach(() => {
+    process.env.NODE_ENV = originalEnv;
+  });
+
   it("prints a no-data message when the log is empty", () => {
     const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
     printCryptoTimingSummary();
@@ -147,5 +157,12 @@ describe("printCryptoTimingSummary", () => {
       (c) => typeof c[0] === "string" && c[0].includes("avg=")
     );
     expect(summaryLines).toHaveLength(2);
+  });
+
+  it("skips all output when not in development", () => {
+    process.env.NODE_ENV = "production";
+    const logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
+    printCryptoTimingSummary();
+    expect(logSpy).not.toHaveBeenCalled();
   });
 });

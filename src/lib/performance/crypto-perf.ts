@@ -52,6 +52,8 @@ export async function measureCryptoOp<T>(
 }
 
 export function printCryptoTimingSummary(): void {
+  if (process.env.NODE_ENV !== "development") return;
+
   if (timingLog.length === 0) {
     console.log("[Crypto Perf] No timings recorded yet.");
     return;

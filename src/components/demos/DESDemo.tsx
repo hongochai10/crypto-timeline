@@ -40,7 +40,9 @@ export default function DESDemo({ era }: Props) {
         setRounds([]);
       }
     } catch (err) {
-      console.error("[DESDemo]", mode, err);
+      if (process.env.NODE_ENV === "development") {
+        console.error("[DESDemo]", mode, err);
+      }
       setError(getCryptoErrorMessage(err, mode === "encrypt" ? "des-encrypt" : "des-decrypt"));
     }
   };
