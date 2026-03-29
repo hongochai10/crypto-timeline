@@ -1,12 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import CaesarDemo from "@/components/demos/CaesarDemo";
 import CaesarAttack from "@/components/attacks/CaesarAttack";
 import BreachStories from "@/components/ui/BreachStories";
 import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
+import { getQuizQuestions } from "@/lib/quiz-data";
+
+const StationQuiz = dynamic(() => import("@/components/quiz/StationQuiz"), { ssr: false });
 
 interface StationProps {
   era: Era;
@@ -39,6 +43,8 @@ function TimelineRow({ event, color, index }: { event: { year: string; label: st
 export default function CaesarStation({ era }: StationProps) {
   const t = useTranslations("stations.caesar");
   const tc = useTranslations("common");
+  const tq = useTranslations("quiz");
+  const quizQuestions = getQuizQuestions("caesar", (key) => tq(key));
 
   const TIMELINE_EVENTS = [
     { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
@@ -134,6 +140,9 @@ export default function CaesarStation({ era }: StationProps) {
           <CaesarAttack era={era} />
         </div>
       </div>
+
+      {/* Knowledge Check Quiz */}
+      <StationQuiz eraId="caesar" color={era.color} questions={quizQuestions} />
     </div>
   );
 }

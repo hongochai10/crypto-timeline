@@ -1,11 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import PQCDemo from "@/components/demos/PQCDemo";
 import PQCAttack from "@/components/attacks/PQCAttack";
 import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
+import { getQuizQuestions } from "@/lib/quiz-data";
+
+const StationQuiz = dynamic(() => import("@/components/quiz/StationQuiz"), { ssr: false });
 
 interface StationProps {
   era: Era;
@@ -38,6 +42,8 @@ function TimelineRow({ event, color, index }: { event: { year: string; label: st
 export default function PQCStation({ era }: StationProps) {
   const t = useTranslations("stations.pqc");
   const tc = useTranslations("common");
+  const tq = useTranslations("quiz");
+  const quizQuestions = getQuizQuestions("pqc", (key) => tq(key));
 
   const TIMELINE_EVENTS = [
     { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
@@ -194,6 +200,9 @@ export default function PQCStation({ era }: StationProps) {
           <PQCAttack era={era} />
         </div>
       </div>
+
+      {/* Knowledge Check Quiz */}
+      <StationQuiz eraId="pqc" color={era.color} questions={quizQuestions} />
     </div>
   );
 }
