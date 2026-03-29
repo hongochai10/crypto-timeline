@@ -102,6 +102,15 @@ vi.mock("@/i18n/routing", () => ({
   routing: { locales: ["en", "vi"], defaultLocale: "en" },
 }));
 
+// Mock ThemeProvider for tests
+vi.mock("@/components/ThemeProvider", () => {
+  const React = require("react");
+  return {
+    ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
+    useTheme: () => ({ theme: "dark", toggleTheme: () => {} }),
+  };
+});
+
 // Mock IntersectionObserver for jsdom
 class MockIntersectionObserver {
   observe() {}

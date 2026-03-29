@@ -53,6 +53,10 @@
     "en": "English",
     "vi": "Tiếng Việt"
   },
+  "themeToggle": {
+    "switchToLight": "Chuyển sang giao diện sáng",
+    "switchToDark": "Chuyển sang giao diện tối"
+  },
   "eras": {
     "caesar": {
       "name": "Mật mã Caesar",

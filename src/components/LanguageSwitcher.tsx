@@ -18,7 +18,7 @@ export default function LanguageSwitcher() {
     <div
       className="fixed top-4 right-4 z-50 flex items-center gap-1 rounded-full border px-1 py-1"
       style={{
-        backgroundColor: "rgba(8,11,20,0.85)",
+        backgroundColor: "var(--bg-overlay)",
         borderColor: "var(--border-default)",
         backdropFilter: "blur(8px)",
       }}

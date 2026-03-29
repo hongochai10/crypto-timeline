@@ -53,6 +53,10 @@
     "en": "English",
     "vi": "Tiếng Việt"
   },
+  "themeToggle": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
   "eras": {
     "caesar": {
       "name": "Caesar Cipher",

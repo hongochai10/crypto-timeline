@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
 import OfflineIndicator from "@/components/OfflineIndicator";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -114,11 +115,13 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider messages={messages}>
-          <WebVitalsReporter />
-          <OfflineIndicator />
-          <ErrorBoundary>
-            {children}
-          </ErrorBoundary>
+          <ThemeProvider>
+            <WebVitalsReporter />
+            <OfflineIndicator />
+            <ErrorBoundary>
+              {children}
+            </ErrorBoundary>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

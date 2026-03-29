@@ -12,6 +12,7 @@ import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
 import ErrorBoundary from "./ui/ErrorBoundary";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 // Lazy-load station content components — each pulls in demos, attacks, and crypto libs
 const CaesarStation = dynamic(() => import("./stations/CaesarStation"), { ssr: false });
@@ -137,7 +138,8 @@ export default function Timeline() {
       {/* Fixed scroll progress indicator */}
       <ScrollProgress />
 
-      {/* Language switcher */}
+      {/* Theme and language controls */}
+      <ThemeToggle />
       <LanguageSwitcher />
 
       {/* Skip to content link — accessibility */}
@@ -149,7 +151,7 @@ export default function Timeline() {
       <motion.section
         ref={heroRef}
         className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
-        style={{ backgroundColor: "#080b14" }}
+        style={{ backgroundColor: "var(--bg-base)" }}
         aria-label={t("introAriaLabel")}
       >
         <StarField />
@@ -343,7 +345,7 @@ export default function Timeline() {
       {/* ── Benchmark Comparison ─────────────────────────────── */}
       <section
         className="flex flex-col items-center justify-center gap-8 px-6 py-20"
-        style={{ backgroundColor: "#050a12" }}
+        style={{ backgroundColor: "var(--bg-base)" }}
         aria-label="Algorithm Performance Comparison"
       >
         <BenchmarkComparison />
@@ -352,7 +354,7 @@ export default function Timeline() {
       {/* ── Footer ────────────────────────────────────────────── */}
       <footer
         className="flex flex-col items-center justify-center gap-4 px-6 py-24 text-center"
-        style={{ backgroundColor: "#050a12" }}
+        style={{ backgroundColor: "var(--bg-base)" }}
       >
         <div
           className="h-px w-32"

@@ -45,6 +45,24 @@
   --duration-slow: 1000ms;
 }
 
+/* ─── Light Theme Overrides ─────────────────────────────────────────────── */
+[data-theme="light"] {
+  /* Background system */
+  --bg-base: #f5f7fa;
+  --bg-surface: #ffffff;
+  --bg-elevated: #eef1f6;
+  --bg-overlay: #e2e6ed;
+
+  /* Text system */
+  --text-primary: #1a1d23;
+  --text-secondary: #4a5568;
+  --text-muted: #6b7a90;
+
+  /* Borders */
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-default: rgba(0, 0, 0, 0.12);
+}
+
 /* ─── Base Reset ─────────────────────────────────────────────────────────── */
 @layer base {
   html {
@@ -58,6 +76,11 @@
     color: var(--text-primary);
     font-family: var(--font-sans, system-ui, sans-serif);
     overflow-x: hidden;
+  }
+
+  /* Theme transition */
+  html[data-theme] body {
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
