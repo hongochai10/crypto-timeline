@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ERAS, type EraId } from "@/lib/constants";
 import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { useProgressTracking } from "@/hooks/useProgressTracking";
 import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
 import ErrorBoundary from "./ui/ErrorBoundary";
@@ -94,6 +95,8 @@ export default function Timeline() {
   const searchParams = useSearchParams();
 
   const { activeIndex, updateActiveFromScroll, navigateTo } = useKeyboardNavigation();
+  const tp = useTranslations("progress");
+  const { visitedCount, quizCompletedCount, totalStations } = useProgressTracking();
 
   // Callback for Station to report when it scrolls into view
   const handleStationInView = useCallback(
@@ -234,6 +237,42 @@ export default function Timeline() {
               </a>
             ))}
           </motion.nav>
+
+          {/* Progress summary */}
+          {visitedCount > 0 && (
+            <motion.div
+              className="flex items-center gap-4 rounded-xl border px-5 py-3 font-mono text-xs"
+              style={{
+                borderColor: "rgba(255,255,255,0.1)",
+                backgroundColor: "rgba(255,255,255,0.03)",
+                color: "var(--text-secondary)",
+              }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              role="status"
+              aria-label={tp("summaryAria", { visited: String(visitedCount), quizzes: String(quizCompletedCount), total: String(totalStations) })}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-emerald-400">✓</span>
+                <span>{tp("stationsVisited", { count: visitedCount, total: totalStations })}</span>
+              </div>
+              <div className="h-3 w-px bg-white/10" aria-hidden="true" />
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400">★</span>
+                <span>{tp("quizzesCompleted", { count: quizCompletedCount, total: totalStations })}</span>
+              </div>
+              {/* Mini progress bar */}
+              <div className="hidden sm:flex items-center gap-2 flex-1 min-w-[80px]">
+                <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-emerald-400/60 transition-all duration-500"
+                    style={{ width: `${(visitedCount / totalStations) * 100}%` }}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           {/* Scroll cue */}
           <motion.div
