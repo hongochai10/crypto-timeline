@@ -20,8 +20,8 @@ export default function AESDemo({ era }: Props) {
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "aes";
 
-  const [passphrase, setPassphrase] = useState(isTargeted && urlParams.passphrase ? urlParams.passphrase : "my-secret-key");
-  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : "Hello, AES-256!");
+  const [passphrase, setPassphrase] = useState(isTargeted && urlParams.passphrase ? urlParams.passphrase : t("defaultPassphrase"));
+  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : t("defaultPlaintext"));
   const [ciphertext, setCiphertext] = useState("");
   const [decrypted, setDecrypted] = useState("");
   const [keyInfo, setKeyInfo] = useState<{ base64: string; salt: string } | null>(null);
@@ -108,7 +108,7 @@ export default function AESDemo({ era }: Props) {
         label={t("passphrase")}
         value={passphrase}
         onChange={(e) => { setPassphrase(e.target.value); setCiphertext(""); setDecrypted(""); setActiveKey(null); setStatus("idle"); }}
-        placeholder="my-secret-key"
+        placeholder={t("defaultPassphrase")}
         accentColor={era.color}
         type="password"
         data-testid="aes-passphrase"

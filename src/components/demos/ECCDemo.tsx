@@ -20,7 +20,7 @@ export default function ECCDemo({ era }: Props) {
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "ecc";
 
-  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : "Sign this message!");
+  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : t("defaultMessage"));
   const [keyPair, setKeyPair] = useState<ECCKeyPair | null>(null);
   const [signature, setSignature] = useState("");
   const [verifyResult, setVerifyResult] = useState<{ valid: boolean; message: string } | null>(null);
@@ -145,7 +145,7 @@ export default function ECCDemo({ era }: Props) {
           label={t("messageToSign")}
           value={message}
           onChange={(e) => { setMessage(e.target.value); setSignature(""); setVerifyResult(null); }}
-          placeholder="Enter message..."
+          placeholder={t("enterMessage")}
           accentColor={era.color}
           data-testid="ecc-message"
         />

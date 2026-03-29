@@ -559,6 +559,8 @@
     },
     "des": {
       "subtitle": "DES Feistel network — 16 rounds of encryption",
+      "defaultPlaintext": "HELLO DES",
+      "defaultKey": "SECRET01",
       "hexCiphertext": "Hex Ciphertext",
       "pasteHex": "Paste hex output...",
       "key8chars": "Key (8 chars)",
@@ -575,6 +577,8 @@
     },
     "aes": {
       "subtitle": "AES-256-GCM — authenticated encryption via Web Crypto",
+      "defaultPassphrase": "my-secret-key",
+      "defaultPlaintext": "Hello, AES-256!",
       "passphrase": "Passphrase",
       "enterMessage": "Enter message to encrypt...",
       "encryptWithAES": "⚙ Encrypt with AES-256",
@@ -589,6 +593,7 @@
     },
     "rsa": {
       "subtitle": "RSA-2048 key pair — public encrypt, private decrypt",
+      "defaultMessage": "Hello RSA!",
       "step1": "Step 1 — Generate Key Pair",
       "generating2048": "Generating 2048-bit keys…",
       "generateRSA": "⚙ Generate RSA-2048 Key Pair",
@@ -606,6 +611,7 @@
     },
     "ecc": {
       "subtitle": "ECDSA P-256 — elliptic curve digital signatures",
+      "defaultMessage": "Sign this message!",
       "keySizeComparison": "ECC vs RSA key size comparison",
       "step1": "Step 1 — Generate P-256 Key Pair",
       "generateECDSA": "⚙ Generate ECDSA Key Pair",

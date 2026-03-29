@@ -559,6 +559,8 @@
     },
     "des": {
       "subtitle": "Mạng Feistel DES — 16 vòng mã hóa",
+      "defaultPlaintext": "CHAO DES",
+      "defaultKey": "BIMAT001",
       "hexCiphertext": "Bản mã Hex",
       "pasteHex": "Dán đầu ra hex...",
       "key8chars": "Khóa (8 ký tự)",
@@ -575,6 +577,8 @@
     },
     "aes": {
       "subtitle": "AES-256-GCM — mã hóa xác thực qua Web Crypto",
+      "defaultPassphrase": "khoa-bi-mat",
+      "defaultPlaintext": "Xin chào, AES-256!",
       "passphrase": "Cụm mật khẩu",
       "enterMessage": "Nhập tin nhắn để mã hóa...",
       "encryptWithAES": "⚙ Mã hóa với AES-256",
@@ -589,6 +593,7 @@
     },
     "rsa": {
       "subtitle": "Cặp khóa RSA-2048 — mã hóa công khai, giải mã riêng tư",
+      "defaultMessage": "Xin chào RSA!",
       "step1": "Bước 1 — Tạo Cặp Khóa",
       "generating2048": "Đang tạo khóa 2048-bit…",
       "generateRSA": "⚙ Tạo Cặp Khóa RSA-2048",
@@ -606,6 +611,7 @@
     },
     "ecc": {
       "subtitle": "ECDSA P-256 — chữ ký số đường cong elliptic",
+      "defaultMessage": "Ký tin nhắn này!",
       "keySizeComparison": "So sánh kích thước khóa ECC vs RSA",
       "step1": "Bước 1 — Tạo Cặp Khóa P-256",
       "generateECDSA": "⚙ Tạo Cặp Khóa ECDSA",

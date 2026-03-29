@@ -20,8 +20,8 @@ export default function DESDemo({ era }: Props) {
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "des";
 
-  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : "HELLO DES");
-  const [key, setKey] = useState(isTargeted && urlParams.key ? urlParams.key.slice(0, 8) : "SECRET01");
+  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : t("defaultPlaintext"));
+  const [key, setKey] = useState(isTargeted && urlParams.key ? urlParams.key.slice(0, 8) : t("defaultKey"));
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
   const [rounds, setRounds] = useState<DESRound[]>([]);
   const [output, setOutput] = useState("");
@@ -91,7 +91,7 @@ export default function DESDemo({ era }: Props) {
         label={t("key8chars")}
         value={key}
         onChange={(e) => { setKey(e.target.value.slice(0, 8)); setOutput(""); }}
-        placeholder="SECRET01"
+        placeholder={t("defaultKey")}
         accentColor={era.color}
         maxLength={8}
         helpText={t("keyLength", { length: key.length })}

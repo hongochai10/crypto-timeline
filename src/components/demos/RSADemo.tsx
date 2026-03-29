@@ -20,7 +20,7 @@ export default function RSADemo({ era }: Props) {
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "rsa";
 
-  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : "Hello RSA!");
+  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : t("defaultMessage"));
   const [keyPair, setKeyPair] = useState<RSAKeyPair | null>(null);
   const [ciphertext, setCiphertext] = useState("");
   const [decrypted, setDecrypted] = useState("");
@@ -131,7 +131,7 @@ export default function RSADemo({ era }: Props) {
           label={t("messageLabel")}
           value={message}
           onChange={(e) => { setMessage(e.target.value); setCiphertext(""); setDecrypted(""); }}
-          placeholder="Enter short message..."
+          placeholder={t("enterShortMessage")}
           accentColor={era.color}
           data-testid="rsa-message"
         />
