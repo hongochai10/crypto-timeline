@@ -56,6 +56,8 @@ type CryptoOperation =
   | "aes-encrypt"
   | "aes-decrypt"
   | "aes-keygen"
+  | "des-encrypt"
+  | "des-decrypt"
   | "rsa-encrypt"
   | "rsa-decrypt"
   | "rsa-keygen"
@@ -71,6 +73,8 @@ const OPERATION_LABELS: Record<CryptoOperation, string> = {
   "aes-encrypt": "AES encryption",
   "aes-decrypt": "AES decryption",
   "aes-keygen": "AES key generation",
+  "des-encrypt": "DES encryption",
+  "des-decrypt": "DES decryption",
   "rsa-encrypt": "RSA encryption",
   "rsa-decrypt": "RSA decryption",
   "rsa-keygen": "RSA key generation",
@@ -88,6 +92,8 @@ const OPERATION_ERROR_MESSAGES: Partial<Record<CryptoOperation, string>> = {
   "rsa-decrypt": "RSA decryption failed — the private key doesn't match or the ciphertext is corrupted.",
   "ecc-sign": "Signing failed. The private key may be invalid.",
   "ecc-verify": "Signature verification encountered an error.",
+  "des-encrypt": "DES encryption failed. Check that the key is exactly 8 characters.",
+  "des-decrypt": "DES decryption failed — the key may be wrong or the hex ciphertext is invalid.",
 };
 
 const DATA_SIZE_MESSAGES: Partial<Record<CryptoOperation, string>> = {

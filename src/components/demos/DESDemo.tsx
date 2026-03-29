@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { desEncrypt, desDecrypt, type DESRound } from "@/lib/crypto/des";
+import { getCryptoErrorMessage } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
 import ShareDemoButton from "@/components/ui/ShareDemoButton";
 import { useShareableDemoParams } from "@/lib/useShareableDemo";
@@ -39,8 +40,9 @@ export default function DESDemo({ era }: Props) {
         setOutput(result.output);
         setRounds([]);
       }
-    } catch {
-      setError(t("invalidInput"));
+    } catch (err) {
+      console.error("[DESDemo]", mode, err);
+      setError(getCryptoErrorMessage(err, mode === "encrypt" ? "des-encrypt" : "des-decrypt"));
     }
   };
 
