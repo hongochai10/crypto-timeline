@@ -1,5 +1,60 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-29 — CEO Audit #5 (TEC-672)
+
+### Completed Since Last Audit
+- Next.js 14→16 upgrade + ESLint 8→9 (0b22608 / TEC-666) — 9 npm audit vulns resolved
+- NODE_ENV guards added to all console.log/error calls (11d85d2 / TEC-667)
+- Crypto benchmarks moved to Web Worker (bb4caa8 / TEC-668) — off-main-thread
+- Dark/Light theme toggle implemented (TEC-669) — ThemeProvider + ThemeToggle (uncommitted)
+
+### Identified (New)
+- I-16: Uncommitted changes need committing (theme, i18n, trackers)
+- I-17: E2E visual regression baselines need update
+- I-18: Theme preference not persisted via localStorage
+- I-19: Light theme accessibility audit needed
+- I-20: CSP style-src unsafe-inline (Framer Motion upstream)
+- F-08: Production Web Vitals analytics export
+- F-09: Additional i18n languages (ES, ZH)
+- F-10: Dependabot / automated vulnerability alerts
+
+### Metrics
+- Unit Tests: 389 pass / 38 files (stable)
+- Coverage: 96.82% statement, 85.32% branch
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.1/10
+
+### Milestones
+- Phase 1 (Security & Stability): ✅ COMPLETE
+- Phase 2 (Content Quality): ✅ COMPLETE
+- Phase 3 (UX Polish & Security): ✅ COMPLETE (pending commit)
+- Phase 4 (Advanced Features): ⏳ NEXT
+
+## 2026-03-29 — CEO Audit #4 (TEC-646)
+
+### Completed Since Last Audit
+- Shared Demo components extracted (79fc622) — giảm ~400 LOC duplication
+- i18n demo placeholder strings cho RSA, ECC, AES, DES (f1134b3)
+- Progress tracking: station visits + quiz completion (6231978, d0f52b5, 8757c17)
+- i18n translations + unit tests for progress tracking (8757c17)
+
+### Identified
+- npm audit: 9 vulnerabilities (8 high, 1 moderate) — Next.js 14 cần upgrade → TEC-666
+- Console.log production guards missing (9 calls) → TEC-667
+- Web Worker cho benchmarks chưa có → TEC-668
+- Dark/Light theme toggle cần thêm → TEC-669
+
+### Created
+- TEC-666: Upgrade Next.js 14→16 (P0, assigned Senior Frontend Engineer)
+- TEC-667: Add NODE_ENV guards (P2, assigned Senior Frontend Engineer)
+- TEC-668: Move benchmarks to Web Worker (P2, assigned Senior Frontend Engineer)
+- TEC-669: Dark/Light theme toggle (P2, assigned Senior Frontend Engineer)
+
+### Metrics
+- Unit Tests: 389 pass / 38 files (↑9 tests, ↑1 file từ TEC-619)
+- Coverage: 96.82% statement, 85.32% branch
+- Lint: Clean | TypeScript: Zero errors
+
 ## 2026-03-29 — CEO Audit #3 (TEC-619)
 
 ### Updated

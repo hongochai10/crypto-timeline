@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-29 (TEC-619)
+> Cập nhật: 2026-03-29 (TEC-672)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -16,23 +16,31 @@
 | I-09 | Thêm translation fallbacks cho missing keys | P2 | TEC-597 | ✅ Done |
 | I-06 | Thêm unit tests cho LanguageSwitcher | P2 | — | ✅ Done |
 | I-07 | Thêm aria attributes cho SVG icons | P2 | — | ✅ Done |
+| I-13 | i18n demo placeholder strings (RSA, ECC, AES, DES) | P2 | f1134b3 | ✅ Done |
+| I-05 | Refactor Demo components giảm duplication | P2 | 79fc622 | ✅ Done |
+| F-02 | Progress tracking / completion badges | P2 | 6231978 | ✅ Done |
+| I-14 | Upgrade Next.js 14→16 (9 npm audit vulns) | P0 | 0b22608 / TEC-666 | ✅ Done |
+| I-15 | Add NODE_ENV guards cho console.log calls | P2 | 11d85d2 / TEC-667 | ✅ Done |
+| I-08 | Move crypto benchmark sang Web Worker | P2 | bb4caa8 / TEC-668 | ✅ Done |
+| F-03 | Dark/Light theme toggle | P2 | TEC-669 (uncommitted) | ✅ Done |
 
 ## Cải thiện (Improvements) — Open
 
 | ID | Tiêu đề | Priority | Owner | Status | Dependency |
 |----|---------|----------|-------|--------|------------|
-| I-11 | Commit và cleanup uncommitted changes | P1 | DevOps | backlog | — |
-| I-12 | Update visual regression baselines (cross-platform) | P2 | QA Engineer | backlog | I-11 |
-| I-13 | i18n demo placeholder strings (RSA, ECC, AES, DES) | P2 | Senior Frontend Engineer | backlog | — |
-| I-05 | Refactor Demo components giảm duplication | P2 | Senior Frontend Engineer | backlog | — |
-| I-08 | Move crypto benchmark sang Web Worker | P3 | Senior Frontend Engineer | backlog | — |
+| I-16 | Commit uncommitted theme + i18n + tracker changes | P0 | Senior Frontend Engineer | todo | — |
+| I-17 | Update E2E visual regression baselines | P0 | QA Engineer | todo | I-16 |
+| I-18 | Persist theme preference (localStorage) | P1 | Senior Frontend Engineer | todo | I-16 |
+| I-19 | Light theme accessibility audit (contrast ratios) | P1 | QA Engineer | todo | I-16 |
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P2 | Security Engineer | backlog | — |
 
 ## Tính năng mới (New Features) — Open
 
 | ID | Tiêu đề | Priority | Owner | Status | Dependency |
 |----|---------|----------|-------|--------|------------|
-| F-02 | Progress tracking / completion badges | P2 | Senior Frontend Engineer | backlog | — |
-| F-03 | Dark/Light theme toggle | P2 | UX/UI Designer + Frontend | backlog | — |
-| F-05 | Analytics dashboard cho educators | P3 | Product Manager | backlog | F-02 |
-| F-06 | Export/Print certificate khi hoàn thành | P3 | Senior Frontend Engineer | backlog | F-02 |
+| F-05 | Analytics dashboard cho educators | P2 | Senior Frontend Engineer | backlog | F-02 |
+| F-06 | Export/Print certificate khi hoàn thành | P2 | Senior Frontend Engineer | backlog | F-02 |
 | F-07 | Share quiz results to social media | P3 | Senior Frontend Engineer | backlog | — |
+| F-08 | Production Web Vitals analytics export | P2 | DevOps Engineer | backlog | — |
+| F-09 | Additional i18n languages (ES, ZH) | P3 | Technical Writer | backlog | — |
+| F-10 | Dependabot / automated vulnerability alerts | P2 | DevOps Engineer | backlog | — |

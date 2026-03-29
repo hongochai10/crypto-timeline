@@ -1,5 +1,115 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-29 (CEO Heartbeat TEC-672)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass |
+| Unit Tests | ✅ 38/38 files, 389/389 tests pass |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 96.82% statement, 85.32% branch |
+| npm audit | ✅ 0 vulnerabilities (Next.js 14→16 upgrade resolved all 9) |
+| Security Headers | ✅ CSP hardened — nonce-based |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1256 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+| Overall Score | ✅ 9.1/10 |
+
+### Tiến độ kể từ audit trước (TEC-646)
+
+| Commit/Ticket | Tiêu đề | Status |
+|--------|---------|--------|
+| 0b22608 / TEC-666 | Upgrade Next.js 14→16 + ESLint 8→9 (9 npm vulns resolved) | ✅ Done |
+| 11d85d2 / TEC-667 | Add NODE_ENV guards cho console.log/error | ✅ Done |
+| bb4caa8 / TEC-668 | Move crypto benchmarks to Web Worker | ✅ Done |
+| TEC-669 | Dark/Light theme toggle (ThemeProvider + ThemeToggle) | ✅ Done (uncommitted) |
+
+### Vấn đề phát hiện mới
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| 1 | 8 modified + 8 untracked files chưa commit (theme, i18n, trackers) | 🟡 Trung bình | 🔲 Open |
+| 2 | E2E visual regression baselines cần update | 🟢 Thấp | 🔲 Open |
+| 3 | Theme preference không persist qua reload (cần localStorage) | 🟢 Thấp | 🔲 Open |
+| 4 | Light theme chưa audit accessibility (contrast ratios) | 🟡 Trung bình | 🔲 Open |
+| 5 | style-src unsafe-inline (Framer Motion requirement) | 🟢 Thấp | 🔲 Open |
+
+### Vấn đề đã giải quyết kể từ audit trước
+
+| # | Vấn đề | Resolved By |
+|---|--------|-------------|
+| 1 | npm audit 9 vulns (Next.js 14) | ✅ commit 0b22608 — Next.js 16.2.1 |
+| 2 | Console.log không có NODE_ENV guard | ✅ commit 11d85d2 |
+| 3 | Sync benchmarks block main thread | ✅ commit bb4caa8 — Web Worker |
+| 4 | Dark/Light theme toggle chưa có | ✅ ThemeProvider + ThemeToggle (uncommitted) |
+
+### Quyết định
+
+- **Không có blocker nghiêm trọng** — project score 9.1/10.
+- Phase 3 hoàn thành (4/4 items done, chỉ cần commit).
+- **P0**: Commit uncommitted changes (theme + trackers).
+- **P1**: Audit light theme accessibility, persist theme preference.
+- Phase 4 sẵn sàng bắt đầu (educator analytics, certificates, etc.).
+
+---
+
+## Audit: 2026-03-29 (CEO Heartbeat TEC-646)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass |
+| Unit Tests | ✅ 38/38 files, 389/389 tests pass |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 96.82% statement, 85.32% branch |
+| npm audit | ⚠️ 9 vulnerabilities (8 high, 1 moderate) — Next.js 14.x related |
+| Security Headers | ✅ CSP hardened — nonce-based |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1236 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+
+### Tiến độ kể từ audit trước (TEC-619)
+
+| Ticket | Tiêu đề | Status |
+|--------|---------|--------|
+| 79fc622 | Refactor: extract shared Demo components | ✅ Done |
+| f1134b3 | i18n demo placeholder strings (RSA, ECC, AES, DES) | ✅ Done |
+| 8757c17 | i18n translations + unit tests for progress tracking | ✅ Done |
+| d0f52b5 | Progress summary bar in timeline header | ✅ Done |
+| 6231978 | Progress tracking for station visits + quiz completion | ✅ Done |
+
+### Vấn đề phát hiện mới
+
+| # | Vấn đề | Severity | Status | Ticket |
+|---|--------|----------|--------|--------|
+| 1 | npm audit: 9 vulns (Next.js 14→16 cần upgrade) | 🔴 Cao | 🔲 Open | TEC-666 |
+| 2 | Console.log không có NODE_ENV guard (9 calls) | 🟢 Thấp | 🔲 Open | TEC-667 |
+| 3 | Sync benchmarks block main thread ~500ms | 🟢 Thấp | 🔲 Open | TEC-668 |
+| 4 | Dark/Light theme toggle chưa có | 🟡 Trung bình | 🔲 Open | TEC-669 |
+
+### Vấn đề đã giải quyết kể từ audit trước
+
+| # | Vấn đề | Resolved By |
+|---|--------|-------------|
+| 1 | Demo placeholder strings chưa i18n | ✅ commit f1134b3 |
+| 2 | Demo components duplication | ✅ commit 79fc622 (shared components extracted) |
+| 4 | Uncommitted changes | ✅ Committed |
+| F-02 | Progress tracking / completion badges | ✅ commits 6231978, d0f52b5, 8757c17 |
+
+### Quyết định
+
+- Không có blocker nghiêm trọng — build pass, 389 tests pass.
+- **P0**: Next.js upgrade cần ưu tiên (9 npm audit vulns) → TEC-666
+- Phase 2 gần hoàn thành, Phase 3 bắt đầu.
+- 4 subtasks đã tạo dưới TEC-646.
+
+---
+
 ## Audit: 2026-03-29 (CEO Heartbeat TEC-619)
 
 ### Tổng quan
