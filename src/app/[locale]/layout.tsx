@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -98,6 +99,8 @@ export default async function RootLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const headersList = await headers();
+  const nonce = headersList.get("x-nonce") ?? "";
 
   return (
     <html lang={locale} className="scroll-smooth">
@@ -107,6 +110,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider messages={messages}>
