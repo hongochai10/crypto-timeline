@@ -25,7 +25,12 @@
     "jumpTo": "Nhảy đến {name}",
     "scrollToExplore": "Cuộn để khám phá",
     "endOfTimeline": "Kết thúc Dòng Thời Gian",
-    "security": "Bảo mật"
+    "security": "Bảo mật",
+    "breachStories": "Vi Phạm Thực Tế",
+    "showBreachStories": "Xem lịch sử vi phạm",
+    "hideBreachStories": "Ẩn lịch sử vi phạm",
+    "impact": "Tác động",
+    "source": "Nguồn"
   },
   "hero": {
     "label": "TechBi Labs · Triển Lãm Tương Tác",
@@ -110,6 +115,20 @@
         "0": { "name": "Julius Caesar", "role": "Tướng lĩnh & Nhà độc tài La Mã", "note": "Sử dụng dịch chuyển-3 cho thư từ quân sự và thư cá nhân gửi Cicero" },
         "1": { "name": "Al-Kindi", "role": "Nhà bác học Ả Rập (801–873 SCN)", "note": "Phát minh phân tích tần suất — kỹ thuật phá vĩnh viễn tất cả mật mã họ Caesar" },
         "2": { "name": "Suetonius", "role": "Nhà viết sử La Mã (69–122 SCN)", "note": "Ghi chép mật mã bằng văn bản, cung cấp tài liệu lịch sử sớm nhất mà chúng ta có" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "Máy Enigma — Bletchley Park",
+          "year": "1939–1945",
+          "summary": "Máy Enigma của Đức sử dụng mật mã thay thế đa bảng chữ cái — một tiến hóa tinh vi của mật mã Caesar. Tại Bletchley Park, Alan Turing và đội giải mã đã chế tạo máy Bombe để khai thác điểm yếu cấu trúc trong cách người vận hành sử dụng mật mã. Việc phá Enigma ước tính đã rút ngắn Thế chiến II 2 năm, cứu hàng triệu sinh mạng.",
+          "impact": "Rút ngắn Thế chiến II ~2 năm; chứng minh rằng ngay cả mật mã thay thế phức tạp cũng có thể bị phá qua phân tích mẫu"
+        },
+        "1": {
+          "title": "Mary Nữ hoàng Scotland — Âm mưu Babington",
+          "year": "1586",
+          "summary": "Mary Stuart sử dụng mật mã thay thế đơn giản để âm mưu chống Nữ hoàng Elizabeth I. Người giải mã Thomas Phelippes của Sir Francis Walsingham đã bẻ khóa mật mã, phơi bày Âm mưu Babington. Mary bị kết tội phản quốc và bị xử tử — hậu quả chính trị lớn đầu tiên của phân tích mật mã.",
+          "impact": "Mary Nữ hoàng Scotland bị xử tử dựa trên thư giải mã; chứng minh phân tích mật mã có thể thay đổi dòng chảy lịch sử"
+        }
       }
     },
     "des": {
@@ -127,6 +146,20 @@
         "0": { "name": "Walter Tuchman & Carl Meyer", "role": "Kỹ sư IBM", "note": "Thiết kế Lucifer (tiền thân DES) — thuật toán trở thành DES sau khi NSA sửa đổi" },
         "1": { "name": "Whitfield Diffie", "role": "Nhà mật mã học", "note": "Công khai chỉ trích khóa 56-bit năm 1977, dự đoán nó sẽ bị vét cạn" },
         "2": { "name": "Đội EFF Deep Crack", "role": "Quỹ Biên giới Điện tử", "note": "Chế tạo cỗ máy bẻ khóa FPGA $250.000 năm 1998 vét cạn không gian khóa trong 22 giờ" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "EFF Deep Crack — DES Sụp Đổ Trong 22 Giờ",
+          "year": "1998",
+          "summary": "Quỹ Biên giới Điện tử chế tạo cỗ máy tùy chỉnh với 1.856 chip AWT-4500 giá $250.000. Deep Crack tìm kiếm toàn bộ không gian khóa 56-bit và tìm được khóa DES chính xác chỉ trong 22 giờ. Điều này chứng minh công khai điều các nhà mật mã đã cảnh báo từ 1977: khóa 56-bit quá nhỏ.",
+          "impact": "Chấm dứt cuộc tranh luận về bảo mật DES; trực tiếp dẫn đến NIST khởi động cuộc thi AES để thay thế DES"
+        },
+        "1": {
+          "title": "distributed.net + Deep Crack — Dưới 24 Giờ",
+          "year": "1999",
+          "summary": "Kết hợp phần cứng Deep Crack của EFF với mạng lưới tình nguyện viên tính toán phân tán toàn cầu distributed.net, DES bị bẻ khóa chỉ trong 22 giờ 15 phút. Điều này chứng minh rằng ngay cả phần cứng khiêm tốn kết hợp với tính toán phân tán cũng có thể phá mã hóa cấp chính phủ.",
+          "impact": "Chứng minh DES hoàn toàn lỗi thời; Triple-DES trở thành bắt buộc cho hệ thống tài chính trong khi phát triển AES được đẩy nhanh"
+        }
       }
     },
     "aes": {
@@ -173,6 +206,20 @@
         "0": { "name": "Ron Rivest, Adi Shamir, Leonard Adleman", "role": "Nhà mật mã MIT (1977)", "note": "RSA được phát minh sau khi Clifford Cocks (GCHQ) làm bí mật năm 1973 — nhưng RSA trở thành phát minh công khai" },
         "1": { "name": "Clifford Cocks", "role": "Nhà toán học GCHQ (1973)", "note": "Phát minh RSA độc lập 4 năm trước — bí mật đến 1997. Một khám phá song song không được ghi nhận" },
         "2": { "name": "Peter Shor", "role": "Nhà toán học MIT (1994)", "note": "Chứng minh máy tính lượng tử đủ lớn phá được RSA — khởi đầu cuộc đua mật mã hậu lượng tử" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "RSA-129 Bị Phân Tích — Thách Thức Gardner Sụp Đổ",
+          "year": "1994",
+          "summary": "Năm 1977, Martin Gardner công bố số RSA 129 chữ số trong Scientific American với giải thưởng $100. Mọi người cho rằng cần hàng triệu tỷ năm để phân tích. Năm 1994, nhóm 600 tình nguyện viên sử dụng tính toán phân tán đã phân tích nó trong 8 tháng bằng thuật toán sàng bậc hai — chứng minh kích thước khóa RSA cần tăng nhanh hơn dự kiến.",
+          "impact": "Cho cộng đồng mật mã thấy kích thước khóa RSA được coi là an toàn thực ra nguy hiểm nhỏ; trực tiếp thúc đẩy di chuyển sang khóa 1024-bit và sau đó 2048-bit"
+        },
+        "1": {
+          "title": "ROCA — Trở Lại Tấn Công Coppersmith",
+          "year": "2017",
+          "summary": "Các nhà nghiên cứu phát hiện lỗ hổng nghiêm trọng trong thư viện tạo khóa RSA của Infineon được sử dụng trong chip TPM, thẻ thông minh và ID chính phủ. Bộ tạo số ngẫu nhiên bị lỗi tạo ra khóa RSA có thể bị phân tích bằng biến thể tấn công Coppersmith. Hàng triệu thẻ e-ID Estonia, thiết bị Yubikey và laptop trang bị TPM bị ảnh hưởng.",
+          "impact": "760.000 thẻ e-ID Estonia bị đình chỉ; Yubikey thu hồi mẫu bị ảnh hưởng; chứng minh thuật toán mạnh cũng thất bại với triển khai tồi"
+        }
       }
     },
     "ecc": {
@@ -191,6 +238,20 @@
         "0": { "name": "Neal Koblitz", "role": "Nhà toán học Đại học Washington (1985)", "note": "Độc lập đề xuất ECC — cũng là đồng phát minh mật mã đường cong Hyperelliptic" },
         "1": { "name": "Victor Miller", "role": "Nhà toán học Nghiên cứu IBM (1985)", "note": "Độc lập đề xuất ECC cùng năm — cả hai bài báo trình bày tại CRYPTO 1985" },
         "2": { "name": "Satoshi Nakamoto", "role": "Người tạo Bitcoin (2008)", "note": "Chọn đường cong ECC secp256k1 cho ví và chữ ký Bitcoin — vẫn bảo mật mọi giao dịch BTC" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "Cửa Hậu NSA Dual_EC_DRBG",
+          "year": "2013",
+          "summary": "Rò rỉ từ Edward Snowden tiết lộ NSA có khả năng đã cài cửa hậu vào bộ tạo số ngẫu nhiên Dual_EC_DRBG — tiêu chuẩn dựa trên đường cong elliptic do NIST công bố. Cửa hậu cho phép bất kỳ ai biết mối quan hệ bí mật giữa hai điểm đường cong dự đoán tất cả đầu ra tương lai. RSA Security (công ty) đã đặt Dual_EC làm mặc định trong bộ công cụ BSAFE, được cho là sau khoản thanh toán $10 triệu từ NSA.",
+          "impact": "NIST rút lại Dual_EC_DRBG; phá vỡ niềm tin giữa cộng đồng mật mã và cơ quan tiêu chuẩn chính phủ; RSA Security chịu thiệt hại danh tiếng lớn"
+        },
+        "1": {
+          "title": "Dòng Thời Gian Đe Dọa Lượng Tử NIST — Thu Hoạch Ngay, Giải Mã Sau",
+          "year": "2024+",
+          "summary": "Các đối thủ quốc gia đang tích cực thu thập lưu lượng mã hóa ECC và RSA ngày hôm nay, lưu trữ để giải mã tương lai khi máy tính lượng tử liên quan mật mã (CRQCs) xuất hiện — ước tính 2030–2040. Tiêu chuẩn PQC 2024 của NIST (ML-KEM, ML-DSA) là phản ứng trực tiếp với mối đe dọa sinh tồn này đối với mọi mật mã đường cong elliptic.",
+          "impact": "Di chuyển toàn cầu từ ECC/RSA sang thuật toán hậu lư���ng tử đang diễn ra; mọi dữ liệu nhạy cảm mã hóa bằng ECC ngày nay có thể bị xâm phạm trong 10–15 năm"
+        }
       }
     },
     "pqc": {

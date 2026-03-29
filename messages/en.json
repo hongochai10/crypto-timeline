@@ -25,7 +25,12 @@
     "jumpTo": "Jump to {name}",
     "scrollToExplore": "Scroll to explore",
     "endOfTimeline": "End of Timeline",
-    "security": "Security"
+    "security": "Security",
+    "breachStories": "Real-World Breaches",
+    "showBreachStories": "Show breach history",
+    "hideBreachStories": "Hide breach history",
+    "impact": "Impact",
+    "source": "Source"
   },
   "hero": {
     "label": "TechBi Labs · Interactive Exhibit",
@@ -110,6 +115,20 @@
         "0": { "name": "Julius Caesar", "role": "Roman General & Dictator", "note": "Used shift-3 for military dispatches and personal letters to Cicero" },
         "1": { "name": "Al-Kindi", "role": "Arab Polymath (801–873 AD)", "note": "Invented frequency analysis — the technique that permanently breaks all Caesar-family ciphers" },
         "2": { "name": "Suetonius", "role": "Roman Biographer (69–122 AD)", "note": "Documented the cipher in writing, providing the earliest historical record we have" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "Enigma Machine — Bletchley Park",
+          "year": "1939–1945",
+          "summary": "The German Enigma machine used polyalphabetic substitution — a sophisticated evolution of Caesar's cipher. At Bletchley Park, Alan Turing and a team of codebreakers built the Bombe machine to exploit structural weaknesses in how operators used the cipher. Breaking Enigma is estimated to have shortened WWII by 2 years, saving millions of lives.",
+          "impact": "Shortened WWII by ~2 years; demonstrated that even complex substitution ciphers can be broken through pattern analysis"
+        },
+        "1": {
+          "title": "Mary Queen of Scots — Babington Plot",
+          "year": "1586",
+          "summary": "Mary Stuart used a simple substitution cipher to conspire against Queen Elizabeth I. Sir Francis Walsingham's codebreaker Thomas Phelippes cracked the cipher, exposing the Babington Plot. Mary was convicted of treason and executed — the first major political consequence of cryptanalysis.",
+          "impact": "Mary Queen of Scots was executed based on decrypted letters; proved cryptanalysis could change the course of history"
+        }
       }
     },
     "des": {
@@ -127,6 +146,20 @@
         "0": { "name": "Walter Tuchman & Carl Meyer", "role": "IBM Engineers", "note": "Designed Lucifer (DES predecessor) — the algorithm that became DES after NSA modifications" },
         "1": { "name": "Whitfield Diffie", "role": "Cryptographer", "note": "Publicly criticized the 56-bit key size in 1977, predicting it would eventually be brute-forced" },
         "2": { "name": "EFF Deep Crack Team", "role": "Electronic Frontier Foundation", "note": "Built a $250,000 FPGA-based cracker in 1998 that exhausted the key space in 22 hours" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "EFF Deep Crack — DES Falls in 22 Hours",
+          "year": "1998",
+          "summary": "The Electronic Frontier Foundation built a custom machine with 1,856 AWT-4500 chips for $250,000. Deep Crack searched the entire 56-bit keyspace and found the correct DES key in just 22 hours. This publicly proved what cryptographers had warned since 1977: 56-bit keys were too small.",
+          "impact": "Ended the debate about DES security; directly led to NIST launching the AES competition to replace DES"
+        },
+        "1": {
+          "title": "distributed.net + Deep Crack — Under 24 Hours",
+          "year": "1999",
+          "summary": "Combining the EFF's Deep Crack hardware with distributed.net's worldwide volunteer computing network, DES was cracked in just 22 hours and 15 minutes. This demonstrated that even modest hardware combined with distributed computing could break government-grade encryption.",
+          "impact": "Proved that DES was completely obsolete; Triple-DES became mandatory for financial systems while AES development accelerated"
+        }
       }
     },
     "aes": {
@@ -173,6 +206,20 @@
         "0": { "name": "Ron Rivest, Adi Shamir, Leonard Adleman", "role": "MIT Cryptographers (1977)", "note": "RSA was invented after Clifford Cocks (GCHQ) did it secretly in 1973 — but RSA became the public, credited invention" },
         "1": { "name": "Clifford Cocks", "role": "GCHQ Mathematician (1973)", "note": "Independently invented RSA 4 years earlier — classified until 1997. An uncredited parallel discovery" },
         "2": { "name": "Peter Shor", "role": "MIT Mathematician (1994)", "note": "Proved a sufficiently large quantum computer breaks RSA — triggering the post-quantum cryptography race" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "RSA-129 Factored — Gardner's Challenge Falls",
+          "year": "1994",
+          "summary": "In 1977, Martin Gardner published a 129-digit RSA number in Scientific American with a $100 prize. Everyone assumed it would take quadrillions of years to factor. In 1994, a team of 600 volunteers using distributed computing factored it in 8 months using the quadratic sieve algorithm — proving RSA key sizes needed to grow much faster than expected.",
+          "impact": "Showed the crypto community that RSA key sizes considered safe were dangerously small; directly drove migration to 1024-bit and later 2048-bit keys"
+        },
+        "1": {
+          "title": "ROCA — Return of Coppersmith's Attack",
+          "year": "2017",
+          "summary": "Researchers discovered a critical vulnerability in Infineon's RSA key generation library used in TPM chips, smart cards, and government IDs. The flawed random number generator produced RSA keys that could be factored using a variant of Coppersmith's attack. Millions of Estonian e-ID cards, Yubikey devices, and TPM-equipped laptops were affected.",
+          "impact": "760,000 Estonian e-ID cards suspended; Yubikey recalled affected models; demonstrated that even strong algorithms fail with bad implementations"
+        }
       }
     },
     "ecc": {
@@ -191,6 +238,20 @@
         "0": { "name": "Neal Koblitz", "role": "University of Washington Mathematician (1985)", "note": "Independently proposed ECC — also a co-inventor of Hyperelliptic curve cryptography" },
         "1": { "name": "Victor Miller", "role": "IBM Research Mathematician (1985)", "note": "Independently proposed ECC in the same year — both papers presented at CRYPTO 1985" },
         "2": { "name": "Satoshi Nakamoto", "role": "Bitcoin creator (2008)", "note": "Chose secp256k1 ECC curve for Bitcoin wallets and signatures — still securing all BTC transactions" }
+      },
+      "breachStories": {
+        "0": {
+          "title": "NSA Dual_EC_DRBG Backdoor",
+          "year": "2013",
+          "summary": "Edward Snowden's leaks revealed that the NSA had likely inserted a backdoor into the Dual_EC_DRBG random number generator — an elliptic curve-based standard published by NIST. The backdoor allowed anyone who knew the secret relationship between two curve points to predict all future outputs. RSA Security (the company) had made Dual_EC the default in their BSAFE toolkit, allegedly after a $10M payment from NSA.",
+          "impact": "NIST withdrew Dual_EC_DRBG; shattered trust between the crypto community and government standards bodies; RSA Security faced massive reputational damage"
+        },
+        "1": {
+          "title": "NIST Quantum Threat Timeline — Harvest Now, Decrypt Later",
+          "year": "2024+",
+          "summary": "Nation-state adversaries are actively collecting encrypted ECC and RSA traffic today, storing it for future decryption when cryptographically relevant quantum computers (CRQCs) arrive — estimated 2030–2040. NIST's 2024 PQC standards (ML-KEM, ML-DSA) are the direct response to this existential threat to all elliptic curve cryptography.",
+          "impact": "Global migration from ECC/RSA to post-quantum algorithms underway; all sensitive data encrypted with ECC today may be compromised within 10–15 years"
+        }
       }
     },
     "pqc": {

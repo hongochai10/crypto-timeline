@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import CaesarDemo from "@/components/demos/CaesarDemo";
 import CaesarAttack from "@/components/attacks/CaesarAttack";
+import BreachStories from "@/components/ui/BreachStories";
 
 interface StationProps {
   era: Era;
@@ -50,6 +51,11 @@ export default function CaesarStation({ era }: StationProps) {
     { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
     { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
     { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
+  const BREACH_STORIES = [
+    { title: t("breachStories.0.title"), year: t("breachStories.0.year"), summary: t("breachStories.0.summary"), impact: t("breachStories.0.impact") },
+    { title: t("breachStories.1.title"), year: t("breachStories.1.year"), summary: t("breachStories.1.summary"), impact: t("breachStories.1.impact") },
   ];
 
   return (
@@ -110,6 +116,9 @@ export default function CaesarStation({ era }: StationProps) {
           </div>
         </div>
       </div>
+
+      {/* Breach Stories */}
+      <BreachStories stories={BREACH_STORIES} color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>
