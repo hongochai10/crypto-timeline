@@ -296,12 +296,18 @@ function mod(a: number, m: number): number {
   return ((a % m) + m) % m;
 }
 
+function cryptoRandom(): number {
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0] / (0xffffffff + 1);
+}
+
 function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(cryptoRandom() * (max - min + 1)) + min;
 }
 
 function randomSmallInt(bound: number): number {
-  return Math.floor(Math.random() * (2 * bound + 1)) - bound;
+  return Math.floor(cryptoRandom() * (2 * bound + 1)) - bound;
 }
 
 function matVecMul(matrix: number[][], vec: number[], q: number): number[] {
