@@ -7,6 +7,8 @@ import { type Era } from "@/lib/constants";
 import { aesKeyFromPassphrase, aesEncrypt, aesDecrypt, type AESKey } from "@/lib/crypto/aes";
 import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -15,9 +17,11 @@ interface Props {
 export default function AESDemo({ era }: Props) {
   const t = useTranslations("demos.aes");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "aes";
 
-  const [passphrase, setPassphrase] = useState("my-secret-key");
-  const [plaintext, setPlaintext] = useState("Hello, AES-256!");
+  const [passphrase, setPassphrase] = useState(isTargeted && urlParams.passphrase ? urlParams.passphrase : "my-secret-key");
+  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : "Hello, AES-256!");
   const [ciphertext, setCiphertext] = useState("");
   const [decrypted, setDecrypted] = useState("");
   const [keyInfo, setKeyInfo] = useState<{ base64: string; salt: string } | null>(null);
@@ -70,11 +74,14 @@ export default function AESDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="aes" params={{ text: plaintext, passphrase }} accentColor={era.color} />
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">

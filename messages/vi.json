@@ -30,7 +30,9 @@
     "showBreachStories": "Xem lịch sử vi phạm",
     "hideBreachStories": "Ẩn lịch sử vi phạm",
     "impact": "Tác động",
-    "source": "Nguồn"
+    "source": "Nguồn",
+    "shareThisDemo": "Chia sẻ demo",
+    "copied": "Đã sao chép!"
   },
   "hero": {
     "label": "TechBi Labs · Triển Lãm Tương Tác",

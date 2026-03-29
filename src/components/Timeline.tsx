@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ERAS } from "@/lib/constants";
@@ -79,6 +80,22 @@ export default function Timeline() {
   const tc = useTranslations("common");
   const tf = useTranslations("footer");
   const te = useTranslations("eras");
+  const searchParams = useSearchParams();
+
+  // Auto-scroll to station when ?station= param is present
+  useEffect(() => {
+    const station = searchParams.get("station");
+    if (station && ERAS.some((e) => e.id === station)) {
+      // Delay to allow page render before scrolling
+      const timer = setTimeout(() => {
+        const el = document.getElementById(station);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
 
   return (
     <MotionConfig reducedMotion="user">

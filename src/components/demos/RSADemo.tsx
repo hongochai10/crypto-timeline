@@ -7,6 +7,8 @@ import { type Era } from "@/lib/constants";
 import { rsaGenerateKeyPair, rsaEncrypt, rsaDecrypt, type RSAKeyPair } from "@/lib/crypto/rsa";
 import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -15,8 +17,10 @@ interface Props {
 export default function RSADemo({ era }: Props) {
   const t = useTranslations("demos.rsa");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "rsa";
 
-  const [message, setMessage] = useState("Hello RSA!");
+  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : "Hello RSA!");
   const [keyPair, setKeyPair] = useState<RSAKeyPair | null>(null);
   const [ciphertext, setCiphertext] = useState("");
   const [decrypted, setDecrypted] = useState("");
@@ -80,11 +84,14 @@ export default function RSADemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="rsa" params={{ message }} accentColor={era.color} />
       </div>
 
       {/* Step 1: Generate keys */}

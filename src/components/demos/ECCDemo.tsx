@@ -7,6 +7,8 @@ import { type Era } from "@/lib/constants";
 import { eccGenerateSigningKeyPair, eccSign, eccVerify, eccVsRsaComparison, type ECCKeyPair } from "@/lib/crypto/ecc";
 import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -15,8 +17,10 @@ interface Props {
 export default function ECCDemo({ era }: Props) {
   const t = useTranslations("demos.ecc");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "ecc";
 
-  const [message, setMessage] = useState("Sign this message!");
+  const [message, setMessage] = useState(isTargeted && urlParams.message ? urlParams.message : "Sign this message!");
   const [keyPair, setKeyPair] = useState<ECCKeyPair | null>(null);
   const [signature, setSignature] = useState("");
   const [verifyResult, setVerifyResult] = useState<{ valid: boolean; message: string } | null>(null);
@@ -86,11 +90,14 @@ export default function ECCDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="ecc" params={{ message }} accentColor={era.color} />
       </div>
 
       {/* Key comparison table */}

@@ -79,6 +79,14 @@ vi.mock("framer-motion", () => {
   return actual;
 });
 
+// Mock next/navigation for useSearchParams
+vi.mock("next/navigation", () => ({
+  useSearchParams: () => new URLSearchParams(),
+  useRouter: () => ({ push: () => {}, replace: () => {}, back: () => {} }),
+  usePathname: () => "/",
+  notFound: () => {},
+}));
+
 // Mock i18n navigation used by LanguageSwitcher
 vi.mock("@/i18n/navigation", () => ({
   Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => {

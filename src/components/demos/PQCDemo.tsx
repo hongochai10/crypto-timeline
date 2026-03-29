@@ -12,6 +12,8 @@ import {
   type LWEKeyPair,
   type LWEEncryptResult,
 } from "@/lib/crypto/pqc";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -20,9 +22,11 @@ interface Props {
 export default function PQCDemo({ era }: Props) {
   const t = useTranslations("demos.pqc");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "pqc";
 
   const [keyPair, setKeyPair] = useState<LWEKeyPair | null>(null);
-  const [bit, setBit] = useState<0 | 1>(1);
+  const [bit, setBit] = useState<0 | 1>(isTargeted && urlParams.bit !== undefined ? urlParams.bit : 1);
   const [ciphertext, setCiphertext] = useState<LWEEncryptResult | null>(null);
   const [decrypted, setDecrypted] = useState<number | null>(null);
   const [lattice] = useState(() => generateLatticeVisualization(28));
@@ -53,11 +57,14 @@ export default function PQCDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="pqc" params={{ bit }} accentColor={era.color} />
       </div>
 
       {/* Lattice visualization */}

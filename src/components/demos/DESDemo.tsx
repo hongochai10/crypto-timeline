@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { desEncrypt, desDecrypt, type DESRound } from "@/lib/crypto/des";
 import InteractiveInput from "@/components/ui/InteractiveInput";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -14,9 +16,11 @@ interface Props {
 export default function DESDemo({ era }: Props) {
   const t = useTranslations("demos.des");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "des";
 
-  const [plaintext, setPlaintext] = useState("HELLO DES");
-  const [key, setKey] = useState("SECRET01");
+  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : "HELLO DES");
+  const [key, setKey] = useState(isTargeted && urlParams.key ? urlParams.key.slice(0, 8) : "SECRET01");
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
   const [rounds, setRounds] = useState<DESRound[]>([]);
   const [output, setOutput] = useState("");
@@ -42,11 +46,14 @@ export default function DESDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="des" params={{ text: plaintext, key }} accentColor={era.color} />
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">

@@ -30,7 +30,9 @@
     "showBreachStories": "Show breach history",
     "hideBreachStories": "Hide breach history",
     "impact": "Impact",
-    "source": "Source"
+    "source": "Source",
+    "shareThisDemo": "Share this demo",
+    "copied": "Copied!"
   },
   "hero": {
     "label": "TechBi Labs · Interactive Exhibit",

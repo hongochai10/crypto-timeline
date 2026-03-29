@@ -6,6 +6,8 @@ import { type Era } from "@/lib/constants";
 import { caesarEncrypt, caesarDecrypt } from "@/lib/crypto/caesar";
 // caesarEncrypt/caesarDecrypt return { output, shift }
 import InteractiveInput from "@/components/ui/InteractiveInput";
+import ShareDemoButton from "@/components/ui/ShareDemoButton";
+import { useShareableDemoParams } from "@/lib/useShareableDemo";
 
 interface Props {
   era: Era;
@@ -14,9 +16,11 @@ interface Props {
 export default function CaesarDemo({ era }: Props) {
   const t = useTranslations("demos.caesar");
   const tc = useTranslations("common");
+  const urlParams = useShareableDemoParams();
+  const isTargeted = urlParams.station === "caesar";
 
-  const [plaintext, setPlaintext] = useState("HELLO WORLD");
-  const [shift, setShift] = useState(3);
+  const [plaintext, setPlaintext] = useState(isTargeted && urlParams.text ? urlParams.text : "HELLO WORLD");
+  const [shift, setShift] = useState(isTargeted && urlParams.shift ? urlParams.shift : 3);
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
 
   const result =
@@ -27,11 +31,14 @@ export default function CaesarDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div>
-        <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          {tc("interactiveDemo")}
-        </h3>
-        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
+            {tc("interactiveDemo")}
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
+        </div>
+        <ShareDemoButton stationId="caesar" params={{ text: plaintext, shift }} accentColor={era.color} />
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">
