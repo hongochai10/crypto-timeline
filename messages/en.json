@@ -1233,5 +1233,14 @@
         "explanation": "Lattice-based (CRYSTALS-Kyber/Dilithium), hash-based (SPHINCS+), and code-based (Classic McEliece) approaches are all quantum-safe. Integer factorization (RSA) and elliptic curves (ECC) are vulnerable to Shor's algorithm."
       }
     }
+  },
+  "progress": {
+    "visited": "Visited",
+    "quizDone": "Quiz ✓",
+    "stationVisited": "Station visited",
+    "quizCompleted": "Quiz completed for this station",
+    "stationsVisited": "{count}/{total} stations",
+    "quizzesCompleted": "{count}/{total} quizzes",
+    "summaryAria": "{visited} of {total} stations visited, {quizzes} of {total} quizzes completed"
   }
 }

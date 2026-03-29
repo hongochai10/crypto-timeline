@@ -1233,5 +1233,14 @@
         "explanation": "Dựa trên lưới (CRYSTALS-Kyber/Dilithium), dựa trên băm (SPHINCS+), và dựa trên mã (Classic McEliece) đều an toàn trước lượng tử. Phân tích thừa số (RSA) và đường cong elliptic (ECC) dễ bị tấn công bởi thuật toán Shor."
       }
     }
+  },
+  "progress": {
+    "visited": "Đã xem",
+    "quizDone": "Quiz ✓",
+    "stationVisited": "Đã ghé thăm trạm này",
+    "quizCompleted": "Đã hoàn thành quiz của trạm này",
+    "stationsVisited": "{count}/{total} trạm",
+    "quizzesCompleted": "{count}/{total} quiz",
+    "summaryAria": "Đã ghé {visited} trong {total} trạm, hoàn thành {quizzes} trong {total} quiz"
   }
 }
