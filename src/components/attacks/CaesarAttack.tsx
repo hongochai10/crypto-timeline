@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { letterFrequency, caesarDecrypt } from "@/lib/crypto/caesar";
 
@@ -17,6 +18,8 @@ const ENGLISH_FREQ: Record<string, number> = {
 };
 
 export default function CaesarAttack({ era }: Props) {
+  const t = useTranslations("attacks.caesar");
+  const tc = useTranslations("common");
   const [ciphertext, setCiphertext] = useState("KHOOR ZRUOG");
   const [cracked, setCracked] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
@@ -49,13 +52,13 @@ export default function CaesarAttack({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase text-red-400">
-          Attack Demo
+          {tc("attackDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">Frequency analysis — breaking Caesar with statistics</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       <InteractiveTextarea
-        label="Ciphertext to crack"
+        label={t("ciphertextToCrack")}
         value={ciphertext}
         onChange={(v) => { setCiphertext(v.toUpperCase()); setCracked(null); }}
         color={era.color}
@@ -64,7 +67,7 @@ export default function CaesarAttack({ era }: Props) {
       {/* Frequency chart */}
       <div>
         <label className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-          Letter Frequency Analysis
+          {t("letterFrequency")}
         </label>
         <div className="flex h-20 items-end gap-[2px]">
           {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letter) => {
@@ -100,7 +103,7 @@ export default function CaesarAttack({ era }: Props) {
         className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
         style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
       >
-        {isRunning ? "Cracking..." : "⚡ Run Frequency Attack"}
+        {isRunning ? t("cracking") : t("runFrequencyAttack")}
       </button>
 
       {cracked && (
@@ -109,7 +112,7 @@ export default function CaesarAttack({ era }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-lg border border-red-500/30 bg-red-500/10 p-3"
         >
-          <p className="mb-1 font-mono text-xs text-red-400 uppercase tracking-widest">Cracked</p>
+          <p className="mb-1 font-mono text-xs text-red-400 uppercase tracking-widest">{t("cracked")}</p>
           <p className="font-mono text-sm text-[var(--text-primary)] tracking-wider">{cracked}</p>
         </motion.div>
       )}

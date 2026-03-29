@@ -1,0 +1,443 @@
+{
+  "common": {
+    "historicalNarrative": "Lịch Sử",
+    "keyFigures": "Nhân Vật Chính",
+    "timeline": "Dòng Thời Gian",
+    "interactiveDemos": "Demo Tương Tác",
+    "interactiveDemo": "Demo Tương Tác",
+    "attackDemo": "Demo Tấn Công",
+    "encrypt": "mã hóa",
+    "decrypt": "giải mã",
+    "encryptMode": "Chế độ mã hóa",
+    "decryptMode": "Chế độ giải mã",
+    "encrypting": "Đang mã hóa…",
+    "decrypting": "Đang giải mã…",
+    "generating": "Đang tạo…",
+    "signing": "Đang ký…",
+    "verifying": "Đang xác minh…",
+    "ready": "✓ Sẵn sàng",
+    "decrypted": "Đã giải mã",
+    "webCryptoUnavailable": "Web Crypto API không khả dụng",
+    "webCryptoMessage": "Demo này yêu cầu Web Crypto API. Vui lòng sử dụng trình duyệt hiện đại (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).",
+    "skipToTimeline": "Chuyển đến dòng thời gian",
+    "skipToStation": "Chuyển đến {name} →",
+    "jumpToEra": "Nhảy đến thời kỳ",
+    "jumpTo": "Nhảy đến {name}",
+    "scrollToExplore": "Cuộn để khám phá",
+    "endOfTimeline": "Kết thúc Dòng Thời Gian",
+    "security": "Bảo mật"
+  },
+  "hero": {
+    "label": "TechBi Labs · Triển Lãm Tương Tác",
+    "title1": "Crypto",
+    "title2": "Timeline",
+    "subtitle": "Hành trình xuyên suốt 2.000 năm mật mã — từ mật mã dịch chuyển của Julius Caesar đến mật mã hậu lượng tử dựa trên lưới. Cuộn để khám phá từng thời kỳ.",
+    "introAriaLabel": "Giới thiệu Crypto Timeline"
+  },
+  "footer": {
+    "endOfTimeline": "Kết Thúc Dòng Thời Gian",
+    "continueStory": "Câu chuyện vẫn tiếp tục — máy tính lượng tử phát triển mỗi ngày. Cuộc chạy đua di chuyển bắt đầu ngay bây giờ.",
+    "copyright": "TechBi Labs · {year}"
+  },
+  "languageSwitcher": {
+    "label": "Ngôn ngữ",
+    "en": "English",
+    "vi": "Tiếng Việt"
+  },
+  "eras": {
+    "caesar": {
+      "name": "Mật mã Caesar",
+      "year": "50 TCN",
+      "subtitle": "Khởi Đầu Của Mật Mã",
+      "description": "Julius Caesar liên lạc với các tướng lĩnh bằng mật mã dịch chuyển đơn giản — mỗi chữ cái được thay thế bằng chữ cái cách 3 vị trí trong bảng chữ cái. Cách mạng vào thời đó, tầm thường theo tiêu chuẩn hiện đại.",
+      "keyFact": "Không gian khóa: chỉ 25 khóa khả thi — một đứa trẻ cũng có thể phá bằng vét cạn"
+    },
+    "des": {
+      "name": "DES",
+      "year": "1977",
+      "subtitle": "Tiêu Chuẩn Chính Phủ",
+      "description": "Tiêu chuẩn Mã hóa Dữ liệu được NIST thông qua và được các ngân hàng trên toàn thế giới sử dụng. Với khóa 56-bit, nó tưởng chừng không thể phá vỡ — cho đến khi máy Deep Crack của EFF bẻ khóa trong 22 giờ.",
+      "keyFact": "Khóa 56-bit = 2⁵⁶ khả năng — bị bẻ khóa trong 22 giờ năm 1998"
+    },
+    "aes": {
+      "name": "AES",
+      "year": "2001",
+      "subtitle": "Tiêu Chuẩn Bất Khả Xâm Phạm",
+      "description": "Tiêu chuẩn Mã hóa Tiên tiến (Rijndael) đã thắng cuộc thi toàn cầu. AES-256 có không gian khóa lớn hơn số nguyên tử trong vũ trụ quan sát được. Không có cuộc tấn công thực tế nào tồn tại.",
+      "keyFact": "2²⁵⁶ khóa — nhiều hơn số nguyên tử trong vũ trụ quan sát được"
+    },
+    "rsa": {
+      "name": "RSA",
+      "year": "1977",
+      "subtitle": "Cuộc Cách Mạng Khóa Công Khai",
+      "description": "Rivest, Shamir và Adleman đã giải quyết bài toán phân phối khóa. RSA cho phép người lạ chia sẻ bí mật qua kênh công khai — nền tảng của HTTPS và bảo mật internet hiện đại.",
+      "keyFact": "Bảo mật dựa trên độ khó của phân tích thừa số — dễ bị tổn thương bởi thuật toán Shor"
+    },
+    "ecc": {
+      "name": "ECC",
+      "year": "1985",
+      "subtitle": "Đường Cong Elliptic và Kỷ Nguyên Di Động",
+      "description": "Mật mã Đường cong Elliptic đạt được mức bảo mật tương đương RSA với khóa nhỏ hơn nhiều — quan trọng cho thiết bị di động, TLS và chữ ký số Bitcoin.",
+      "keyFact": "ECC 256-bit ≈ RSA 3072-bit về bảo mật — cũng dễ bị tổn thương bởi máy tính lượng tử"
+    },
+    "pqc": {
+      "name": "Hậu Lượng Tử",
+      "year": "2024+",
+      "subtitle": "Chúng Ta Đang Ở Đây — Chuẩn Bị Cho Ngày Q",
+      "description": "NIST đã chuẩn hóa CRYSTALS-Kyber và CRYSTALS-Dilithium năm 2024. Các thuật toán dựa trên lưới này chống lại các cuộc tấn công từ máy tính lượng tử. Cuộc chạy đua di chuyển bắt đầu ngay bây giờ.",
+      "keyFact": "Bài toán lưới: ngay cả thuật toán Shor cũng không thể phá chúng hiệu quả"
+    },
+    "statusLabels": {
+      "broken": "Đã bị phá",
+      "weakened": "Bị suy yếu",
+      "secure": "An toàn",
+      "quantum-threatened": "Bị đe dọa lượng tử",
+      "quantum-safe": "An toàn lượng tử"
+    }
+  },
+  "stations": {
+    "caesar": {
+      "narrative1": "Năm 58 TCN, Julius Caesar cần phối hợp di chuyển quân qua hàng trăm dặm mà không để thông điệp rơi vào tay kẻ thù. Giải pháp của ông thật tinh tế: dịch chuyển mỗi chữ cái trong bảng chữ cái 3 vị trí. <em>ATTACK AT DAWN</em> trở thành <em2>DWWDFN DW GDZQ</em2>. Kẻ thù chặn được thông điệp chỉ thấy vô nghĩa — trừ khi họ biết khóa.",
+      "narrative2": "Gần một thế kỷ phương pháp này hoạt động tốt. Nhưng vào thế kỷ thứ 9, nhà bác học Ả Rập Al-Kindi phát hiện ra rằng các chữ cái xuất hiện với tần suất có thể dự đoán trong bất kỳ ngôn ngữ nào. Trong tiếng Anh, 'E' xuất hiện ~12,7% thời gian. Nếu chữ cái phổ biến nhất trong bản mã là 'H', mức dịch chuyển gần như chắc chắn là 3. Mật mã đã bị phá — vĩnh viễn.",
+      "timelineEvents": {
+        "0": { "year": "58 TCN", "label": "Chiến tranh Gaul bắt đầu", "detail": "Caesar sử dụng mật mã dịch chuyển để phối hợp di chuyển quân qua khoảng cách rộng lớn" },
+        "1": { "year": "50 TCN", "label": "Mật mã được ghi nhận", "detail": "Dịch chuyển-3 trở thành tiêu chuẩn cho tất cả thư từ quân sự và cá nhân của La Mã" },
+        "2": { "year": "60 SCN", "label": "Suetonius ghi chép", "detail": "Nhà viết sử La Mã ghi nhận mật mã trong Mười Hai Caesar — tài liệu viết sớm nhất của chúng ta" },
+        "3": { "year": "TK 9", "label": "Al-Kindi phá vỡ", "detail": "Nhà bác học Ả Rập phát minh phân tích tần suất, khiến tất cả mật mã thay thế đơn giản trở nên lỗi thời" },
+        "4": { "year": "Ngày nay", "label": "ROT13 vẫn tồn tại", "detail": "Biến thể hiện đại ROT13 (dịch 13) vẫn được sử dụng trong diễn đàn trực tuyến để che giấu nhẹ văn bản" }
+      },
+      "keyFigures": {
+        "0": { "name": "Julius Caesar", "role": "Tướng lĩnh & Nhà độc tài La Mã", "note": "Sử dụng dịch chuyển-3 cho thư từ quân sự và thư cá nhân gửi Cicero" },
+        "1": { "name": "Al-Kindi", "role": "Nhà bác học Ả Rập (801–873 SCN)", "note": "Phát minh phân tích tần suất — kỹ thuật phá vĩnh viễn tất cả mật mã họ Caesar" },
+        "2": { "name": "Suetonius", "role": "Nhà viết sử La Mã (69–122 SCN)", "note": "Ghi chép mật mã bằng văn bản, cung cấp tài liệu lịch sử sớm nhất mà chúng ta có" }
+      }
+    },
+    "des": {
+      "narrative1": "Năm 1973, chính phủ Mỹ không có tiêu chuẩn mã hóa thống nhất. Ngân hàng, cơ quan và nhà thầu mỗi nơi tự phát minh — một mớ hỗn loạn. Cục Tiêu chuẩn Quốc gia (nay là NIST) phát đi lời kêu gọi công khai. IBM đáp lại bằng <em>Lucifer</em>, một mật mã khối 64-bit từ nghiên cứu nội bộ. NSA can thiệp lặng lẽ — cắt khóa xuống 56 bit và điều chỉnh S-box. Các nhà mật mã phản đối. NSA có cố tình làm yếu nó không?",
+      "narrative2": "Trong 20 năm DES mã hóa mọi thứ từ giao dịch ATM đến thông tin liên lạc mật. Sau đó vào năm 1998, EFF đã chế tạo <em2>Deep Crack</em2> — một cỗ máy trị giá $250.000 với 1.856 chip chuyên dụng — và bẻ khóa DES chỉ trong 22 giờ. Một mật mã được hàng triệu người tin tưởng đã sụp đổ. Với chỉ 2⁵⁶ (~72 triệu tỷ) khóa khả thi, vét cạn đã trở nên khả thi.",
+      "timelineEvents": {
+        "0": { "year": "1973", "label": "NBS phát lời kêu gọi", "detail": "Cục Tiêu chuẩn Quốc gia yêu cầu tiêu chuẩn mã hóa quốc gia — IBM gửi Lucifer" },
+        "1": { "year": "1975", "label": "NSA cắt ngắn khóa", "detail": "NSA giảm khóa 64-bit của Lucifer xuống 56 bit — gây ra hàng thập kỷ tranh cãi về cửa hậu" },
+        "2": { "year": "1977", "label": "DES được thông qua", "detail": "FIPS 46 biến DES thành tiêu chuẩn mã hóa chính thức của chính phủ Mỹ và ngân hàng" },
+        "3": { "year": "1998", "label": "Deep Crack phá vỡ", "detail": "Cỗ máy $250.000 của EFF bẻ khóa DES trong 22 giờ, chứng minh khóa 56-bit là không đủ" },
+        "4": { "year": "1999", "label": "DES bị loại bỏ", "detail": "Triple-DES (3DES) được khuyến nghị tạm thời; cuộc thi AES đã bắt đầu" },
+        "5": { "year": "2001", "label": "Thay thế bởi AES", "detail": "AES chính thức thay thế DES làm tiêu chuẩn mã hóa liên bang" }
+      },
+      "keyFigures": {
+        "0": { "name": "Walter Tuchman & Carl Meyer", "role": "Kỹ sư IBM", "note": "Thiết kế Lucifer (tiền thân DES) — thuật toán trở thành DES sau khi NSA sửa đổi" },
+        "1": { "name": "Whitfield Diffie", "role": "Nhà mật mã học", "note": "Công khai chỉ trích khóa 56-bit năm 1977, dự đoán nó sẽ bị vét cạn" },
+        "2": { "name": "Đội EFF Deep Crack", "role": "Quỹ Biên giới Điện tử", "note": "Chế tạo cỗ máy bẻ khóa FPGA $250.000 năm 1998 vét cạn không gian khóa trong 22 giờ" }
+      }
+    },
+    "aes": {
+      "narrative1": "Sau khi Deep Crack phá vỡ DES, NIST đã làm điều chưa từng có trong mật mã học: họ tổ chức cuộc thi toàn cầu công khai. Bất kỳ nhóm nào, ở bất cứ đâu trên thế giới, đều có thể gửi thuật toán. 15 ứng viên được gửi và trải qua nhiều năm phân tích công khai bởi các nhà mật mã hàng đầu thế giới. Minh bạch thay thế bí mật.",
+      "narrative2": "Hai nhà mật mã người Bỉ — Joan Daemen và Vincent Rijmen — gửi <em2>Rijndael</em2>, một thiết kế tinh tế dựa trên toán học trường hữu hạn. Nhanh trên phần cứng, nhanh trên phần mềm, và chống lại mọi cuộc tấn công đã biết. AES-256 có không gian khóa 2²⁵⁶ — nhiều tổ hợp hơn số nguyên tử trong vũ trụ quan sát được. Không có cuộc tấn công thực tế nào tồn tại cho đến ngày nay. Nó mã hóa mọi thứ từ Wi-Fi đến thông tin mật của chính phủ Mỹ.",
+      "whyUnbreakable": "Tại sao AES không thể bị phá (Thực tế)",
+      "keyspaceItems": {
+        "desKeys": { "label": "Khóa DES", "value": "2⁵⁶", "sub": "~7,2 × 10¹⁶", "note": "Bị bẻ trong 22 giờ" },
+        "aes128Keys": { "label": "Khóa AES-128", "value": "2¹²⁸", "sub": "~3,4 × 10³⁸", "note": "Chết nhiệt vũ trụ" },
+        "aes256Keys": { "label": "Khóa AES-256", "value": "2²⁵⁶", "sub": "~1,2 × 10⁷⁷", "note": "Nhiều hơn nguyên tử trong vũ trụ" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1997", "label": "Cuộc thi NIST công bố", "detail": "15 ứng viên từ các nhóm trên toàn thế giới; yêu cầu: khối 128-bit, khóa biến đổi (128/192/256-bit)" },
+        "1": { "year": "1998", "label": "Vòng 1 — 15 ứng viên", "detail": "Rijndael, Serpent, Twofish, RC6 và MARS nổi lên dẫn đầu" },
+        "2": { "year": "1999", "label": "Vòng 2 — 5 ứng viên cuối", "detail": "Phân tích mật mã công khai rộng rãi; Rijndael được khen ngợi vì toán học tinh tế và hiệu quả triển khai" },
+        "3": { "year": "2000", "label": "Rijndael chiến thắng", "detail": "NIST chọn Rijndael của Joan Daemen & Vincent Rijmen (Bỉ) làm tiêu chuẩn AES mới" },
+        "4": { "year": "2001", "label": "FIPS 197 công bố", "detail": "AES chính thức được thông qua làm tiêu chuẩn liên bang Mỹ, thay thế DES" },
+        "5": { "year": "Ngày nay", "label": "Triển khai toàn cầu", "detail": "AES mã hóa Wi-Fi (WPA2/3), HTTPS, mã hóa ổ đĩa, ứng dụng nhắn tin và thông tin mật Mỹ" }
+      },
+      "keyFigures": {
+        "0": { "name": "Joan Daemen & Vincent Rijmen", "role": "Nhà mật mã Bỉ", "note": "Thiết kế Rijndael, được chọn làm AES. Daemen cũng đồng thiết kế SHA-3 (Keccak) sau đó" },
+        "1": { "name": "Bruce Schneier", "role": "Đồng thiết kế Twofish", "note": "Gửi Twofish tham gia cuộc thi AES; trở thành một trong những tiếng nói mật mã được tôn trọng nhất" },
+        "2": { "name": "Đội NIST", "role": "Viện Tiêu chuẩn & Công nghệ Quốc gia", "note": "Tổ chức cuộc thi toàn cầu công khai chưa từng có — được coi là tiêu chuẩn vàng cho chuẩn hóa thuật toán" }
+      }
+    },
+    "rsa": {
+      "narrative1": "Trước RSA, mật mã học có một bài toán không thể giải: để liên lạc bí mật, hai bên cần chia sẻ trước một khóa bí mật — nhưng làm sao chia sẻ mà không gặp trực tiếp? Năm 1976, Diffie và Hellman mô tả ý tưởng mật mã khóa công khai về mặt lý thuyết. Một năm sau, ba giáo sư MIT — <em>Rivest, Shamir và Adleman</em> — biến nó thành hiện thực.",
+      "narrative2": "Sự tinh tế của RSA: nhân hai số nguyên tố lớn là chuyện nhỏ, nhưng phân tích ngược kết quả thành các thừa số nguyên tố là bất khả thi về mặt tính toán với máy tính cổ điển. Cửa bẫy toán học này cho phép bất kỳ ai mã hóa tin nhắn bằng <em2>khóa công khai</em2> của bạn, nhưng chỉ bạn mới giải mã được bằng <em2>khóa riêng</em2>. Nó mở khóa HTTPS, mã hóa email và ngân hàng an toàn. Điều không ai biết năm 1977 là nhà toán học GCHQ Clifford Cocks đã phát hiện điều tương tự 4 năm trước — bí mật cho đến năm 1997.",
+      "mathTrapdoor": "Cửa Bẫy Toán Học",
+      "mathSteps": {
+        "0": { "label": "Chọn hai số nguyên tố lớn", "value": "p = 61, q = 53", "detail": "Thực tế: số nguyên tố 2048-bit" },
+        "1": { "label": "Tính n = p × q", "value": "n = 3.233", "detail": "Dễ tính, khó đảo ngược" },
+        "2": { "label": "Khóa công khai mã hóa", "value": "e = 17, n = 3.233", "detail": "Ai cũng có thể mã hóa với khóa này" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1976", "label": "Diffie & Hellman công bố", "detail": "Hướng Mới trong Mật mã — mô tả trao đổi khóa bất đối xứng lần đầu tiên công khai" },
+        "1": { "year": "1977", "label": "RSA được phát minh", "detail": "Rivest, Shamir & Adleman công bố thuật toán RSA — mật mã khóa công khai thực tế đầu tiên" },
+        "2": { "year": "1977", "label": "Martin Gardner công bố", "detail": "Cột báo Scientific American giới thiệu RSA ra thế giới — và thách thức phân tích số 129 chữ số" },
+        "3": { "year": "1994", "label": "Thuật toán Shor", "detail": "Peter Shor chứng minh máy tính lượng tử có thể phân tích số nguyên lớn trong thời gian đa thức" },
+        "4": { "year": "1994", "label": "RSA-129 bị phân tích", "detail": "Thách thức năm 1977 của Gardner cuối cùng bị bẻ bởi 600 tình nguyện viên qua internet" },
+        "5": { "year": "Ngày nay", "label": "Bảo vệ HTTPS", "detail": "RSA vẫn bảo mật bắt tay TLS cho hầu hết website; di chuyển sang hậu lượng tử đang diễn ra" }
+      },
+      "keyFigures": {
+        "0": { "name": "Ron Rivest, Adi Shamir, Leonard Adleman", "role": "Nhà mật mã MIT (1977)", "note": "RSA được phát minh sau khi Clifford Cocks (GCHQ) làm bí mật năm 1973 — nhưng RSA trở thành phát minh công khai" },
+        "1": { "name": "Clifford Cocks", "role": "Nhà toán học GCHQ (1973)", "note": "Phát minh RSA độc lập 4 năm trước — bí mật đến 1997. Một khám phá song song không được ghi nhận" },
+        "2": { "name": "Peter Shor", "role": "Nhà toán học MIT (1994)", "note": "Chứng minh máy tính lượng tử đủ lớn phá được RSA — khởi đầu cuộc đua mật mã hậu lượng tử" }
+      }
+    },
+    "ecc": {
+      "narrative1": "RSA hoạt động — nhưng khóa của nó rất lớn. Khóa RSA 2048-bit cần thiết cho bảo mật cơ bản. Với smartphone và thiết bị nhúng của thập niên 1990 và 2000, điều này quá tốn kém về tính toán và pin. Mật mã Đường cong Elliptic giải quyết vấn đề này bằng hình học tinh tế: phép toán trên các điểm dọc theo đường cong toán học được định nghĩa là <em2>y² = x³ + ax + b</em2>.",
+      "narrative2": "Khóa ECC 256-bit cung cấp mức bảo mật tương đương khóa RSA 3072-bit. Hiệu quả vượt trội này khiến ECC lý tưởng cho thiết bị di động, chứng chỉ TLS và ví blockchain. Khi Satoshi Nakamoto thiết kế Bitcoin năm 2008, họ chọn đường cong ECC <em2>secp256k1</em2> cho chữ ký số — đường cong đặc biệt với thuộc tính cấu trúc gần nguyên tố. Mọi giao dịch Bitcoin ký ngày nay đều sử dụng ECC. Giống RSA, ECC dễ bị tổn thương bởi thuật toán Shor trên máy tính lượng tử.",
+      "keySizeComparison": "ECC vs RSA — Kích Thước Khóa Cho Bảo Mật Tương Đương",
+      "timelineEvents": {
+        "0": { "year": "1985", "label": "Koblitz & Miller độc lập", "detail": "Neal Koblitz và Victor Miller riêng biệt đề xuất sử dụng đường cong elliptic cho mật mã — không ai biết về người kia" },
+        "1": { "year": "1999", "label": "NSA áp dụng Suite B", "detail": "NSA khuyến nghị ECC cho chính phủ — sự chấp thuận thể chế lớn đầu tiên" },
+        "2": { "year": "2004", "label": "BlackBerry sử dụng ECC", "detail": "Thiết bị di động áp dụng ECC nhờ khóa nhỏ — ECC 256-bit thay thế RSA 3072-bit" },
+        "3": { "year": "2008", "label": "Bitcoin ra mắt với secp256k1", "detail": "Satoshi Nakamoto chọn đường cong ECC secp256k1 cho chữ ký số Bitcoin — vẫn bảo vệ hàng nghìn tỷ giá trị" },
+        "4": { "year": "2013", "label": "Tranh cãi NSA Dual_EC", "detail": "Tiết lộ của Snowden cho thấy NSA có thể đã cài cửa hậu vào tiêu chuẩn đường cong elliptic Dual_EC_DRBG" },
+        "5": { "year": "2015", "label": "TLS 1.3 mặc định ECC", "detail": "Tiêu chuẩn TLS mới ưu tiên trao đổi khóa ECDHE — hầu hết kết nối HTTPS giờ dùng ECC" }
+      },
+      "keyFigures": {
+        "0": { "name": "Neal Koblitz", "role": "Nhà toán học Đại học Washington (1985)", "note": "Độc lập đề xuất ECC — cũng là đồng phát minh mật mã đường cong Hyperelliptic" },
+        "1": { "name": "Victor Miller", "role": "Nhà toán học Nghiên cứu IBM (1985)", "note": "Độc lập đề xuất ECC cùng năm — cả hai bài báo trình bày tại CRYPTO 1985" },
+        "2": { "name": "Satoshi Nakamoto", "role": "Người tạo Bitcoin (2008)", "note": "Chọn đường cong ECC secp256k1 cho ví và chữ ký Bitcoin — vẫn bảo mật mọi giao dịch BTC" }
+      }
+    },
+    "pqc": {
+      "youAreHere": "Bạn Đang Ở Đây — 2024+",
+      "quantumThreatTitle": "Mối Đe Dọa Lượng Tử Là Thật — và Cuộc Di Chuyển Đã Bắt Đầu",
+      "narrative1": "Năm 1994, Peter Shor chứng minh rằng máy tính lượng tử đủ lớn có thể phá RSA và ECC trong thời gian đa thức. Trong 30 năm, đây chỉ là lý thuyết. Giờ đây, IBM, Google và những công ty khác có máy tính lượng tử với hàng ngàn qubit — vẫn chưa đủ để phá RSA-2048 hôm nay, nhưng quỹ đạo rõ ràng. <em2>Máy tính Lượng tử Liên quan Mật mã (CRQCs)</em2> được ước tính xuất hiện từ 2030 đến 2040.",
+      "narrative2": "Nguy hiểm không chỉ là các cuộc tấn công tương lai — mà là <em2>thu hoạch ngay, giải mã sau</em2>. Các quốc gia đang thu thập lưu lượng mã hóa ngày hôm nay, chờ đợi máy tính lượng tử đủ mạnh để giải mã. Dữ liệu nhạy cảm được mã hóa năm 2024 có thể bị đọc năm 2035. Phản ứng của NIST: CRYSTALS-Kyber và CRYSTALS-Dilithium, chuẩn hóa năm 2024 là các thuật toán hậu lượng tử chính thức đầu tiên. Cuộc chạy đua di chuyển đã bắt đầu.",
+      "threatAssessment": "Đánh Giá Mối Đe Dọa Lượng Tử — Tất Cả Thuật Toán",
+      "threatComparison": {
+        "0": { "algo": "Caesar", "threat": "Cổ điển", "status": "đã phá" },
+        "1": { "algo": "DES", "threat": "Cổ điển", "status": "đã phá" },
+        "2": { "algo": "AES-256", "threat": "Lượng tử (Grover)", "status": "suy yếu", "note": "Giảm một nửa sức mạnh khóa — AES-256 → tương đương AES-128" },
+        "3": { "algo": "RSA/ECC", "threat": "Lượng tử (Shor)", "status": "đã phá", "note": "Phân tích thừa số thời gian đa thức — cả hai bị phá bởi Shor" },
+        "4": { "algo": "Kyber/Dilithium", "threat": "Lượng tử", "status": "an toàn", "note": "Bài toán lưới chống lại cả tấn công cổ điển và lượng tử" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1994", "label": "Thuật toán Shor", "detail": "Peter Shor chứng minh máy tính lượng tử có thể phân tích số nguyên lớn trong thời gian đa thức — RSA và ECC đều bị đe dọa" },
+        "1": { "year": "2001", "label": "Demo qubit đầu tiên", "detail": "IBM và các phòng thí nghiệm khác trình diễn mạch lượng tử nhỏ; thách thức kỹ thuật trở nên rõ ràng" },
+        "2": { "year": "2016", "label": "Cuộc thi PQC của NIST", "detail": "NIST khởi động cuộc thi toàn cầu cho thuật toán kháng lượng tử — 82 ứng viên từ 25 quốc gia" },
+        "3": { "year": "2022", "label": "Ứng viên cuối được chọn", "detail": "CRYSTALS-Kyber (KEM) và CRYSTALS-Dilithium, FALCON, SPHINCS+ (chữ ký) được chọn chuẩn hóa" },
+        "4": { "year": "2024", "label": "FIPS 203/204/205 công bố", "detail": "NIST chính thức chuẩn hóa ML-KEM (Kyber), ML-DSA (Dilithium) và SLH-DSA — kỷ nguyên hậu lượng tử bắt đầu" },
+        "5": { "year": "Hiện tại", "label": "Cuộc di chuyển bắt đầu", "detail": "Chính phủ, nhà cung cấp đám mây và trình duyệt bắt đầu di chuyển hạ tầng — nỗ lực toàn cầu nhiều năm" }
+      },
+      "keyFigures": {
+        "0": { "name": "Peter Shor", "role": "Nhà toán học MIT (1994)", "note": "Thuật toán Shor cho phân tích thừa số lượng tử — thanh kiếm toán học treo trên RSA và ECC" },
+        "1": { "name": "Oded Regev", "role": "Nhà toán học NYU (2005)", "note": "Phát minh bài toán Learning With Errors (LWE) — nền tảng toán học của Kyber và Dilithium" },
+        "2": { "name": "Đội CRYSTALS", "role": "IBM, CWI, Radboud, và khác", "note": "Thiết kế CRYSTALS-Kyber và Dilithium — nay là ML-KEM và ML-DSA, tiêu chuẩn hậu lượng tử đầu tiên thế giới" }
+      }
+    }
+  },
+  "demos": {
+    "caesar": {
+      "subtitle": "Mật mã dịch chuyển Caesar — điều chỉnh khóa và văn bản",
+      "plaintext": "Bản rõ",
+      "ciphertext": "Bản mã",
+      "enterText": "Nhập văn bản...",
+      "shiftKey": "Khóa dịch chuyển: {shift}",
+      "shiftKeyAriaLabel": "Khóa dịch chuyển Caesar: {shift}"
+    },
+    "des": {
+      "subtitle": "Mạng Feistel DES — 16 vòng mã hóa",
+      "hexCiphertext": "Bản mã Hex",
+      "pasteHex": "Dán đầu ra hex...",
+      "key8chars": "Khóa (8 ký tự)",
+      "keyLength": "Độ dài khóa: {length}/8 ký tự",
+      "encryptWithDES": "⚙ Mã hóa với DES",
+      "decryptWithDES": "⚙ Giải mã với DES",
+      "invalidInput": "Đầu vào không hợp lệ. Ở chế độ giải mã, hãy dán bản mã hex.",
+      "ciphertextHex": "Bản mã (hex)",
+      "hide": "▾ Ẩn",
+      "show": "▸ Hiện",
+      "feistelRounds": "16 Vòng Feistel",
+      "enterText": "Nhập văn bản...",
+      "plaintext": "Bản rõ"
+    },
+    "aes": {
+      "subtitle": "AES-256-GCM — mã hóa xác thực qua Web Crypto",
+      "passphrase": "Cụm mật khẩu",
+      "enterMessage": "Nhập tin nhắn để mã hóa...",
+      "encryptWithAES": "⚙ Mã hóa với AES-256",
+      "encryptFirst": "Mã hóa trước để có khóa",
+      "decryptBtn": "⚙ Giải mã",
+      "derivedKey": "Khóa dẫn xuất (PBKDF2 + SHA-256)",
+      "keyLabel": "Khóa: {key}",
+      "saltLabel": "Salt: {salt}",
+      "iterations": "100.000 lần lặp · AES-256-GCM",
+      "ciphertextBase64": "Bản mã (base64)",
+      "plaintext": "Bản rõ"
+    },
+    "rsa": {
+      "subtitle": "Cặp khóa RSA-2048 — mã hóa công khai, giải mã riêng tư",
+      "step1": "Bước 1 — Tạo Cặp Khóa",
+      "generating2048": "Đang tạo khóa 2048-bit…",
+      "generateRSA": "⚙ Tạo Cặp Khóa RSA-2048",
+      "publicKeySPKI": "Khóa công khai (SPKI/base64):",
+      "privateKeyPKCS8": "Khóa riêng (PKCS8/base64):",
+      "hidden": "[ẩn]",
+      "step2": "Bước 2 — Mã Hóa Với Khóa Công Khai",
+      "messageLabel": "Tin nhắn (tối đa ~190 bytes)",
+      "enterShortMessage": "Nhập tin nhắn ngắn...",
+      "generateKeysFirst": "Tạo khóa trước",
+      "encryptBtn": "⚙ Mã hóa",
+      "ciphertextBase64": "Bản mã (base64)",
+      "step3": "Bước 3 — Giải Mã Với Khóa Riêng",
+      "encryptFirst": "Mã hóa trước"
+    },
+    "ecc": {
+      "subtitle": "ECDSA P-256 — chữ ký số đường cong elliptic",
+      "keySizeComparison": "So sánh kích thước khóa ECC vs RSA",
+      "step1": "Bước 1 — Tạo Cặp Khóa P-256",
+      "generateECDSA": "⚙ Tạo Cặp Khóa ECDSA",
+      "publicKeyX": "Khóa công khai (tọa độ x):",
+      "curveInfo": "Đường cong: {curve} · Thuật toán: ECDSA + SHA-256",
+      "step2": "Bước 2 — Ký Tin Nhắn",
+      "messageToSign": "Tin nhắn cần ký",
+      "enterMessage": "Nhập tin nhắn...",
+      "generateKeysFirst": "Tạo khóa trước",
+      "signWithPrivateKey": "✍ Ký với Khóa Riêng",
+      "signatureBase64": "Chữ ký (base64)",
+      "step3": "Bước 3 — Xác Minh Chữ Ký",
+      "simulateTampering": "Giả lập giả mạo tin nhắn",
+      "verifyWithPublicKey": "✓ Xác minh với Khóa Công Khai",
+      "valid": "✓ Hợp lệ",
+      "invalid": "✗ Không hợp lệ"
+    },
+    "pqc": {
+      "subtitle": "Mã hóa LWE dựa trên lưới — khái niệm Kyber đơn giản hóa",
+      "latticeVisualization": "Trực quan hóa lưới — bài toán khó",
+      "latticeAriaLabel": "Trực quan hóa điểm lưới thể hiện bài toán khó trong mã hóa LWE",
+      "noisy": "nhiễu",
+      "latticeCaption": "Đỏ = điểm nhiễu · Bảo mật = tìm điểm lưới gần nhất rất khó",
+      "lweParams": "Tham số LWE (giáo dục)",
+      "dimensionN": "Chiều n",
+      "modulusQ": "Modulus q",
+      "errorBound": "Giới hạn lỗi",
+      "generateLWE": "⚙ Tạo Cặp Khóa LWE",
+      "secretVector": "Vector bí mật s (khóa riêng)",
+      "publicVector": "Vector công khai b = A·s + lỗi (mod 97)",
+      "encryptBit": "Mã hóa một bit",
+      "selectBit": "Chọn giá trị bit để mã hóa",
+      "encryptBitBtn": "⚙ Mã hóa bit",
+      "decryptBtn": "⚙ Giải mã",
+      "decryptedBit": "Bit giải mã = {bit}",
+      "correct": "✓ Chính xác",
+      "error": "✗ Lỗi",
+      "lweExplanation": "Lỗi LWE (nhiễu) đủ nhỏ để giải mã khôi phục bit gốc."
+    }
+  },
+  "attacks": {
+    "caesar": {
+      "subtitle": "Phân tích tần suất — phá Caesar bằng thống kê",
+      "ciphertextToCrack": "Bản mã cần phá",
+      "letterFrequency": "Phân Tích Tần Suất Chữ Cái",
+      "cracking": "Đang phá...",
+      "runFrequencyAttack": "⚡ Chạy Tấn Công Tần Suất",
+      "cracked": "Đã phá"
+    },
+    "des": {
+      "subtitle": "Vét cạn — trực quan hóa không gian khóa 2⁵⁶",
+      "keySize": "Kích Thước Khóa",
+      "modernFPGA": "FPGA Hiện Đại",
+      "about6days": "~6 ngày",
+      "keysPerSec": "1 tỷ khóa/giây/chip",
+      "keyspaceScanned": "Đã quét không gian khóa",
+      "keysChecked": "Khóa đã kiểm: {checked} / ~{total} × 10¹⁵",
+      "bruteForcing": "Đang vét cạn…",
+      "simulateBruteForce": "⚡ Mô Phỏng Vét Cạn",
+      "reset": "Đặt lại",
+      "keyFound": "Tìm thấy khóa tại {percent}% không gian khóa",
+      "estimatedTime": "Thời gian thực ước tính trên cụm FPGA: {duration}",
+      "breakingTimeline": "Lịch sử phá DES",
+      "timelineItems": {
+        "0": { "year": "1977", "event": "DES được chuẩn hóa — khóa 56-bit được coi là an toàn" },
+        "1": { "year": "1993", "event": "Michael Wiener ước tính máy $1M phá trong 3,5 giờ" },
+        "2": { "year": "1997", "event": "RSA DES Challenge bị phá trong 96 ngày bởi tình nguyện viên internet" },
+        "3": { "year": "1998", "event": "EFF Deep Crack: 250.000 chip, phá trong 22 giờ, chi phí $250K" },
+        "4": { "year": "1999", "event": "Deep Crack + distributed.net: 22 giờ 15 phút" },
+        "5": { "year": "2008", "event": "Cụm FPGA COPACOBANA: ~6 ngày, chi phí ~$10K" }
+      }
+    },
+    "aes": {
+      "subtitle": "Không có tấn công thực tế — không gian khóa 2²⁵⁶",
+      "unbroken": "CHƯA BỊ PHÁ",
+      "sincestandardization": "Kể từ chuẩn hóa năm 2001",
+      "scaleComparison": "So sánh quy mô",
+      "comparisons": {
+        "0": { "label": "Không gian khóa AES-256", "value": "2²⁵⁶ ≈ 1,16 × 10⁷⁷", "note": "khóa" },
+        "1": { "label": "Nguyên tử trong vũ trụ", "value": "≈ 10⁸⁰", "note": "nguyên tử" },
+        "2": { "label": "Sao trong vũ trụ quan sát được", "value": "≈ 10²⁴", "note": "sao" },
+        "3": { "label": "Giây kể từ Big Bang", "value": "≈ 4,3 × 10¹⁷", "note": "giây" }
+      },
+      "knownAttacks": "Các cuộc tấn công đã biết",
+      "knownAttackItems": {
+        "0": { "name": "Vét cạn", "status": "Bất khả thi", "detail": "10⁷⁷ phép toán — cần đến chết nhiệt vũ trụ" },
+        "1": { "name": "Tấn công Khóa Liên quan", "status": "Lý thuyết", "detail": "Cần 2⁹⁹·⁵ phép toán — không thực tế" },
+        "2": { "name": "Phân tích Biclique", "status": "Chỉ học thuật", "detail": "Giảm xuống 2²⁵⁴·⁴ — vẫn bất khả thi" },
+        "3": { "name": "Tấn công Kênh Phụ", "status": "Rủi ro triển khai", "detail": "Nhắm vào triển khai yếu, không phải thuật toán" },
+        "4": { "name": "Thuật toán Grover", "status": "Giảm nửa lượng tử", "detail": "Giảm xuống 2¹²⁸ — AES-256 vẫn an toàn" }
+      }
+    },
+    "rsa": {
+      "subtitle": "Phân tích thừa số — bài toán khó mà RSA dựa vào",
+      "hardProblem": "Bài Toán Khó RSA",
+      "hardProblemDesc": "Cho n = p × q (tích hai số nguyên tố lớn), tìm p và q.\nDễ nhân: vài micro giây. Khó phân tích: hàng tỷ năm cho n 2048-bit.",
+      "toyFactoring": "Demo Phân Tích Thừa Số RSA Đồ Chơi",
+      "factor": "Phân tích",
+      "trying": "đang thử {step}…",
+      "tryingDivisor": "Đang thử ước số {step}…",
+      "runTrialDivision": "⚡ Chạy Tấn Công Chia Thử",
+      "factored": "Đã phân tích!",
+      "steps": "Bước:",
+      "divisions": "{count} phép chia",
+      "toyCracked": "RSA đồ chơi bị phá trong {steps} bước. RSA-2048 thực tế cần ~10²⁰ bước.",
+      "keySizeSecurity": "Bảo mật kích thước khóa RSA"
+    },
+    "ecc": {
+      "subtitle": "ECDLP — bài toán logarit rời rạc trên đường cong elliptic",
+      "toyCurve": "Đường cong đồ chơi: y² = x³ − x + 1 (mod {prime}) — {count} điểm",
+      "curveCaption": "Mỗi chấm = một điểm trên đường cong · Di chuột để xem tọa độ",
+      "ecdlpHowItWorks": "ECDLP — cách hoạt động",
+      "dlpSteps": {
+        "0": { "label": "Chọn khóa riêng k", "value": "k = 7 (số nguyên ngẫu nhiên bí mật)" },
+        "1": { "label": "Tính khóa công khai Q", "value": "Q = k × G (nhân điểm)" },
+        "2": { "label": "Kẻ tấn công biết Q và G", "value": "Phải tìm k sao cho Q = k × G" },
+        "3": { "label": "Độ khó ECDLP", "value": "Tốt nhất: √p bước — hàm mũ theo kích thước khóa" },
+        "4": { "label": "Bảo mật P-256", "value": "~2¹²⁸ phép toán cần thiết — bất khả thi cổ điển" }
+      },
+      "eccVsRsa": "ECC vs RSA — bảo mật tương đương",
+      "curve": "Đường cong",
+      "eccBits": "Bit ECC",
+      "rsaEquiv": "Tương đương RSA",
+      "eccSummary": "Khóa nhỏ hơn = phép toán nhanh hơn. Bitcoin sử dụng secp256k1 (tương tự P-256) cho tất cả chữ ký ví."
+    },
+    "pqc": {
+      "subtitle": "Thuật toán Shor — mối đe dọa lượng tử với mật mã cổ điển",
+      "classicalVsQuantum": "Tính toán Cổ điển vs Lượng tử",
+      "classical": "Cổ điển",
+      "quantum": "Lượng tử",
+      "classicalDesc": "Tuần tự — từng khóa một",
+      "quantumDesc": "Song song — tất cả trạng thái cùng lúc",
+      "shorAlgorithm": "Thuật toán Shor — cách phá RSA",
+      "shorSteps": {
+        "0": { "label": "Chồng chất", "desc": "Máy tính lượng tử khởi tạo qubit ở trạng thái chồng chất của tất cả trạng thái khả thi đồng thời" },
+        "1": { "label": "Song song Lượng tử", "desc": "Đánh giá lũy thừa modular cho TẤT CẢ chu kỳ khả thi cùng lúc — tăng tốc hàm mũ" },
+        "2": { "label": "QFT", "desc": "Biến đổi Fourier Lượng tử tìm chu kỳ r của f(x) = aˣ mod N" },
+        "3": { "label": "Chu kỳ → Thừa số", "desc": "Xử lý hậu cổ điển: r → gcd(aʳ/² ± 1, N) → thừa số nguyên tố p, q" },
+        "4": { "label": "RSA bị phá", "desc": "Khóa riêng được khôi phục từ khóa công khai trong thời gian đa thức O((log N)³)" }
+      },
+      "threatAnalysis": "Phân tích mối đe dọa lượng tử",
+      "brokenByQuantum": "⚠ BỊ PHÁ bởi lượng tử",
+      "quantumSafe": "✓ An toàn lượng tử",
+      "nistStandardization": "Chuẩn hóa PQC của NIST"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "Đã xảy ra lỗi",
+    "unexpectedError": "Đã xảy ra lỗi không mong muốn.",
+    "tryAgain": "Thử lại",
+    "retryBtn": "↻ Thử Lại",
+    "stationError": "{station} — Lỗi",
+    "webCryptoError": "Trình duyệt này không hỗ trợ đầy đủ Web Crypto API cần thiết cho demo này. Hãy sử dụng trình duyệt hiện đại như Chrome, Firefox hoặc Safari.",
+    "keyError": "Thao tác khóa mật mã thất bại. Khóa có thể không hợp lệ hoặc bị hỏng.",
+    "encryptError": "Mã hóa thất bại. Đầu vào có thể quá lớn hoặc khóa không hợp lệ.",
+    "decryptError": "Giải mã thất bại. Khóa có thể sai hoặc bản mã đã bị giả mạo.",
+    "demoError": "Đã xảy ra lỗi không mong muốn trong demo này. Vui lòng thử lại."
+  },
+  "offline": {
+    "message": "Bạn đang ngoại tuyến — ứng dụng đang chạy từ bộ nhớ đệm"
+  }
+}

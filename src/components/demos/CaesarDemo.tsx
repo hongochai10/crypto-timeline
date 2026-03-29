@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { caesarEncrypt, caesarDecrypt } from "@/lib/crypto/caesar";
 // caesarEncrypt/caesarDecrypt return { output, shift }
@@ -11,6 +12,9 @@ interface Props {
 }
 
 export default function CaesarDemo({ era }: Props) {
+  const t = useTranslations("demos.caesar");
+  const tc = useTranslations("common");
+
   const [plaintext, setPlaintext] = useState("HELLO WORLD");
   const [shift, setShift] = useState(3);
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
@@ -25,9 +29,9 @@ export default function CaesarDemo({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Interactive Demo
+          {tc("interactiveDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">Caesar shift cipher — adjust key and text</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">
@@ -37,7 +41,7 @@ export default function CaesarDemo({ era }: Props) {
             data-testid={`caesar-${m}-btn`}
             onClick={() => setMode(m)}
             aria-pressed={mode === m}
-            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
+            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -45,23 +49,23 @@ export default function CaesarDemo({ era }: Props) {
                 : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
             }
           >
-            {m}
+            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
           </button>
         ))}
       </div>
 
       <InteractiveInput
-        label={mode === "encrypt" ? "Plaintext" : "Ciphertext"}
+        label={mode === "encrypt" ? t("plaintext") : t("ciphertext")}
         value={plaintext}
         onChange={(e) => setPlaintext(e.target.value.toUpperCase())}
-        placeholder="Enter text..."
+        placeholder={t("enterText")}
         accentColor={era.color}
         data-testid="caesar-input"
       />
 
       <div>
         <label htmlFor="caesar-shift-slider" className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-          Shift Key: {shift}
+          {t("shiftKey", { shift })}
         </label>
         <input
           id="caesar-shift-slider"
@@ -72,7 +76,7 @@ export default function CaesarDemo({ era }: Props) {
           aria-valuemin={1}
           aria-valuemax={25}
           aria-valuenow={shift}
-          aria-label={`Caesar shift key: ${shift}`}
+          aria-label={t("shiftKeyAriaLabel", { shift })}
           onChange={(e) => setShift(Number(e.target.value))}
           className="w-full"
           style={{ accentColor: era.color }}
@@ -86,7 +90,7 @@ export default function CaesarDemo({ era }: Props) {
 
       <div>
         <label id="caesar-output-label" className="mb-2 block font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-          {mode === "encrypt" ? "Ciphertext" : "Plaintext"}
+          {mode === "encrypt" ? t("ciphertext") : t("plaintext")}
         </label>
         <div
           className="code-display tracking-widest"

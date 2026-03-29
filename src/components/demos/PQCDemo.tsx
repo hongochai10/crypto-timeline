@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import {
@@ -17,6 +18,9 @@ interface Props {
 }
 
 export default function PQCDemo({ era }: Props) {
+  const t = useTranslations("demos.pqc");
+  const tc = useTranslations("common");
+
   const [keyPair, setKeyPair] = useState<LWEKeyPair | null>(null);
   const [bit, setBit] = useState<0 | 1>(1);
   const [ciphertext, setCiphertext] = useState<LWEEncryptResult | null>(null);
@@ -51,16 +55,16 @@ export default function PQCDemo({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Interactive Demo
+          {tc("interactiveDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">LWE lattice-based encryption — simplified Kyber concept</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       {/* Lattice visualization */}
       <div className="rounded-lg border p-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Lattice visualization — the hard problem</p>
+        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("latticeVisualization")}</p>
         <div className="flex justify-center">
-          <svg width={svgSize} height={svgSize} className="overflow-visible" role="img" aria-label="Lattice point visualization showing the hard problem in LWE encryption">
+          <svg width={svgSize} height={svgSize} className="overflow-visible" role="img" aria-label={t("latticeAriaLabel")}>
             {/* Lattice points */}
             {lattice.points.map(([x, y], i) => (
               <circle
@@ -91,7 +95,7 @@ export default function PQCDemo({ era }: Props) {
               fontSize={8}
               fontFamily="monospace"
             >
-              noisy
+              {t("noisy")}
             </text>
             {/* Basis vectors */}
             <line
@@ -108,24 +112,24 @@ export default function PQCDemo({ era }: Props) {
           </svg>
         </div>
         <p className="mt-1 font-mono text-[9px] text-center text-[var(--text-muted)]">
-          Red = noisy point · Security = finding closest lattice point is hard
+          {t("latticeCaption")}
         </p>
       </div>
 
       {/* Parameters */}
       <div className="rounded-lg border px-4 py-3 font-mono text-xs" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-        <p className="text-[var(--text-muted)] mb-1 uppercase tracking-widest text-[10px]">LWE Parameters (educational)</p>
+        <p className="text-[var(--text-muted)] mb-1 uppercase tracking-widest text-[10px]">{t("lweParams")}</p>
         <div className="grid grid-cols-3 gap-2">
           <div>
-            <p className="text-[var(--text-muted)] text-[10px]">Dimension n</p>
+            <p className="text-[var(--text-muted)] text-[10px]">{t("dimensionN")}</p>
             <p style={{ color: era.color }}>8</p>
           </div>
           <div>
-            <p className="text-[var(--text-muted)] text-[10px]">Modulus q</p>
+            <p className="text-[var(--text-muted)] text-[10px]">{t("modulusQ")}</p>
             <p style={{ color: era.color }}>97</p>
           </div>
           <div>
-            <p className="text-[var(--text-muted)] text-[10px]">Error bound</p>
+            <p className="text-[var(--text-muted)] text-[10px]">{t("errorBound")}</p>
             <p style={{ color: era.color }}>±3</p>
           </div>
         </div>
@@ -139,14 +143,14 @@ export default function PQCDemo({ era }: Props) {
         className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
-        ⚙ Generate LWE Key Pair
+        {t("generateLWE")}
       </button>
 
       {keyPair && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-[10px] rounded-lg border px-3 py-2 space-y-1" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-          <p className="text-[var(--text-muted)] uppercase tracking-widest">Secret vector s (private key)</p>
+          <p className="text-[var(--text-muted)] uppercase tracking-widest">{t("secretVector")}</p>
           <p style={{ color: era.color }}>[{keyPair.privateKey.s.join(", ")}]</p>
-          <p className="text-[var(--text-muted)] uppercase tracking-widest mt-1">Public vector b = A·s + error (mod 97)</p>
+          <p className="text-[var(--text-muted)] uppercase tracking-widest mt-1">{t("publicVector")}</p>
           <p className="text-[var(--text-secondary)]">[{keyPair.publicKey.b.map(String).join(", ")}]</p>
         </motion.div>
       )}
@@ -154,8 +158,8 @@ export default function PQCDemo({ era }: Props) {
       {/* Step 2 */}
       {keyPair && (
         <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>Encrypt a single bit</span>
-          <div className="flex gap-3" role="group" aria-label="Select bit value to encrypt">
+          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>{t("encryptBit")}</span>
+          <div className="flex gap-3" role="group" aria-label={t("selectBit")}>
             {([0, 1] as const).map((b) => (
               <button
                 key={b}
@@ -181,7 +185,7 @@ export default function PQCDemo({ era }: Props) {
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
-            ⚙ Encrypt bit
+            {t("encryptBitBtn")}
           </button>
           {ciphertext && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-[10px] space-y-1">
@@ -202,7 +206,7 @@ export default function PQCDemo({ era }: Props) {
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
-            ⚙ Decrypt
+            {t("decryptBtn")}
           </button>
           {decrypted !== null && (
             <motion.div
@@ -213,10 +217,10 @@ export default function PQCDemo({ era }: Props) {
               className={`rounded-lg border p-3 ${decrypted === bit ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
               <p data-testid="pqc-decrypt-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>
-                Decrypted bit = {decrypted} {decrypted === bit ? "✓ Correct" : "✗ Error"}
+                {t("decryptedBit", { bit: decrypted })} {decrypted === bit ? t("correct") : t("error")}
               </p>
               <p className="font-mono text-[10px] text-[var(--text-muted)]">
-                The LWE error (noise) is small enough that decryption recovers the original bit.
+                {t("lweExplanation")}
               </p>
             </motion.div>
           )}

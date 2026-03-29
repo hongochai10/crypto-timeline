@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { aesKeyspaceInfo } from "@/lib/crypto/aes";
 
@@ -8,31 +9,28 @@ interface Props {
   era: Era;
 }
 
-const COMPARISONS = [
-  { label: "AES-256 keyspace", value: "2²⁵⁶ ≈ 1.16 × 10⁷⁷", note: "keys" },
-  { label: "Atoms in universe", value: "≈ 10⁸⁰", note: "atoms" },
-  { label: "Stars in observable universe", value: "≈ 10²⁴", note: "stars" },
-  { label: "Seconds since Big Bang", value: "≈ 4.3 × 10¹⁷", note: "seconds" },
-];
+const COMPARISON_VALUES = ["2²⁵⁶ ≈ 1.16 × 10⁷⁷", "≈ 10⁸⁰", "≈ 10²⁴", "≈ 4.3 × 10¹⁷"];
 
-const KNOWN_ATTACKS = [
-  { name: "Brute Force", status: "Impossible", detail: "10⁷⁷ operations — heat death of universe required", broken: false },
-  { name: "Related-Key Attack", status: "Theoretical", detail: "Requires 2⁹⁹·⁵ operations — impractical", broken: false },
-  { name: "Biclique Cryptanalysis", status: "Academic only", detail: "Reduces to 2²⁵⁴·⁴ — still infeasible", broken: false },
-  { name: "Side-Channel Attack", status: "Implementation risk", detail: "Targets weak implementations, not the algorithm", broken: true },
-  { name: "Grover's Algorithm", status: "Quantum halving", detail: "Reduces to 2¹²⁸ — AES-256 remains secure", broken: false },
+const KNOWN_ATTACKS_META = [
+  { broken: false },
+  { broken: false },
+  { broken: false },
+  { broken: true },
+  { broken: false },
 ];
 
 export default function AESAttack({ era }: Props) {
+  const t = useTranslations("attacks.aes");
+  const tc = useTranslations("common");
   const info = aesKeyspaceInfo();
 
   return (
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Attack Demo
+          {tc("attackDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">No practical attack exists — 2²⁵⁶ keyspace</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       {/* Shield visual */}
@@ -50,25 +48,25 @@ export default function AESAttack({ era }: Props) {
         >
           🛡
         </motion.div>
-        <p className="font-mono text-lg font-bold" style={{ color: era.color }}>UNBROKEN</p>
-        <p className="font-mono text-xs text-[var(--text-muted)] mt-1">Since standardization in 2001</p>
+        <p className="font-mono text-lg font-bold" style={{ color: era.color }}>{t("unbroken")}</p>
+        <p className="font-mono text-xs text-[var(--text-muted)] mt-1">{t("sincestandardization")}</p>
       </motion.div>
 
       {/* Scale comparison */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Scale comparison</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("scaleComparison")}</p>
         <div className="space-y-2">
-          {COMPARISONS.map((item, i) => (
+          {COMPARISON_VALUES.map((value, i) => (
             <motion.div
-              key={item.label}
+              key={i}
               className="flex items-center justify-between rounded-lg px-3 py-2"
               style={{ backgroundColor: era.color + "08", border: `1px solid ${era.color}18` }}
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <span className="font-mono text-[10px] text-[var(--text-muted)]">{item.label}</span>
-              <span className="font-mono text-[10px] font-bold" style={{ color: era.color }}>{item.value}</span>
+              <span className="font-mono text-[10px] text-[var(--text-muted)]">{t(`comparisons.${i}.label`)}</span>
+              <span className="font-mono text-[10px] font-bold" style={{ color: era.color }}>{value}</span>
             </motion.div>
           ))}
         </div>
@@ -77,11 +75,11 @@ export default function AESAttack({ era }: Props) {
 
       {/* Known attack attempts */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Known attack attempts</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("knownAttacks")}</p>
         <div className="space-y-2">
-          {KNOWN_ATTACKS.map((attack) => (
+          {KNOWN_ATTACKS_META.map((attack, i) => (
             <div
-              key={attack.name}
+              key={i}
               className="rounded-lg border px-3 py-2.5"
               style={{
                 borderColor: attack.broken ? "#f97316" + "40" : era.color + "20",
@@ -90,7 +88,7 @@ export default function AESAttack({ era }: Props) {
             >
               <div className="flex items-center justify-between mb-0.5">
                 <span className="font-mono text-xs font-bold" style={{ color: attack.broken ? "#f97316" : era.color }}>
-                  {attack.name}
+                  {t(`knownAttackItems.${i}.name`)}
                 </span>
                 <span
                   className="font-mono text-[9px] rounded-full px-2 py-0.5 uppercase tracking-widest"
@@ -99,10 +97,10 @@ export default function AESAttack({ era }: Props) {
                     color: attack.broken ? "#f97316" : era.color,
                   }}
                 >
-                  {attack.status}
+                  {t(`knownAttackItems.${i}.status`)}
                 </span>
               </div>
-              <p className="font-mono text-[10px] text-[var(--text-muted)]">{attack.detail}</p>
+              <p className="font-mono text-[10px] text-[var(--text-muted)]">{t(`knownAttackItems.${i}.detail`)}</p>
             </div>
           ))}
         </div>

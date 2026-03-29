@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import ECCDemo from "@/components/demos/ECCDemo";
 import ECCAttack from "@/components/attacks/ECCAttack";
@@ -9,22 +10,7 @@ interface StationProps {
   era: Era;
 }
 
-const TIMELINE_EVENTS = [
-  { year: "1985", label: "Koblitz & Miller independently", detail: "Neal Koblitz and Victor Miller separately propose using elliptic curves for cryptography — neither knew about the other" },
-  { year: "1999", label: "NSA adopts Suite B", detail: "NSA recommends ECC for government use — first major institutional endorsement" },
-  { year: "2004", label: "BlackBerry uses ECC", detail: "Mobile devices adopt ECC for its small key size — 256-bit ECC replaces 3072-bit RSA in many applications" },
-  { year: "2008", label: "Bitcoin launches with secp256k1", detail: "Satoshi Nakamoto chooses ECC curve secp256k1 for Bitcoin digital signatures — still securing trillions in value" },
-  { year: "2013", label: "NSA Dual_EC controversy", detail: "Snowden revelations suggest NSA may have backdoored the Dual_EC_DRBG elliptic curve standard" },
-  { year: "2015", label: "TLS 1.3 defaults to ECC", detail: "The new TLS standard prefers ECDHE key exchange — most HTTPS connections now use ECC" },
-];
-
-const KEY_FIGURES = [
-  { name: "Neal Koblitz", role: "University of Washington Mathematician (1985)", note: "Independently proposed ECC — also a co-inventor of Hyperelliptic curve cryptography" },
-  { name: "Victor Miller", role: "IBM Research Mathematician (1985)", note: "Independently proposed ECC in the same year — both papers presented at CRYPTO 1985" },
-  { name: "Satoshi Nakamoto", role: "Bitcoin creator (2008)", note: "Chose secp256k1 ECC curve for Bitcoin wallets and signatures — still securing all BTC transactions" },
-];
-
-function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]; color: string; index: number }) {
+function TimelineRow({ event, color, index }: { event: { year: string; label: string; detail: string }; color: string; index: number }) {
   return (
     <motion.div
       className="flex items-start gap-3"
@@ -49,6 +35,24 @@ function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]
 }
 
 export default function ECCStation({ era }: StationProps) {
+  const t = useTranslations("stations.ecc");
+  const tc = useTranslations("common");
+
+  const TIMELINE_EVENTS = [
+    { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
+    { year: t("timelineEvents.1.year"), label: t("timelineEvents.1.label"), detail: t("timelineEvents.1.detail") },
+    { year: t("timelineEvents.2.year"), label: t("timelineEvents.2.label"), detail: t("timelineEvents.2.detail") },
+    { year: t("timelineEvents.3.year"), label: t("timelineEvents.3.label"), detail: t("timelineEvents.3.detail") },
+    { year: t("timelineEvents.4.year"), label: t("timelineEvents.4.label"), detail: t("timelineEvents.4.detail") },
+    { year: t("timelineEvents.5.year"), label: t("timelineEvents.5.label"), detail: t("timelineEvents.5.detail") },
+  ];
+
+  const KEY_FIGURES = [
+    { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
+    { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
+    { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       {/* Historical Narrative */}
@@ -61,22 +65,13 @@ export default function ECCStation({ era }: StationProps) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Historical Narrative
+          {tc("historicalNarrative")}
         </h3>
         <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          RSA works — but its keys are enormous. A 2048-bit RSA key is required for basic security.
-          For the smartphones and embedded devices of the 1990s and 2000s, this was prohibitively
-          expensive in compute and battery. Elliptic Curve Cryptography solves this with elegant
-          geometry: operations on points along a mathematical curve defined as{" "}
-          <em style={{ color: era.color }}>y² = x³ + ax + b</em>.
+          {t("narrative1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          A 256-bit ECC key provides the same security as a 3072-bit RSA key. This dramatic efficiency
-          gain made ECC ideal for mobile devices, TLS certificates, and blockchain wallets.
-          When Satoshi Nakamoto designed Bitcoin in 2008, they chose ECC curve{" "}
-          <em style={{ color: era.color }}>secp256k1</em> for digital signatures — an unusual curve
-          with near-prime structure properties. Every Bitcoin transaction signed today uses ECC.
-          Like RSA, ECC is vulnerable to Shor&apos;s algorithm on quantum computers.
+          {t("narrative2")}
         </p>
       </motion.div>
 
@@ -90,7 +85,7 @@ export default function ECCStation({ era }: StationProps) {
         transition={{ duration: 0.55, delay: 0.1 }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          ECC vs RSA — Key Size for Equivalent Security
+          {t("keySizeComparison")}
         </h3>
         <div className="grid gap-3 sm:grid-cols-4 font-mono text-xs text-center">
           {[
@@ -113,7 +108,7 @@ export default function ECCStation({ era }: StationProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Key Figures
+            {tc("keyFigures")}
           </h3>
           <div className="flex flex-col gap-3">
             {KEY_FIGURES.map((fig, i) => (
@@ -136,7 +131,7 @@ export default function ECCStation({ era }: StationProps) {
 
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Timeline
+            {tc("timeline")}
           </h3>
           <div>
             {TIMELINE_EVENTS.map((event, i) => (
@@ -149,7 +144,7 @@ export default function ECCStation({ era }: StationProps) {
       {/* Interactive Demo + Attack */}
       <div>
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Interactive Demos
+          {tc("interactiveDemos")}
         </h3>
         <div className="grid gap-6 lg:grid-cols-2">
           <ECCDemo era={era} />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { desEncrypt, desDecrypt, type DESRound } from "@/lib/crypto/des";
@@ -11,6 +12,9 @@ interface Props {
 }
 
 export default function DESDemo({ era }: Props) {
+  const t = useTranslations("demos.des");
+  const tc = useTranslations("common");
+
   const [plaintext, setPlaintext] = useState("HELLO DES");
   const [key, setKey] = useState("SECRET01");
   const [mode, setMode] = useState<"encrypt" | "decrypt">("encrypt");
@@ -32,7 +36,7 @@ export default function DESDemo({ era }: Props) {
         setRounds([]);
       }
     } catch {
-      setError("Invalid input. For decrypt mode, paste the hex ciphertext.");
+      setError(t("invalidInput"));
     }
   };
 
@@ -40,9 +44,9 @@ export default function DESDemo({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Interactive Demo
+          {tc("interactiveDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">DES Feistel network — 16 rounds of encryption</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">
@@ -52,7 +56,7 @@ export default function DESDemo({ era }: Props) {
             data-testid={`des-${m}-btn`}
             onClick={() => { setMode(m); setOutput(""); setRounds([]); setError(""); }}
             aria-pressed={mode === m}
-            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
+            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -60,28 +64,28 @@ export default function DESDemo({ era }: Props) {
                 : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
             }
           >
-            {m}
+            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
           </button>
         ))}
       </div>
 
       <InteractiveInput
-        label={mode === "encrypt" ? "Plaintext" : "Hex Ciphertext"}
+        label={mode === "encrypt" ? t("plaintext") : t("hexCiphertext")}
         value={plaintext}
         onChange={(e) => { setPlaintext(e.target.value); setOutput(""); }}
-        placeholder={mode === "encrypt" ? "Enter text..." : "Paste hex output..."}
+        placeholder={mode === "encrypt" ? t("enterText") : t("pasteHex")}
         accentColor={era.color}
         data-testid="des-input"
       />
 
       <InteractiveInput
-        label="Key (8 chars)"
+        label={t("key8chars")}
         value={key}
         onChange={(e) => { setKey(e.target.value.slice(0, 8)); setOutput(""); }}
         placeholder="SECRET01"
         accentColor={era.color}
         maxLength={8}
-        helpText={`Key length: ${key.length}/8 characters`}
+        helpText={t("keyLength", { length: key.length })}
         data-testid="des-key"
       />
 
@@ -93,7 +97,7 @@ export default function DESDemo({ era }: Props) {
         className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
         style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
       >
-        {mode === "encrypt" ? "⚙ Encrypt with DES" : "⚙ Decrypt with DES"}
+        {mode === "encrypt" ? t("encryptWithDES") : t("decryptWithDES")}
       </button>
 
       {error && (
@@ -107,7 +111,7 @@ export default function DESDemo({ era }: Props) {
           className="flex flex-col gap-2"
         >
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-            {mode === "encrypt" ? "Ciphertext (hex)" : "Plaintext"}
+            {mode === "encrypt" ? t("ciphertextHex") : t("plaintext")}
           </label>
           <div className="code-display break-all text-sm tracking-wider" data-testid="des-output" style={{ color: era.color }} role="status" aria-live="polite">
             {output}
@@ -124,7 +128,7 @@ export default function DESDemo({ era }: Props) {
             className="font-mono text-xs tracking-widest uppercase transition-colors"
             style={{ color: era.color + "80" }}
           >
-            {showRounds ? "▾ Hide" : "▸ Show"} 16 Feistel Rounds
+            {showRounds ? t("hide") : t("show")} {t("feistelRounds")}
           </button>
           <AnimatePresence>
             {showRounds && (

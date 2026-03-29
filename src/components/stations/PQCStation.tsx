@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import PQCDemo from "@/components/demos/PQCDemo";
 import PQCAttack from "@/components/attacks/PQCAttack";
@@ -9,30 +10,7 @@ interface StationProps {
   era: Era;
 }
 
-const TIMELINE_EVENTS = [
-  { year: "1994", label: "Shor's algorithm", detail: "Peter Shor proves a quantum computer can factor large integers in polynomial time — RSA and ECC both threatened" },
-  { year: "2001", label: "First qubit demonstrations", detail: "IBM and other labs demonstrate small quantum circuits; the engineering challenge becomes clear" },
-  { year: "2016", label: "NIST PQC competition", detail: "NIST launches a global competition for quantum-resistant algorithms — 82 submissions from 25 countries" },
-  { year: "2022", label: "Finalists selected", detail: "CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium, FALCON, SPHINCS+ (signatures) selected for standardization" },
-  { year: "2024", label: "FIPS 203/204/205 published", detail: "NIST officially standardizes ML-KEM (Kyber), ML-DSA (Dilithium), and SLH-DSA — the post-quantum era begins" },
-  { year: "Now", label: "The migration begins", detail: "Governments, cloud providers, and browsers begin migrating infrastructure — a multi-year, global effort" },
-];
-
-const KEY_FIGURES = [
-  { name: "Peter Shor", role: "MIT Mathematician (1994)", note: "Shor's algorithm for quantum integer factorization — the mathematical sword hanging over RSA and ECC" },
-  { name: "Oded Regev", role: "NYU Mathematician (2005)", note: "Invented the Learning With Errors (LWE) problem — the mathematical foundation of Kyber and Dilithium" },
-  { name: "CRYSTALS Team", role: "IBM, CWI, Radboud, others", note: "Designed CRYSTALS-Kyber and Dilithium — now ML-KEM and ML-DSA, the world's first post-quantum standards" },
-];
-
-const THREAT_COMPARISON = [
-  { algo: "Caesar", threat: "Classical", icon: "⚔️", status: "broken", color: "#f87171" },
-  { algo: "DES", threat: "Classical", icon: "💻", status: "broken", color: "#f87171" },
-  { algo: "AES-256", threat: "Quantum (Grover)", icon: "⚛️", status: "weakened", color: "#f59e0b", note: "Halves key strength — AES-256 → AES-128 equivalent" },
-  { algo: "RSA/ECC", threat: "Quantum (Shor)", icon: "⚛️", status: "broken", color: "#ef4444", note: "Polynomial time factoring — both broken by Shor" },
-  { algo: "Kyber/Dilithium", threat: "Quantum", icon: "🔒", status: "safe", color: "#10b981", note: "Lattice problems resist both classical and quantum attacks" },
-];
-
-function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]; color: string; index: number }) {
+function TimelineRow({ event, color, index }: { event: { year: string; label: string; detail: string }; color: string; index: number }) {
   return (
     <motion.div
       className="flex items-start gap-3"
@@ -57,6 +35,32 @@ function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]
 }
 
 export default function PQCStation({ era }: StationProps) {
+  const t = useTranslations("stations.pqc");
+  const tc = useTranslations("common");
+
+  const TIMELINE_EVENTS = [
+    { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
+    { year: t("timelineEvents.1.year"), label: t("timelineEvents.1.label"), detail: t("timelineEvents.1.detail") },
+    { year: t("timelineEvents.2.year"), label: t("timelineEvents.2.label"), detail: t("timelineEvents.2.detail") },
+    { year: t("timelineEvents.3.year"), label: t("timelineEvents.3.label"), detail: t("timelineEvents.3.detail") },
+    { year: t("timelineEvents.4.year"), label: t("timelineEvents.4.label"), detail: t("timelineEvents.4.detail") },
+    { year: t("timelineEvents.5.year"), label: t("timelineEvents.5.label"), detail: t("timelineEvents.5.detail") },
+  ];
+
+  const KEY_FIGURES = [
+    { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
+    { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
+    { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
+  const THREAT_COMPARISON = [
+    { algo: "Caesar", threat: "Classical", icon: "\u2694\uFE0F", status: t("threatComparison.0.status"), color: "#f87171" },
+    { algo: "DES", threat: "Classical", icon: "\uD83D\uDCBB", status: t("threatComparison.1.status"), color: "#f87171" },
+    { algo: "AES-256", threat: "Quantum (Grover)", icon: "\u269B\uFE0F", status: t("threatComparison.2.status"), color: "#f59e0b", note: t("threatComparison.2.note") },
+    { algo: "RSA/ECC", threat: "Quantum (Shor)", icon: "\u269B\uFE0F", status: t("threatComparison.3.status"), color: "#ef4444", note: t("threatComparison.3.note") },
+    { algo: "Kyber/Dilithium", threat: "Quantum", icon: "\uD83D\uDD12", status: t("threatComparison.4.status"), color: "#10b981", note: t("threatComparison.4.note") },
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       {/* "We Are Here" banner */}
@@ -84,27 +88,17 @@ export default function PQCStation({ era }: StationProps) {
               transition={{ duration: 1.5, repeat: Infinity }}
             />
             <span className="font-mono text-xs uppercase tracking-widest font-bold" style={{ color: era.color }}>
-              You Are Here — 2024+
+              {t("youAreHere")}
             </span>
           </div>
           <h3 className="mb-3 text-lg font-bold" style={{ color: "var(--text-primary)" }}>
-            The Quantum Threat Is Real — and the Migration Has Begun
+            {t("quantumThreatTitle")}
           </h3>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            In 1994, Peter Shor proved that a large-enough quantum computer could break RSA and ECC
-            in polynomial time. For 30 years, this was theoretical. Now, IBM, Google, and others
-            have quantum computers with thousands of qubits — still not enough to break RSA-2048
-            today, but the trajectory is clear.{" "}
-            <em style={{ color: era.color }}>Cryptographically Relevant Quantum Computers (CRQCs)</em>{" "}
-            are estimated to arrive between 2030 and 2040.
+            {t("narrative1")}
           </p>
           <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            The danger isn&apos;t just future attacks — it&apos;s{" "}
-            <em style={{ color: era.color }}>harvest-now, decrypt-later</em>. Nation-state actors
-            are collecting encrypted traffic today, waiting for quantum computers powerful enough to
-            decrypt it. Sensitive data encrypted in 2024 could be read in 2035. NIST&apos;s response:
-            CRYSTALS-Kyber and CRYSTALS-Dilithium, standardized in 2024 as the first official
-            post-quantum algorithms. The race to migrate has begun.
+            {t("narrative2")}
           </p>
         </div>
       </motion.div>
@@ -119,7 +113,7 @@ export default function PQCStation({ era }: StationProps) {
         transition={{ duration: 0.55, delay: 0.1 }}
       >
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Quantum Threat Assessment — All Algorithms
+          {t("threatAssessment")}
         </h3>
         <div className="flex flex-col gap-2">
           {THREAT_COMPARISON.map((row, i) => (
@@ -153,7 +147,7 @@ export default function PQCStation({ era }: StationProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Key Figures
+            {tc("keyFigures")}
           </h3>
           <div className="flex flex-col gap-3">
             {KEY_FIGURES.map((fig, i) => (
@@ -176,7 +170,7 @@ export default function PQCStation({ era }: StationProps) {
 
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Timeline
+            {tc("timeline")}
           </h3>
           <div>
             {TIMELINE_EVENTS.map((event, i) => (
@@ -189,7 +183,7 @@ export default function PQCStation({ era }: StationProps) {
       {/* Interactive Demo + Attack */}
       <div>
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Interactive Demos
+          {tc("interactiveDemos")}
         </h3>
         <div className="grid gap-6 lg:grid-cols-2">
           <PQCDemo era={era} />

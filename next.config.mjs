@@ -1,5 +1,6 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
 import withSerwistInit from "@serwist/next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -75,4 +76,6 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default withBundleAnalyzer(withSerwist(nextConfig));
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
+
+export default withBundleAnalyzer(withSerwist(withNextIntl(nextConfig)));

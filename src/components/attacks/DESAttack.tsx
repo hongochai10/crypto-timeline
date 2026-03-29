@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { desBruteForceStats } from "@/lib/crypto/des";
 
@@ -9,14 +10,7 @@ interface Props {
   era: Era;
 }
 
-const TIMELINE = [
-  { year: "1977", event: "DES standardized — 56-bit key deemed secure", color: "#22c55e" },
-  { year: "1993", event: "Michael Wiener estimates $1M machine cracks in 3.5h", color: "#f59e0b" },
-  { year: "1997", event: "RSA DES Challenge cracked in 96 days by internet volunteers", color: "#f97316" },
-  { year: "1998", event: "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K", color: "#f87171" },
-  { year: "1999", event: "Deep Crack + distributed.net: 22 hours 15 minutes", color: "#f87171" },
-  { year: "2008", event: "COPACOBANA FPGA cluster: ~6 days, cost ~$10K", color: "#f87171" },
-];
+const TIMELINE_COLORS = ["#22c55e", "#f59e0b", "#f97316", "#f87171", "#f87171", "#f87171"];
 
 function formatDuration(ms: number): string {
   const seconds = ms / 1000;
@@ -31,6 +25,8 @@ function formatDuration(ms: number): string {
 }
 
 export default function DESAttack({ era }: Props) {
+  const t = useTranslations("attacks.des");
+  const tc = useTranslations("common");
   const stats = desBruteForceStats();
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -81,22 +77,22 @@ export default function DESAttack({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase text-red-400">
-          Attack Demo
+          {tc("attackDemo")}
         </h3>
-        <p className="text-sm" style={{ color: era.color + "cc" }}>Brute force — 2⁵⁶ keyspace visualization</p>
+        <p className="text-sm" style={{ color: era.color + "cc" }}>{t("subtitle")}</p>
       </div>
 
       {/* Keyspace stats */}
       <div className="grid grid-cols-2 gap-3">
         <div className="rounded-lg border p-3" style={{ borderColor: "#ef444430", backgroundColor: "#ef444408" }}>
-          <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-1">Key Size</p>
+          <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-1">{t("keySize")}</p>
           <p className="font-mono text-xl font-bold text-red-400">56-bit</p>
           <p className="font-mono text-[10px] text-[var(--text-muted)]">2⁵⁶ ≈ 7.2 × 10¹⁶</p>
         </div>
         <div className="rounded-lg border p-3" style={{ borderColor: "#ef444430", backgroundColor: "#ef444408" }}>
-          <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-1">Modern FPGA</p>
-          <p className="font-mono text-xl font-bold text-red-400">~6 days</p>
-          <p className="font-mono text-[10px] text-[var(--text-muted)]">1B keys/sec/chip</p>
+          <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-1">{t("modernFPGA")}</p>
+          <p className="font-mono text-xl font-bold text-red-400">{t("about6days")}</p>
+          <p className="font-mono text-[10px] text-[var(--text-muted)]">{t("keysPerSec")}</p>
         </div>
       </div>
 
@@ -104,7 +100,7 @@ export default function DESAttack({ era }: Props) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
-            Keyspace scanned
+            {t("keyspaceScanned")}
           </label>
           <span className="font-mono text-xs text-red-400">{progress.toFixed(1)}%</span>
         </div>
@@ -128,7 +124,7 @@ export default function DESAttack({ era }: Props) {
           className="flex-1 rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
         >
-          {isRunning ? "Brute-forcing…" : "⚡ Simulate Brute Force"}
+          {isRunning ? t("bruteForcing") : t("simulateBruteForce")}
         </button>
         {(cracked || progress > 0) && (
           <button
@@ -136,7 +132,7 @@ export default function DESAttack({ era }: Props) {
             className="rounded-lg px-4 py-3 font-mono text-xs tracking-widest uppercase transition-all"
             style={{ color: "var(--text-muted)", border: "1px solid var(--border-default)" }}
           >
-            Reset
+            {t("reset")}
           </button>
         )}
       </div>
@@ -147,22 +143,22 @@ export default function DESAttack({ era }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-lg border border-red-500/30 bg-red-500/10 p-3"
         >
-          <p className="font-mono text-xs text-red-400 uppercase tracking-widest mb-1">Key Found at {progress.toFixed(1)}% of keyspace</p>
+          <p className="font-mono text-xs text-red-400 uppercase tracking-widest mb-1">{t("keyFound", { percent: progress.toFixed(1) })}</p>
           <p className="font-mono text-xs text-[var(--text-secondary)]">
-            Estimated real time on FPGA cluster: {formatDuration((progress / 100) * stats.estimatedTotalMs)}
+            {t("estimatedTime", { duration: formatDuration((progress / 100) * stats.estimatedTotalMs) })}
           </p>
         </motion.div>
       )}
 
       {/* Historical timeline */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Breaking DES — Historical Timeline</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("breakingTimeline")}</p>
         <div className="space-y-2">
-          {TIMELINE.map((item) => (
-            <div key={item.year} className="flex items-start gap-3">
-              <span className="font-mono text-[10px] shrink-0 w-8 pt-0.5" style={{ color: item.color }}>{item.year}</span>
-              <div className="w-px self-stretch mt-1 shrink-0" style={{ backgroundColor: item.color + "40" }} />
-              <p className="font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{item.event}</p>
+          {TIMELINE_COLORS.map((color, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <span className="font-mono text-[10px] shrink-0 w-8 pt-0.5" style={{ color }}>{t(`timelineItems.${i}.year`)}</span>
+              <div className="w-px self-stretch mt-1 shrink-0" style={{ backgroundColor: color + "40" }} />
+              <p className="font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{t(`timelineItems.${i}.event`)}</p>
             </div>
           ))}
         </div>

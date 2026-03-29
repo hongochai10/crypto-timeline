@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ERAS } from "@/lib/constants";
 import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
@@ -13,6 +14,7 @@ import RSAStation from "./stations/RSAStation";
 import ECCStation from "./stations/ECCStation";
 import PQCStation from "./stations/PQCStation";
 import ErrorBoundary from "./ui/ErrorBoundary";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const STATION_COMPONENTS = {
   caesar: CaesarStation,
@@ -72,6 +74,10 @@ export default function Timeline() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const t = useTranslations("hero");
+  const tc = useTranslations("common");
+  const tf = useTranslations("footer");
+  const te = useTranslations("eras");
 
   return (
     <MotionConfig reducedMotion="user">
@@ -79,9 +85,12 @@ export default function Timeline() {
       {/* Fixed scroll progress indicator */}
       <ScrollProgress />
 
+      {/* Language switcher */}
+      <LanguageSwitcher />
+
       {/* Skip to content link — accessibility */}
       <a href="#timeline-start" className="skip-link">
-        Skip to timeline
+        {tc("skipToTimeline")}
       </a>
 
       {/* ── Hero Section ──────────────────────────────────────── */}
@@ -89,7 +98,7 @@ export default function Timeline() {
         ref={heroRef}
         className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
         style={{ backgroundColor: "#080b14" }}
-        aria-label="Crypto Timeline Introduction"
+        aria-label={t("introAriaLabel")}
       >
         <StarField />
 
@@ -114,7 +123,7 @@ export default function Timeline() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            TechBi Labs · Interactive Exhibit
+            {t("label")}
           </motion.p>
 
           {/* Main headline */}
@@ -125,7 +134,7 @@ export default function Timeline() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            Crypto
+            {t("title1")}
             <span
               className="block"
               style={{
@@ -135,7 +144,7 @@ export default function Timeline() {
                 backgroundClip: "text",
               }}
             >
-              Timeline
+              {t("title2")}
             </span>
           </motion.h1>
 
@@ -156,14 +165,13 @@ export default function Timeline() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.45 }}
           >
-            A journey through 2,000 years of secret writing — from Julius Caesar&apos;s shift cipher
-            to lattice-based post-quantum cryptography. Scroll to explore each era.
+            {t("subtitle")}
           </motion.p>
 
           {/* Era dot navigation */}
           <motion.nav
             className="flex items-center gap-3"
-            aria-label="Jump to era"
+            aria-label={tc("jumpToEra")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -172,7 +180,7 @@ export default function Timeline() {
               <a
                 key={era.id}
                 href={`#${era.id}`}
-                aria-label={`Jump to ${era.name}`}
+                aria-label={tc("jumpTo", { name: te(`${era.id}.name`) })}
                 className="group flex flex-col items-center gap-1.5"
               >
                 <div
@@ -181,7 +189,7 @@ export default function Timeline() {
                 />
                 <span className="font-mono text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-70 transition-opacity"
                   style={{ color: era.color }}>
-                  {era.year}
+                  {te(`${era.id}.year`)}
                 </span>
               </a>
             ))}
@@ -196,7 +204,7 @@ export default function Timeline() {
             aria-hidden
           >
             <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: "var(--text-muted)" }}>
-              Scroll to explore
+              {tc("scrollToExplore")}
             </span>
             <motion.div
               className="h-10 w-px rounded-full"
@@ -216,7 +224,7 @@ export default function Timeline() {
         return (
           <div key={era.id}>
             <Station era={era} index={index}>
-              <ErrorBoundary stationName={era.name} accentColor={era.color}>
+              <ErrorBoundary stationName={te(`${era.id}.name`)} accentColor={era.color}>
                 <StationContent era={era} />
               </ErrorBoundary>
             </Station>
@@ -237,13 +245,13 @@ export default function Timeline() {
           style={{ background: "linear-gradient(90deg, transparent, #22d3ee, transparent)" }}
         />
         <p className="font-mono text-xs uppercase tracking-[0.3em]" style={{ color: "var(--text-muted)" }}>
-          End of Timeline
+          {tf("endOfTimeline")}
         </p>
         <p className="max-w-md text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          The story continues — quantum computing evolves every day. The race to migrate begins now.
+          {tf("continueStory")}
         </p>
         <p className="font-mono text-xs" style={{ color: "var(--text-muted)" }}>
-          TechBi Labs · {new Date().getFullYear()}
+          {tf("copyright", { year: new Date().getFullYear() })}
         </p>
       </footer>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import AESDemo from "@/components/demos/AESDemo";
 import AESAttack from "@/components/attacks/AESAttack";
@@ -9,22 +10,7 @@ interface StationProps {
   era: Era;
 }
 
-const TIMELINE_EVENTS = [
-  { year: "1997", label: "NIST competition announced", detail: "15 submissions from teams worldwide; requirements: 128-bit block, variable key (128/192/256-bit)" },
-  { year: "1998", label: "Round 1 — 15 candidates", detail: "Rijndael, Serpent, Twofish, RC6, and MARS emerge as frontrunners" },
-  { year: "1999", label: "Round 2 — 5 finalists", detail: "Extensive public cryptanalysis; Rijndael praised for elegant math and implementation efficiency" },
-  { year: "2000", label: "Rijndael wins", detail: "NIST selects Rijndael by Joan Daemen & Vincent Rijmen (Belgium) as the new AES standard" },
-  { year: "2001", label: "FIPS 197 published", detail: "AES officially adopted as US federal standard, replacing DES in all government use" },
-  { year: "Today", label: "Universally deployed", detail: "AES encrypts Wi-Fi (WPA2/3), HTTPS, disk encryption, messaging apps, and classified US communications" },
-];
-
-const KEY_FIGURES = [
-  { name: "Joan Daemen & Vincent Rijmen", role: "Belgian Cryptographers", note: "Designed Rijndael, selected as AES. Daemen also co-designed SHA-3 (Keccak) later" },
-  { name: "Bruce Schneier", role: "Twofish co-designer", note: "Submitted Twofish as AES candidate; became one of the most respected cryptography voices after the competition" },
-  { name: "NIST team", role: "National Institute of Standards & Technology", note: "Ran an unprecedented open, global competition — credited as the gold standard for algorithm standardization" },
-];
-
-function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]; color: string; index: number }) {
+function TimelineRow({ event, color, index }: { event: { year: string; label: string; detail: string }; color: string; index: number }) {
   return (
     <motion.div
       className="flex items-start gap-3"
@@ -49,6 +35,24 @@ function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]
 }
 
 export default function AESStation({ era }: StationProps) {
+  const t = useTranslations("stations.aes");
+  const tc = useTranslations("common");
+
+  const TIMELINE_EVENTS = [
+    { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
+    { year: t("timelineEvents.1.year"), label: t("timelineEvents.1.label"), detail: t("timelineEvents.1.detail") },
+    { year: t("timelineEvents.2.year"), label: t("timelineEvents.2.label"), detail: t("timelineEvents.2.detail") },
+    { year: t("timelineEvents.3.year"), label: t("timelineEvents.3.label"), detail: t("timelineEvents.3.detail") },
+    { year: t("timelineEvents.4.year"), label: t("timelineEvents.4.label"), detail: t("timelineEvents.4.detail") },
+    { year: t("timelineEvents.5.year"), label: t("timelineEvents.5.label"), detail: t("timelineEvents.5.detail") },
+  ];
+
+  const KEY_FIGURES = [
+    { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
+    { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
+    { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       {/* Historical Narrative */}
@@ -61,21 +65,13 @@ export default function AESStation({ era }: StationProps) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Historical Narrative
+          {tc("historicalNarrative")}
         </h3>
         <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          After Deep Crack shattered DES, NIST did something unprecedented in cryptography: they
-          held an open global competition. Any team, anywhere in the world, could submit an algorithm.
-          15 candidates were submitted and subjected to years of public cryptanalysis by the world&apos;s
-          best cryptographers. Transparency replaced secrecy.
+          {t("narrative1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          Two Belgian cryptographers — Joan Daemen and Vincent Rijmen — submitted{" "}
-          <em style={{ color: era.color }}>Rijndael</em>, an elegant design based on finite field
-          mathematics. It was fast in hardware, fast in software, and resisted every known attack.
-          AES-256 has a keyspace of 2²⁵⁶ — more combinations than atoms in the observable universe.
-          No practical attack exists to this day. It encrypts everything from your Wi-Fi to
-          classified US government communications.
+          {t("narrative2")}
         </p>
       </motion.div>
 
@@ -89,13 +85,13 @@ export default function AESStation({ era }: StationProps) {
         transition={{ duration: 0.55, delay: 0.1 }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Why AES Is Unbreakable (Practically)
+          {t("whyUnbreakable")}
         </h3>
         <div className="grid gap-4 sm:grid-cols-3 font-mono text-center">
           {[
-            { label: "DES keys", value: "2⁵⁶", sub: "~7.2 × 10¹⁶", note: "Cracked in 22 hrs", warn: true },
-            { label: "AES-128 keys", value: "2¹²⁸", sub: "~3.4 × 10³⁸", note: "Heat death of universe" },
-            { label: "AES-256 keys", value: "2²⁵⁶", sub: "~1.2 × 10⁷⁷", note: "More than atoms in universe" },
+            { label: t("keyspaceItems.desKeys.label"), value: "2⁵⁶", sub: "~7.2 × 10¹⁶", note: t("keyspaceItems.desKeys.note"), warn: true },
+            { label: t("keyspaceItems.aes128Keys.label"), value: "2¹²⁸", sub: "~3.4 × 10³⁸", note: t("keyspaceItems.aes128Keys.note") },
+            { label: t("keyspaceItems.aes256Keys.label"), value: "2²⁵⁶", sub: "~1.2 × 10⁷⁷", note: t("keyspaceItems.aes256Keys.note") },
           ].map((item) => (
             <div
               key={item.label}
@@ -118,7 +114,7 @@ export default function AESStation({ era }: StationProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Key Figures
+            {tc("keyFigures")}
           </h3>
           <div className="flex flex-col gap-3">
             {KEY_FIGURES.map((fig, i) => (
@@ -141,7 +137,7 @@ export default function AESStation({ era }: StationProps) {
 
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Timeline
+            {tc("timeline")}
           </h3>
           <div>
             {TIMELINE_EVENTS.map((event, i) => (
@@ -154,7 +150,7 @@ export default function AESStation({ era }: StationProps) {
       {/* Interactive Demo + Attack */}
       <div>
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Interactive Demos
+          {tc("interactiveDemos")}
         </h3>
         <div className="grid gap-6 lg:grid-cols-2">
           <AESDemo era={era} />

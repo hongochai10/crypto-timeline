@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { rsaFactorDemo, rsaSecurityInfo } from "@/lib/crypto/rsa";
 
@@ -17,6 +18,8 @@ const TOY_EXAMPLES = [
 ];
 
 export default function RSAAttack({ era }: Props) {
+  const t = useTranslations("attacks.rsa");
+  const tc = useTranslations("common");
   const securityInfo = rsaSecurityInfo();
   const [selectedExample, setSelectedExample] = useState(TOY_EXAMPLES[0]);
   const [isRunning, setIsRunning] = useState(false);
@@ -42,23 +45,22 @@ export default function RSAAttack({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase text-red-400">
-          Attack Demo
+          {tc("attackDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">Integer factoring — the hard problem RSA relies on</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       {/* Concept explanation */}
       <div className="rounded-lg border px-4 py-3" style={{ borderColor: "#ef444430", backgroundColor: "#ef444408" }}>
-        <p className="font-mono text-[10px] uppercase tracking-widest text-red-400 mb-2">The RSA Hard Problem</p>
+        <p className="font-mono text-[10px] uppercase tracking-widest text-red-400 mb-2">{t("hardProblem")}</p>
         <p className="font-mono text-xs text-[var(--text-muted)] leading-relaxed">
-          Given n = p × q (a product of two large primes), find p and q.<br />
-          Easy to multiply: microseconds. Hard to factor: billions of years for 2048-bit n.
+          {t("hardProblemDesc")}
         </p>
       </div>
 
       {/* Toy factoring demo */}
       <div>
-        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">Toy RSA Factoring Demo</p>
+        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("toyFactoring")}</p>
         <div className="flex gap-2 mb-3 flex-wrap">
           {TOY_EXAMPLES.map((ex) => (
             <button
@@ -77,10 +79,10 @@ export default function RSAAttack({ era }: Props) {
         </div>
 
         <div className="rounded-lg border px-4 py-3 font-mono text-sm mb-3" style={{ borderColor: "#ef444430", backgroundColor: "#ef444408" }}>
-          <span className="text-[var(--text-muted)]">Factor </span>
+          <span className="text-[var(--text-muted)]">{t("factor")} </span>
           <span className="text-red-400 font-bold">n = {selectedExample.n}</span>
           {animStep > -1 && !result && (
-            <span className="text-[var(--text-muted)] text-xs"> — trying {animStep}…</span>
+            <span className="text-[var(--text-muted)] text-xs"> — {t("trying", { step: animStep })}</span>
           )}
         </div>
 
@@ -90,7 +92,7 @@ export default function RSAAttack({ era }: Props) {
           className="w-full rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(248,113,113,0.5)" }}
         >
-          {isRunning ? `Trying divisor ${animStep}…` : "⚡ Run Trial Division Attack"}
+          {isRunning ? t("tryingDivisor", { step: animStep }) : t("runTrialDivision")}
         </button>
 
         <AnimatePresence>
@@ -101,15 +103,15 @@ export default function RSAAttack({ era }: Props) {
               exit={{ opacity: 0 }}
               className="mt-3 rounded-lg border border-red-500/30 bg-red-500/10 p-4"
             >
-              <p className="font-mono text-xs text-red-400 uppercase tracking-widest mb-2">Factored!</p>
+              <p className="font-mono text-xs text-red-400 uppercase tracking-widest mb-2">{t("factored")}</p>
               <div className="font-mono text-sm space-y-1">
                 <p><span className="text-[var(--text-muted)]">n = </span><span className="text-red-400">{result.n}</span></p>
                 <p><span className="text-[var(--text-muted)]">p = </span><span style={{ color: era.color }}>{result.p}</span></p>
                 <p><span className="text-[var(--text-muted)]">q = </span><span style={{ color: era.color }}>{result.q}</span></p>
-                <p><span className="text-[var(--text-muted)]">Steps: </span><span className="text-[var(--text-primary)]">{result.steps} divisions</span></p>
+                <p><span className="text-[var(--text-muted)]">{t("steps")} </span><span className="text-[var(--text-primary)]">{t("divisions", { count: result.steps })}</span></p>
               </div>
               <p className="mt-2 font-mono text-[10px] text-red-400">
-                Toy RSA cracked in {result.steps} steps. Real RSA-2048 would require ~10²⁰ steps.
+                {t("toyCracked", { steps: result.steps })}
               </p>
             </motion.div>
           )}
@@ -118,7 +120,7 @@ export default function RSAAttack({ era }: Props) {
 
       {/* Security levels table */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">RSA key size security</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("keySizeSecurity")}</p>
         <div className="space-y-2">
           {securityInfo.sizes.map((sz) => (
             <div

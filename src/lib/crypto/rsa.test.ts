@@ -5,6 +5,8 @@
 import { describe, test, expect } from "vitest";
 import {
   rsaGenerateKeyPair,
+  rsaImportPublicKey,
+  rsaImportPrivateKey,
   rsaEncrypt,
   rsaDecrypt,
   rsaFactorDemo,
@@ -35,6 +37,34 @@ describe("rsaGenerateKeyPair", () => {
   test("generates different key pairs on each call", async () => {
     const [kp1, kp2] = await Promise.all([rsaGenerateKeyPair(), rsaGenerateKeyPair()]);
     expect(kp1.publicKeyBase64).not.toBe(kp2.publicKeyBase64);
+  }, 20000);
+});
+
+describe("rsaImportPublicKey", () => {
+  test("imports a valid SPKI-encoded public key and can encrypt with it", async () => {
+    const kp = await rsaGenerateKeyPair();
+    const importedKey = await rsaImportPublicKey(kp.publicKeyBase64);
+    expect(importedKey).toBeInstanceOf(CryptoKey);
+    expect(importedKey.type).toBe("public");
+    expect(importedKey.algorithm).toMatchObject({ name: "RSA-OAEP" });
+    // Verify the imported key can encrypt
+    const encrypted = await rsaEncrypt("test import", importedKey);
+    const decrypted = await rsaDecrypt(encrypted.ciphertext, kp.privateKey);
+    expect(decrypted.plaintext).toBe("test import");
+  }, 20000);
+});
+
+describe("rsaImportPrivateKey", () => {
+  test("imports a valid PKCS8-encoded private key and can decrypt with it", async () => {
+    const kp = await rsaGenerateKeyPair();
+    const importedKey = await rsaImportPrivateKey(kp.privateKeyBase64);
+    expect(importedKey).toBeInstanceOf(CryptoKey);
+    expect(importedKey.type).toBe("private");
+    expect(importedKey.algorithm).toMatchObject({ name: "RSA-OAEP" });
+    // Verify the imported key can decrypt
+    const encrypted = await rsaEncrypt("test import private", kp.publicKey);
+    const decrypted = await rsaDecrypt(encrypted.ciphertext, importedKey);
+    expect(decrypted.plaintext).toBe("test import private");
   }, 20000);
 });
 
@@ -107,6 +137,14 @@ describe("rsaFactorDemo", () => {
   test("steps is a positive integer", () => {
     const result = rsaFactorDemo(35);
     expect(typeof result.steps).toBe("number");
+    expect(result.steps).toBeGreaterThan(0);
+  });
+
+  test("returns fallback for prime number input (not a valid RSA modulus)", () => {
+    const result = rsaFactorDemo(13);
+    expect(result.n).toBe(13);
+    expect(result.p).toBe(1);
+    expect(result.q).toBe(13);
     expect(result.steps).toBeGreaterThan(0);
   });
 });

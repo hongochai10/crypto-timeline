@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { aesKeyFromPassphrase, aesEncrypt, aesDecrypt, type AESKey } from "@/lib/crypto/aes";
@@ -12,6 +13,9 @@ interface Props {
 }
 
 export default function AESDemo({ era }: Props) {
+  const t = useTranslations("demos.aes");
+  const tc = useTranslations("common");
+
   const [passphrase, setPassphrase] = useState("my-secret-key");
   const [plaintext, setPlaintext] = useState("Hello, AES-256!");
   const [ciphertext, setCiphertext] = useState("");
@@ -58,8 +62,8 @@ export default function AESDemo({ era }: Props) {
   if (!isWebCryptoAvailable()) {
     return (
       <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
-        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">Web Crypto API Unavailable</p>
-        <p className="text-sm text-[var(--text-secondary)]">This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).</p>
+        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">{tc("webCryptoUnavailable")}</p>
+        <p className="text-sm text-[var(--text-secondary)]">{tc("webCryptoMessage")}</p>
       </div>
     );
   }
@@ -68,9 +72,9 @@ export default function AESDemo({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Interactive Demo
+          {tc("interactiveDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">AES-256-GCM — authenticated encryption via Web Crypto</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       <div className="flex gap-2" role="group" aria-label="Encryption mode">
@@ -80,7 +84,7 @@ export default function AESDemo({ era }: Props) {
             data-testid={`aes-${m}-btn`}
             onClick={() => { setMode(m); setStatus("idle"); }}
             aria-pressed={mode === m}
-            aria-label={`${m === "encrypt" ? "Encrypt" : "Decrypt"} mode`}
+            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
             className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
             style={
               mode === m
@@ -88,13 +92,13 @@ export default function AESDemo({ era }: Props) {
                 : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
             }
           >
-            {m}
+            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
           </button>
         ))}
       </div>
 
       <InteractiveInput
-        label="Passphrase"
+        label={t("passphrase")}
         value={passphrase}
         onChange={(e) => { setPassphrase(e.target.value); setCiphertext(""); setDecrypted(""); setActiveKey(null); setStatus("idle"); }}
         placeholder="my-secret-key"
@@ -106,10 +110,10 @@ export default function AESDemo({ era }: Props) {
       {mode === "encrypt" ? (
         <>
           <InteractiveInput
-            label="Plaintext"
+            label={t("plaintext")}
             value={plaintext}
             onChange={(e) => { setPlaintext(e.target.value); setCiphertext(""); setStatus("idle"); }}
-            placeholder="Enter message to encrypt..."
+            placeholder={t("enterMessage")}
             accentColor={era.color}
             data-testid="aes-plaintext"
           />
@@ -121,7 +125,7 @@ export default function AESDemo({ era }: Props) {
             className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
-            {status === "loading" ? "Encrypting…" : "⚙ Encrypt with AES-256"}
+            {status === "loading" ? tc("encrypting") : t("encryptWithAES")}
           </button>
         </>
       ) : (
@@ -133,7 +137,7 @@ export default function AESDemo({ era }: Props) {
           className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
-          {status === "loading" ? "Decrypting…" : !activeKey ? "Encrypt first to get a key" : "⚙ Decrypt"}
+          {status === "loading" ? tc("decrypting") : !activeKey ? t("encryptFirst") : t("decryptBtn")}
         </button>
       )}
 
@@ -144,16 +148,16 @@ export default function AESDemo({ era }: Props) {
           className="rounded-lg border p-3 font-mono text-xs space-y-1"
           style={{ borderColor: era.color + "30", backgroundColor: era.color + "08" }}
         >
-          <p className="text-[var(--text-muted)] uppercase tracking-widest mb-1">Derived Key (PBKDF2 + SHA-256)</p>
+          <p className="text-[var(--text-muted)] uppercase tracking-widest mb-1">{t("derivedKey")}</p>
           <p style={{ color: era.color }}>Key: {keyInfo.base64}</p>
           <p style={{ color: era.color }}>Salt: {keyInfo.salt}</p>
-          <p className="text-[var(--text-muted)]">100,000 iterations · AES-256-GCM</p>
+          <p className="text-[var(--text-muted)]">{t("iterations")}</p>
         </motion.div>
       )}
 
       {ciphertext && (
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-2">
-          <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">Ciphertext (base64)</label>
+          <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">{t("ciphertextBase64")}</label>
           <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }} role="status" aria-live="polite">
             {ciphertext.slice(0, 80)}…
           </div>
@@ -166,7 +170,7 @@ export default function AESDemo({ era }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-lg border border-green-500/30 bg-green-500/10 p-3"
         >
-          <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Decrypted</p>
+          <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">{tc("decrypted")}</p>
           <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted" role="status" aria-live="polite">{decrypted}</p>
         </motion.div>
       )}

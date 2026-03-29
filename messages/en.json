@@ -1,0 +1,443 @@
+{
+  "common": {
+    "historicalNarrative": "Historical Narrative",
+    "keyFigures": "Key Figures",
+    "timeline": "Timeline",
+    "interactiveDemos": "Interactive Demos",
+    "interactiveDemo": "Interactive Demo",
+    "attackDemo": "Attack Demo",
+    "encrypt": "encrypt",
+    "decrypt": "decrypt",
+    "encryptMode": "Encrypt mode",
+    "decryptMode": "Decrypt mode",
+    "encrypting": "Encrypting…",
+    "decrypting": "Decrypting…",
+    "generating": "Generating…",
+    "signing": "Signing…",
+    "verifying": "Verifying…",
+    "ready": "✓ Ready",
+    "decrypted": "Decrypted",
+    "webCryptoUnavailable": "Web Crypto API Unavailable",
+    "webCryptoMessage": "This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).",
+    "skipToTimeline": "Skip to timeline",
+    "skipToStation": "Skip to {name} →",
+    "jumpToEra": "Jump to era",
+    "jumpTo": "Jump to {name}",
+    "scrollToExplore": "Scroll to explore",
+    "endOfTimeline": "End of Timeline",
+    "security": "Security"
+  },
+  "hero": {
+    "label": "TechBi Labs · Interactive Exhibit",
+    "title1": "Crypto",
+    "title2": "Timeline",
+    "subtitle": "A journey through 2,000 years of secret writing — from Julius Caesar's shift cipher to lattice-based post-quantum cryptography. Scroll to explore each era.",
+    "introAriaLabel": "Crypto Timeline Introduction"
+  },
+  "footer": {
+    "endOfTimeline": "End of Timeline",
+    "continueStory": "The story continues — quantum computing evolves every day. The race to migrate begins now.",
+    "copyright": "TechBi Labs · {year}"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "vi": "Tiếng Việt"
+  },
+  "eras": {
+    "caesar": {
+      "name": "Caesar Cipher",
+      "year": "50 BC",
+      "subtitle": "The Birth of Secret Writing",
+      "description": "Julius Caesar communicated with his generals using a simple shift cipher — each letter replaced by one three positions ahead in the alphabet. Revolutionary for its time, trivial by modern standards.",
+      "keyFact": "Key space: only 25 possible keys — a child can brute-force it today"
+    },
+    "des": {
+      "name": "DES",
+      "year": "1977",
+      "subtitle": "The Government Standard",
+      "description": "The Data Encryption Standard was adopted by NIST and used by banks worldwide. With a 56-bit key, it seemed unbreakable — until the EFF's Deep Crack machine cracked it in 22 hours.",
+      "keyFact": "56-bit key = 2⁵⁶ possibilities — cracked in 22 hours in 1998"
+    },
+    "aes": {
+      "name": "AES",
+      "year": "2001",
+      "subtitle": "The Unbreakable Standard",
+      "description": "The Advanced Encryption Standard (Rijndael) won a global competition. AES-256 has a keyspace larger than the number of atoms in the observable universe. No practical attack exists.",
+      "keyFact": "2²⁵⁶ keys — more than atoms in the observable universe"
+    },
+    "rsa": {
+      "name": "RSA",
+      "year": "1977",
+      "subtitle": "The Public Key Revolution",
+      "description": "Rivest, Shamir and Adleman solved the key distribution problem. RSA lets strangers share secrets over an open channel — the foundation of HTTPS and modern internet security.",
+      "keyFact": "Security relies on the hardness of integer factorization — vulnerable to Shor's algorithm"
+    },
+    "ecc": {
+      "name": "ECC",
+      "year": "1985",
+      "subtitle": "Elliptic Curves and the Mobile Era",
+      "description": "Elliptic Curve Cryptography achieves the same security as RSA with much smaller keys — crucial for mobile devices, TLS, and Bitcoin's digital signatures.",
+      "keyFact": "256-bit ECC ≈ 3072-bit RSA in security — also vulnerable to quantum computers"
+    },
+    "pqc": {
+      "name": "Post-Quantum",
+      "year": "2024+",
+      "subtitle": "We Are Here — Preparing for Q-Day",
+      "description": "NIST standardized CRYSTALS-Kyber and CRYSTALS-Dilithium in 2024. These lattice-based algorithms resist attacks from quantum computers. The race to migrate begins now.",
+      "keyFact": "Lattice problems: even Shor's algorithm cannot break them efficiently"
+    },
+    "statusLabels": {
+      "broken": "Broken",
+      "weakened": "Weakened",
+      "secure": "Secure",
+      "quantum-threatened": "Quantum Threatened",
+      "quantum-safe": "Quantum Safe"
+    }
+  },
+  "stations": {
+    "caesar": {
+      "narrative1": "In 58 BC, Julius Caesar needed to coordinate troop movements across hundreds of miles without his messages falling into enemy hands. His solution was elegant: shift every letter of the alphabet by 3 positions. <em>ATTACK AT DAWN</em> became <em2>DWWDFN DW GDZQ</em2>. Enemies who intercepted the message saw only gibberish — unless they knew the key.",
+      "narrative2": "For nearly a century this worked. But in the 9th century, the Arab polymath Al-Kindi discovered that letters appear with predictable frequency in any language. In English, 'E' appears ~12.7% of the time. If the most common letter in the ciphertext is 'H', the shift is almost certainly 3. The cipher was broken — permanently.",
+      "timelineEvents": {
+        "0": { "year": "58 BC", "label": "Gallic Wars begin", "detail": "Caesar uses shift cipher to coordinate troop movements across vast distances" },
+        "1": { "year": "50 BC", "label": "Cipher documented", "detail": "Shift-3 becomes the standard for all Roman military dispatches and personal correspondence" },
+        "2": { "year": "60 AD", "label": "Suetonius records it", "detail": "Roman biographer documents the cipher in The Twelve Caesars — our earliest written record" },
+        "3": { "year": "9th c.", "label": "Al-Kindi breaks it", "detail": "Arab polymath invents frequency analysis, rendering all simple substitution ciphers obsolete" },
+        "4": { "year": "Today", "label": "ROT13 lives on", "detail": "Modern variant ROT13 (shift 13) still used in online forums and programming to lightly obscure text" }
+      },
+      "keyFigures": {
+        "0": { "name": "Julius Caesar", "role": "Roman General & Dictator", "note": "Used shift-3 for military dispatches and personal letters to Cicero" },
+        "1": { "name": "Al-Kindi", "role": "Arab Polymath (801–873 AD)", "note": "Invented frequency analysis — the technique that permanently breaks all Caesar-family ciphers" },
+        "2": { "name": "Suetonius", "role": "Roman Biographer (69–122 AD)", "note": "Documented the cipher in writing, providing the earliest historical record we have" }
+      }
+    },
+    "des": {
+      "narrative1": "In 1973, the US government had no unified encryption standard. Banks, agencies, and contractors each invented their own — a fragmented mess. The National Bureau of Standards (now NIST) issued an open call. IBM answered with <em>Lucifer</em>, a 64-bit block cipher born from internal research. NSA quietly intervened — trimming the key to 56 bits and adjusting the S-boxes. Cryptographers cried foul. Had the NSA weakened it intentionally?",
+      "narrative2": "For 20 years DES encrypted everything from ATM transactions to classified communications. Then in 1998, the EFF built <em2>Deep Crack</em2> — a $250,000 machine with 1,856 custom chips — and cracked a DES key in just 22 hours. A cipher trusted by millions had fallen. With only 2⁵⁶ (~72 quadrillion) possible keys, brute force had become feasible.",
+      "timelineEvents": {
+        "0": { "year": "1973", "label": "NBS issues a call", "detail": "National Bureau of Standards asks for a national encryption standard — IBM submits Lucifer" },
+        "1": { "year": "1975", "label": "NSA trims the key", "detail": "NSA reduces Lucifer's 64-bit key to 56 bits — sparking decades of controversy over backdoor fears" },
+        "2": { "year": "1977", "label": "DES adopted", "detail": "FIPS 46 makes DES the official US government and banking encryption standard" },
+        "3": { "year": "1998", "label": "Deep Crack breaks it", "detail": "EFF's $250,000 machine cracks a DES key in 22 hours, proving 56-bit keys are insufficient" },
+        "4": { "year": "1999", "label": "DES officially deprecated", "detail": "Triple-DES (3DES) recommended as stopgap; AES competition already underway" },
+        "5": { "year": "2001", "label": "Replaced by AES", "detail": "AES officially supersedes DES as the federal encryption standard" }
+      },
+      "keyFigures": {
+        "0": { "name": "Walter Tuchman & Carl Meyer", "role": "IBM Engineers", "note": "Designed Lucifer (DES predecessor) — the algorithm that became DES after NSA modifications" },
+        "1": { "name": "Whitfield Diffie", "role": "Cryptographer", "note": "Publicly criticized the 56-bit key size in 1977, predicting it would eventually be brute-forced" },
+        "2": { "name": "EFF Deep Crack Team", "role": "Electronic Frontier Foundation", "note": "Built a $250,000 FPGA-based cracker in 1998 that exhausted the key space in 22 hours" }
+      }
+    },
+    "aes": {
+      "narrative1": "After Deep Crack shattered DES, NIST did something unprecedented in cryptography: they held an open global competition. Any team, anywhere in the world, could submit an algorithm. 15 candidates were submitted and subjected to years of public cryptanalysis by the world's best cryptographers. Transparency replaced secrecy.",
+      "narrative2": "Two Belgian cryptographers — Joan Daemen and Vincent Rijmen — submitted <em2>Rijndael</em2>, an elegant design based on finite field mathematics. It was fast in hardware, fast in software, and resisted every known attack. AES-256 has a keyspace of 2²⁵⁶ — more combinations than atoms in the observable universe. No practical attack exists to this day. It encrypts everything from your Wi-Fi to classified US government communications.",
+      "whyUnbreakable": "Why AES Is Unbreakable (Practically)",
+      "keyspaceItems": {
+        "desKeys": { "label": "DES keys", "value": "2⁵⁶", "sub": "~7.2 × 10¹⁶", "note": "Cracked in 22 hrs" },
+        "aes128Keys": { "label": "AES-128 keys", "value": "2¹²⁸", "sub": "~3.4 × 10³⁸", "note": "Heat death of universe" },
+        "aes256Keys": { "label": "AES-256 keys", "value": "2²⁵⁶", "sub": "~1.2 × 10⁷⁷", "note": "More than atoms in universe" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1997", "label": "NIST competition announced", "detail": "15 submissions from teams worldwide; requirements: 128-bit block, variable key (128/192/256-bit)" },
+        "1": { "year": "1998", "label": "Round 1 — 15 candidates", "detail": "Rijndael, Serpent, Twofish, RC6, and MARS emerge as frontrunners" },
+        "2": { "year": "1999", "label": "Round 2 — 5 finalists", "detail": "Extensive public cryptanalysis; Rijndael praised for elegant math and implementation efficiency" },
+        "3": { "year": "2000", "label": "Rijndael wins", "detail": "NIST selects Rijndael by Joan Daemen & Vincent Rijmen (Belgium) as the new AES standard" },
+        "4": { "year": "2001", "label": "FIPS 197 published", "detail": "AES officially adopted as US federal standard, replacing DES in all government use" },
+        "5": { "year": "Today", "label": "Universally deployed", "detail": "AES encrypts Wi-Fi (WPA2/3), HTTPS, disk encryption, messaging apps, and classified US communications" }
+      },
+      "keyFigures": {
+        "0": { "name": "Joan Daemen & Vincent Rijmen", "role": "Belgian Cryptographers", "note": "Designed Rijndael, selected as AES. Daemen also co-designed SHA-3 (Keccak) later" },
+        "1": { "name": "Bruce Schneier", "role": "Twofish co-designer", "note": "Submitted Twofish as AES candidate; became one of the most respected cryptography voices after the competition" },
+        "2": { "name": "NIST team", "role": "National Institute of Standards & Technology", "note": "Ran an unprecedented open, global competition — credited as the gold standard for algorithm standardization" }
+      }
+    },
+    "rsa": {
+      "narrative1": "Before RSA, cryptography had an unsolvable problem: to communicate secretly, two parties needed to already share a secret key — but how could they share it without meeting in person? In 1976, Diffie and Hellman described the idea of public-key cryptography theoretically. A year later, three MIT professors — <em>Rivest, Shamir, and Adleman</em> — made it real.",
+      "narrative2": "RSA's elegance: multiplying two large primes is trivial, but factoring the result back into those primes is computationally infeasible for classical computers. This mathematical trapdoor lets anyone encrypt a message with your <em2>public key</em2>, but only you can decrypt it with your <em2>private key</em2>. It unlocked HTTPS, email encryption, and secure banking. What no one knew in 1977 was that GCHQ mathematician Clifford Cocks had discovered the same thing 4 years earlier — classified until 1997.",
+      "mathTrapdoor": "The Mathematical Trapdoor",
+      "mathSteps": {
+        "0": { "label": "Pick two large primes", "value": "p = 61, q = 53", "detail": "In practice: 2048-bit primes" },
+        "1": { "label": "Compute n = p × q", "value": "n = 3,233", "detail": "Easy to compute, hard to reverse" },
+        "2": { "label": "Public key encrypts", "value": "e = 17, n = 3,233", "detail": "Anyone can encrypt with this" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1976", "label": "Diffie & Hellman publish", "detail": "New Directions in Cryptography — describes asymmetric key exchange for the first time publicly" },
+        "1": { "year": "1977", "label": "RSA invented", "detail": "Rivest, Shamir & Adleman publish the RSA algorithm in an MIT technical memo — first practical public-key crypto" },
+        "2": { "year": "1977", "label": "Martin Gardner publishes it", "detail": "Scientific American column introduces RSA to the world — and offers a $100 challenge to factor a 129-digit number" },
+        "3": { "year": "1994", "label": "Shor's algorithm", "detail": "Peter Shor proves a quantum computer could factor large integers in polynomial time — RSA's theoretical death sentence" },
+        "4": { "year": "1994", "label": "RSA-129 factored", "detail": "Gardner's 1977 challenge finally cracked by 600 volunteers across the internet using distributed computing" },
+        "5": { "year": "Today", "label": "Powers HTTPS", "detail": "RSA still secures TLS handshakes for most websites; migration to post-quantum alternatives underway" }
+      },
+      "keyFigures": {
+        "0": { "name": "Ron Rivest, Adi Shamir, Leonard Adleman", "role": "MIT Cryptographers (1977)", "note": "RSA was invented after Clifford Cocks (GCHQ) did it secretly in 1973 — but RSA became the public, credited invention" },
+        "1": { "name": "Clifford Cocks", "role": "GCHQ Mathematician (1973)", "note": "Independently invented RSA 4 years earlier — classified until 1997. An uncredited parallel discovery" },
+        "2": { "name": "Peter Shor", "role": "MIT Mathematician (1994)", "note": "Proved a sufficiently large quantum computer breaks RSA — triggering the post-quantum cryptography race" }
+      }
+    },
+    "ecc": {
+      "narrative1": "RSA works — but its keys are enormous. A 2048-bit RSA key is required for basic security. For the smartphones and embedded devices of the 1990s and 2000s, this was prohibitively expensive in compute and battery. Elliptic Curve Cryptography solves this with elegant geometry: operations on points along a mathematical curve defined as <em2>y² = x³ + ax + b</em2>.",
+      "narrative2": "A 256-bit ECC key provides the same security as a 3072-bit RSA key. This dramatic efficiency gain made ECC ideal for mobile devices, TLS certificates, and blockchain wallets. When Satoshi Nakamoto designed Bitcoin in 2008, they chose ECC curve <em2>secp256k1</em2> for digital signatures — an unusual curve with near-prime structure properties. Every Bitcoin transaction signed today uses ECC. Like RSA, ECC is vulnerable to Shor's algorithm on quantum computers.",
+      "keySizeComparison": "ECC vs RSA — Key Size for Equivalent Security",
+      "timelineEvents": {
+        "0": { "year": "1985", "label": "Koblitz & Miller independently", "detail": "Neal Koblitz and Victor Miller separately propose using elliptic curves for cryptography — neither knew about the other" },
+        "1": { "year": "1999", "label": "NSA adopts Suite B", "detail": "NSA recommends ECC for government use — first major institutional endorsement" },
+        "2": { "year": "2004", "label": "BlackBerry uses ECC", "detail": "Mobile devices adopt ECC for its small key size — 256-bit ECC replaces 3072-bit RSA in many applications" },
+        "3": { "year": "2008", "label": "Bitcoin launches with secp256k1", "detail": "Satoshi Nakamoto chooses ECC curve secp256k1 for Bitcoin digital signatures — still securing trillions in value" },
+        "4": { "year": "2013", "label": "NSA Dual_EC controversy", "detail": "Snowden revelations suggest NSA may have backdoored the Dual_EC_DRBG elliptic curve standard" },
+        "5": { "year": "2015", "label": "TLS 1.3 defaults to ECC", "detail": "The new TLS standard prefers ECDHE key exchange — most HTTPS connections now use ECC" }
+      },
+      "keyFigures": {
+        "0": { "name": "Neal Koblitz", "role": "University of Washington Mathematician (1985)", "note": "Independently proposed ECC — also a co-inventor of Hyperelliptic curve cryptography" },
+        "1": { "name": "Victor Miller", "role": "IBM Research Mathematician (1985)", "note": "Independently proposed ECC in the same year — both papers presented at CRYPTO 1985" },
+        "2": { "name": "Satoshi Nakamoto", "role": "Bitcoin creator (2008)", "note": "Chose secp256k1 ECC curve for Bitcoin wallets and signatures — still securing all BTC transactions" }
+      }
+    },
+    "pqc": {
+      "youAreHere": "You Are Here — 2024+",
+      "quantumThreatTitle": "The Quantum Threat Is Real — and the Migration Has Begun",
+      "narrative1": "In 1994, Peter Shor proved that a large-enough quantum computer could break RSA and ECC in polynomial time. For 30 years, this was theoretical. Now, IBM, Google, and others have quantum computers with thousands of qubits — still not enough to break RSA-2048 today, but the trajectory is clear. <em2>Cryptographically Relevant Quantum Computers (CRQCs)</em2> are estimated to arrive between 2030 and 2040.",
+      "narrative2": "The danger isn't just future attacks — it's <em2>harvest-now, decrypt-later</em2>. Nation-state actors are collecting encrypted traffic today, waiting for quantum computers powerful enough to decrypt it. Sensitive data encrypted in 2024 could be read in 2035. NIST's response: CRYSTALS-Kyber and CRYSTALS-Dilithium, standardized in 2024 as the first official post-quantum algorithms. The race to migrate has begun.",
+      "threatAssessment": "Quantum Threat Assessment — All Algorithms",
+      "threatComparison": {
+        "0": { "algo": "Caesar", "threat": "Classical", "status": "broken" },
+        "1": { "algo": "DES", "threat": "Classical", "status": "broken" },
+        "2": { "algo": "AES-256", "threat": "Quantum (Grover)", "status": "weakened", "note": "Halves key strength — AES-256 → AES-128 equivalent" },
+        "3": { "algo": "RSA/ECC", "threat": "Quantum (Shor)", "status": "broken", "note": "Polynomial time factoring — both broken by Shor" },
+        "4": { "algo": "Kyber/Dilithium", "threat": "Quantum", "status": "safe", "note": "Lattice problems resist both classical and quantum attacks" }
+      },
+      "timelineEvents": {
+        "0": { "year": "1994", "label": "Shor's algorithm", "detail": "Peter Shor proves a quantum computer can factor large integers in polynomial time — RSA and ECC both threatened" },
+        "1": { "year": "2001", "label": "First qubit demonstrations", "detail": "IBM and other labs demonstrate small quantum circuits; the engineering challenge becomes clear" },
+        "2": { "year": "2016", "label": "NIST PQC competition", "detail": "NIST launches a global competition for quantum-resistant algorithms — 82 submissions from 25 countries" },
+        "3": { "year": "2022", "label": "Finalists selected", "detail": "CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium, FALCON, SPHINCS+ (signatures) selected for standardization" },
+        "4": { "year": "2024", "label": "FIPS 203/204/205 published", "detail": "NIST officially standardizes ML-KEM (Kyber), ML-DSA (Dilithium), and SLH-DSA — the post-quantum era begins" },
+        "5": { "year": "Now", "label": "The migration begins", "detail": "Governments, cloud providers, and browsers begin migrating infrastructure — a multi-year, global effort" }
+      },
+      "keyFigures": {
+        "0": { "name": "Peter Shor", "role": "MIT Mathematician (1994)", "note": "Shor's algorithm for quantum integer factorization — the mathematical sword hanging over RSA and ECC" },
+        "1": { "name": "Oded Regev", "role": "NYU Mathematician (2005)", "note": "Invented the Learning With Errors (LWE) problem — the mathematical foundation of Kyber and Dilithium" },
+        "2": { "name": "CRYSTALS Team", "role": "IBM, CWI, Radboud, others", "note": "Designed CRYSTALS-Kyber and Dilithium — now ML-KEM and ML-DSA, the world's first post-quantum standards" }
+      }
+    }
+  },
+  "demos": {
+    "caesar": {
+      "subtitle": "Caesar shift cipher — adjust key and text",
+      "plaintext": "Plaintext",
+      "ciphertext": "Ciphertext",
+      "enterText": "Enter text...",
+      "shiftKey": "Shift Key: {shift}",
+      "shiftKeyAriaLabel": "Caesar shift key: {shift}"
+    },
+    "des": {
+      "subtitle": "DES Feistel network — 16 rounds of encryption",
+      "hexCiphertext": "Hex Ciphertext",
+      "pasteHex": "Paste hex output...",
+      "key8chars": "Key (8 chars)",
+      "keyLength": "Key length: {length}/8 characters",
+      "encryptWithDES": "⚙ Encrypt with DES",
+      "decryptWithDES": "⚙ Decrypt with DES",
+      "invalidInput": "Invalid input. For decrypt mode, paste the hex ciphertext.",
+      "ciphertextHex": "Ciphertext (hex)",
+      "hide": "▾ Hide",
+      "show": "▸ Show",
+      "feistelRounds": "16 Feistel Rounds",
+      "enterText": "Enter text...",
+      "plaintext": "Plaintext"
+    },
+    "aes": {
+      "subtitle": "AES-256-GCM — authenticated encryption via Web Crypto",
+      "passphrase": "Passphrase",
+      "enterMessage": "Enter message to encrypt...",
+      "encryptWithAES": "⚙ Encrypt with AES-256",
+      "encryptFirst": "Encrypt first to get a key",
+      "decryptBtn": "⚙ Decrypt",
+      "derivedKey": "Derived Key (PBKDF2 + SHA-256)",
+      "keyLabel": "Key: {key}",
+      "saltLabel": "Salt: {salt}",
+      "iterations": "100,000 iterations · AES-256-GCM",
+      "ciphertextBase64": "Ciphertext (base64)",
+      "plaintext": "Plaintext"
+    },
+    "rsa": {
+      "subtitle": "RSA-2048 key pair — public encrypt, private decrypt",
+      "step1": "Step 1 — Generate Key Pair",
+      "generating2048": "Generating 2048-bit keys…",
+      "generateRSA": "⚙ Generate RSA-2048 Key Pair",
+      "publicKeySPKI": "Public key (SPKI/base64):",
+      "privateKeyPKCS8": "Private key (PKCS8/base64):",
+      "hidden": "[hidden]",
+      "step2": "Step 2 — Encrypt with Public Key",
+      "messageLabel": "Message (max ~190 bytes)",
+      "enterShortMessage": "Enter short message...",
+      "generateKeysFirst": "Generate keys first",
+      "encryptBtn": "⚙ Encrypt",
+      "ciphertextBase64": "Ciphertext (base64)",
+      "step3": "Step 3 — Decrypt with Private Key",
+      "encryptFirst": "Encrypt first"
+    },
+    "ecc": {
+      "subtitle": "ECDSA P-256 — elliptic curve digital signatures",
+      "keySizeComparison": "ECC vs RSA key size comparison",
+      "step1": "Step 1 — Generate P-256 Key Pair",
+      "generateECDSA": "⚙ Generate ECDSA Key Pair",
+      "publicKeyX": "Public key (x coordinate):",
+      "curveInfo": "Curve: {curve} · Algorithm: ECDSA + SHA-256",
+      "step2": "Step 2 — Sign Message",
+      "messageToSign": "Message to sign",
+      "enterMessage": "Enter message...",
+      "generateKeysFirst": "Generate keys first",
+      "signWithPrivateKey": "✍ Sign with Private Key",
+      "signatureBase64": "Signature (base64)",
+      "step3": "Step 3 — Verify Signature",
+      "simulateTampering": "Simulate message tampering",
+      "verifyWithPublicKey": "✓ Verify with Public Key",
+      "valid": "✓ Valid",
+      "invalid": "✗ Invalid"
+    },
+    "pqc": {
+      "subtitle": "LWE lattice-based encryption — simplified Kyber concept",
+      "latticeVisualization": "Lattice visualization — the hard problem",
+      "latticeAriaLabel": "Lattice point visualization showing the hard problem in LWE encryption",
+      "noisy": "noisy",
+      "latticeCaption": "Red = noisy point · Security = finding closest lattice point is hard",
+      "lweParams": "LWE Parameters (educational)",
+      "dimensionN": "Dimension n",
+      "modulusQ": "Modulus q",
+      "errorBound": "Error bound",
+      "generateLWE": "⚙ Generate LWE Key Pair",
+      "secretVector": "Secret vector s (private key)",
+      "publicVector": "Public vector b = A·s + error (mod 97)",
+      "encryptBit": "Encrypt a single bit",
+      "selectBit": "Select bit value to encrypt",
+      "encryptBitBtn": "⚙ Encrypt bit",
+      "decryptBtn": "⚙ Decrypt",
+      "decryptedBit": "Decrypted bit = {bit}",
+      "correct": "✓ Correct",
+      "error": "✗ Error",
+      "lweExplanation": "The LWE error (noise) is small enough that decryption recovers the original bit."
+    }
+  },
+  "attacks": {
+    "caesar": {
+      "subtitle": "Frequency analysis — breaking Caesar with statistics",
+      "ciphertextToCrack": "Ciphertext to crack",
+      "letterFrequency": "Letter Frequency Analysis",
+      "cracking": "Cracking...",
+      "runFrequencyAttack": "⚡ Run Frequency Attack",
+      "cracked": "Cracked"
+    },
+    "des": {
+      "subtitle": "Brute force — 2⁵⁶ keyspace visualization",
+      "keySize": "Key Size",
+      "modernFPGA": "Modern FPGA",
+      "about6days": "~6 days",
+      "keysPerSec": "1B keys/sec/chip",
+      "keyspaceScanned": "Keyspace scanned",
+      "keysChecked": "Keys checked: {checked} / ~{total} × 10¹⁵",
+      "bruteForcing": "Brute-forcing…",
+      "simulateBruteForce": "⚡ Simulate Brute Force",
+      "reset": "Reset",
+      "keyFound": "Key Found at {percent}% of keyspace",
+      "estimatedTime": "Estimated real time on FPGA cluster: {duration}",
+      "breakingTimeline": "Breaking DES — Historical Timeline",
+      "timelineItems": {
+        "0": { "year": "1977", "event": "DES standardized — 56-bit key deemed secure" },
+        "1": { "year": "1993", "event": "Michael Wiener estimates $1M machine cracks in 3.5h" },
+        "2": { "year": "1997", "event": "RSA DES Challenge cracked in 96 days by internet volunteers" },
+        "3": { "year": "1998", "event": "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K" },
+        "4": { "year": "1999", "event": "Deep Crack + distributed.net: 22 hours 15 minutes" },
+        "5": { "year": "2008", "event": "COPACOBANA FPGA cluster: ~6 days, cost ~$10K" }
+      }
+    },
+    "aes": {
+      "subtitle": "No practical attack exists — 2²⁵⁶ keyspace",
+      "unbroken": "UNBROKEN",
+      "sincestandardization": "Since standardization in 2001",
+      "scaleComparison": "Scale comparison",
+      "comparisons": {
+        "0": { "label": "AES-256 keyspace", "value": "2²⁵⁶ ≈ 1.16 × 10⁷⁷", "note": "keys" },
+        "1": { "label": "Atoms in universe", "value": "≈ 10⁸⁰", "note": "atoms" },
+        "2": { "label": "Stars in observable universe", "value": "≈ 10²⁴", "note": "stars" },
+        "3": { "label": "Seconds since Big Bang", "value": "≈ 4.3 × 10¹⁷", "note": "seconds" }
+      },
+      "knownAttacks": "Known attack attempts",
+      "knownAttackItems": {
+        "0": { "name": "Brute Force", "status": "Impossible", "detail": "10⁷⁷ operations — heat death of universe required" },
+        "1": { "name": "Related-Key Attack", "status": "Theoretical", "detail": "Requires 2⁹⁹·⁵ operations — impractical" },
+        "2": { "name": "Biclique Cryptanalysis", "status": "Academic only", "detail": "Reduces to 2²⁵⁴·⁴ — still infeasible" },
+        "3": { "name": "Side-Channel Attack", "status": "Implementation risk", "detail": "Targets weak implementations, not the algorithm" },
+        "4": { "name": "Grover's Algorithm", "status": "Quantum halving", "detail": "Reduces to 2¹²⁸ — AES-256 remains secure" }
+      }
+    },
+    "rsa": {
+      "subtitle": "Integer factoring — the hard problem RSA relies on",
+      "hardProblem": "The RSA Hard Problem",
+      "hardProblemDesc": "Given n = p × q (a product of two large primes), find p and q.\nEasy to multiply: microseconds. Hard to factor: billions of years for 2048-bit n.",
+      "toyFactoring": "Toy RSA Factoring Demo",
+      "factor": "Factor",
+      "trying": "trying {step}…",
+      "tryingDivisor": "Trying divisor {step}…",
+      "runTrialDivision": "⚡ Run Trial Division Attack",
+      "factored": "Factored!",
+      "steps": "Steps:",
+      "divisions": "{count} divisions",
+      "toyCracked": "Toy RSA cracked in {steps} steps. Real RSA-2048 would require ~10²⁰ steps.",
+      "keySizeSecurity": "RSA key size security"
+    },
+    "ecc": {
+      "subtitle": "ECDLP — the discrete logarithm problem on elliptic curves",
+      "toyCurve": "Toy curve: y² = x³ − x + 1 (mod {prime}) — {count} points",
+      "curveCaption": "Each dot = a point on the curve · Hover to see coordinates",
+      "ecdlpHowItWorks": "ECDLP — how it works",
+      "dlpSteps": {
+        "0": { "label": "Pick private key k", "value": "k = 7 (secret random integer)" },
+        "1": { "label": "Compute public key Q", "value": "Q = k × G (point multiplication)" },
+        "2": { "label": "Attacker knows Q and G", "value": "Must find k such that Q = k × G" },
+        "3": { "label": "ECDLP hardness", "value": "Best known: √p steps — exponential in key size" },
+        "4": { "label": "P-256 security", "value": "~2¹²⁸ operations needed — infeasible classically" }
+      },
+      "eccVsRsa": "ECC vs RSA — equivalent security",
+      "curve": "Curve",
+      "eccBits": "ECC bits",
+      "rsaEquiv": "RSA equiv",
+      "eccSummary": "Smaller keys = faster operations. Bitcoin uses secp256k1 (similar to P-256) for all wallet signatures."
+    },
+    "pqc": {
+      "subtitle": "Shor's algorithm — quantum threat to classical crypto",
+      "classicalVsQuantum": "Classical vs Quantum computation",
+      "classical": "Classical",
+      "quantum": "Quantum",
+      "classicalDesc": "Sequential — one key at a time",
+      "quantumDesc": "Parallel — all states at once",
+      "shorAlgorithm": "Shor's Algorithm — how it breaks RSA",
+      "shorSteps": {
+        "0": { "label": "Superposition", "desc": "Quantum computer initializes qubits in superposition of all possible states simultaneously" },
+        "1": { "label": "Quantum Parallelism", "desc": "Evaluates modular exponentiation for ALL possible periods at once — exponential speedup" },
+        "2": { "label": "QFT", "desc": "Quantum Fourier Transform finds the period r of f(x) = aˣ mod N" },
+        "3": { "label": "Period → Factors", "desc": "Classical post-processing: r → gcd(aʳ/² ± 1, N) → prime factors p, q" },
+        "4": { "label": "RSA broken", "desc": "Private key recovered from public key in polynomial time O((log N)³)" }
+      },
+      "threatAnalysis": "Quantum threat analysis",
+      "brokenByQuantum": "⚠ BROKEN by quantum",
+      "quantumSafe": "✓ Quantum-safe",
+      "nistStandardization": "NIST PQC Standardization"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "unexpectedError": "An unexpected error occurred.",
+    "tryAgain": "Try again",
+    "retryBtn": "↻ Try Again",
+    "stationError": "{station} — Error",
+    "webCryptoError": "This browser doesn't fully support the Web Crypto API needed for this demo. Try using a modern browser like Chrome, Firefox, or Safari.",
+    "keyError": "A cryptographic key operation failed. The key may be invalid or corrupted.",
+    "encryptError": "Encryption failed. The input may be too large or the key is invalid.",
+    "decryptError": "Decryption failed. The key may be wrong or the ciphertext was tampered with.",
+    "demoError": "An unexpected error occurred in this demo. Please try again."
+  },
+  "offline": {
+    "message": "You are offline — the app is running from cache"
+  }
+}

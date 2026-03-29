@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import RSADemo from "@/components/demos/RSADemo";
 import RSAAttack from "@/components/attacks/RSAAttack";
@@ -9,22 +10,7 @@ interface StationProps {
   era: Era;
 }
 
-const TIMELINE_EVENTS = [
-  { year: "1976", label: "Diffie & Hellman publish", detail: "New Directions in Cryptography — describes asymmetric key exchange for the first time publicly" },
-  { year: "1977", label: "RSA invented", detail: "Rivest, Shamir & Adleman publish the RSA algorithm in an MIT technical memo — first practical public-key crypto" },
-  { year: "1977", label: "Martin Gardner publishes it", detail: "Scientific American column introduces RSA to the world — and offers a $100 challenge to factor a 129-digit number" },
-  { year: "1994", label: "Shor's algorithm", detail: "Peter Shor proves a quantum computer could factor large integers in polynomial time — RSA&apos;s theoretical death sentence" },
-  { year: "1994", label: "RSA-129 factored", detail: "Gardner's 1977 challenge finally cracked by 600 volunteers across the internet using distributed computing" },
-  { year: "Today", label: "Powers HTTPS", detail: "RSA still secures TLS handshakes for most websites; migration to post-quantum alternatives underway" },
-];
-
-const KEY_FIGURES = [
-  { name: "Ron Rivest, Adi Shamir, Leonard Adleman", role: "MIT Cryptographers (1977)", note: "RSA was invented after Clifford Cocks (GCHQ) did it secretly in 1973 — but RSA became the public, credited invention" },
-  { name: "Clifford Cocks", role: "GCHQ Mathematician (1973)", note: "Independently invented RSA 4 years earlier — classified until 1997. An uncredited parallel discovery" },
-  { name: "Peter Shor", role: "MIT Mathematician (1994)", note: "Proved a sufficiently large quantum computer breaks RSA — triggering the post-quantum cryptography race" },
-];
-
-function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]; color: string; index: number }) {
+function TimelineRow({ event, color, index }: { event: { year: string; label: string; detail: string }; color: string; index: number }) {
   return (
     <motion.div
       className="flex items-start gap-3"
@@ -49,6 +35,30 @@ function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]
 }
 
 export default function RSAStation({ era }: StationProps) {
+  const t = useTranslations("stations.rsa");
+  const tc = useTranslations("common");
+
+  const TIMELINE_EVENTS = [
+    { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
+    { year: t("timelineEvents.1.year"), label: t("timelineEvents.1.label"), detail: t("timelineEvents.1.detail") },
+    { year: t("timelineEvents.2.year"), label: t("timelineEvents.2.label"), detail: t("timelineEvents.2.detail") },
+    { year: t("timelineEvents.3.year"), label: t("timelineEvents.3.label"), detail: t("timelineEvents.3.detail") },
+    { year: t("timelineEvents.4.year"), label: t("timelineEvents.4.label"), detail: t("timelineEvents.4.detail") },
+    { year: t("timelineEvents.5.year"), label: t("timelineEvents.5.label"), detail: t("timelineEvents.5.detail") },
+  ];
+
+  const KEY_FIGURES = [
+    { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
+    { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
+    { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
+  const MATH_STEPS = [
+    { step: "01", label: t("mathSteps.0.label"), value: t("mathSteps.0.value"), detail: t("mathSteps.0.detail") },
+    { step: "02", label: t("mathSteps.1.label"), value: t("mathSteps.1.value"), detail: t("mathSteps.1.detail") },
+    { step: "03", label: t("mathSteps.2.label"), value: t("mathSteps.2.value"), detail: t("mathSteps.2.detail") },
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       {/* Historical Narrative */}
@@ -61,23 +71,13 @@ export default function RSAStation({ era }: StationProps) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Historical Narrative
+          {tc("historicalNarrative")}
         </h3>
         <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          Before RSA, cryptography had an unsolvable problem: to communicate secretly, two parties
-          needed to already share a secret key — but how could they share it without meeting in person?
-          In 1976, Diffie and Hellman described the idea of public-key cryptography theoretically.
-          A year later, three MIT professors —{" "}
-          <em style={{ color: "var(--text-primary)" }}>Rivest, Shamir, and Adleman</em> — made it real.
+          {t("narrative1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          RSA&apos;s elegance: multiplying two large primes is trivial, but factoring the result back
-          into those primes is computationally infeasible for classical computers. This mathematical
-          trapdoor lets anyone encrypt a message with your{" "}
-          <em style={{ color: era.color }}>public key</em>, but only you can decrypt it with your{" "}
-          <em style={{ color: era.color }}>private key</em>. It unlocked HTTPS, email encryption,
-          and secure banking. What no one knew in 1977 was that GCHQ mathematician Clifford Cocks
-          had discovered the same thing 4 years earlier — classified until 1997.
+          {t("narrative2")}
         </p>
       </motion.div>
 
@@ -91,14 +91,10 @@ export default function RSAStation({ era }: StationProps) {
         transition={{ duration: 0.55, delay: 0.1 }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          The Mathematical Trapdoor
+          {t("mathTrapdoor")}
         </h3>
         <div className="grid gap-3 sm:grid-cols-3 font-mono text-xs">
-          {[
-            { step: "01", label: "Pick two large primes", value: "p = 61, q = 53", detail: "In practice: 2048-bit primes" },
-            { step: "02", label: "Compute n = p × q", value: "n = 3,233", detail: "Easy to compute, hard to reverse" },
-            { step: "03", label: "Public key encrypts", value: "e = 17, n = 3,233", detail: "Anyone can encrypt with this" },
-          ].map((item) => (
+          {MATH_STEPS.map((item) => (
             <div
               key={item.step}
               className="rounded-lg border p-3"
@@ -117,7 +113,7 @@ export default function RSAStation({ era }: StationProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Key Figures
+            {tc("keyFigures")}
           </h3>
           <div className="flex flex-col gap-3">
             {KEY_FIGURES.map((fig, i) => (
@@ -140,7 +136,7 @@ export default function RSAStation({ era }: StationProps) {
 
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Timeline
+            {tc("timeline")}
           </h3>
           <div>
             {TIMELINE_EVENTS.map((event, i) => (
@@ -153,7 +149,7 @@ export default function RSAStation({ era }: StationProps) {
       {/* Interactive Demo + Attack */}
       <div>
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Interactive Demos
+          {tc("interactiveDemos")}
         </h3>
         <div className="grid gap-6 lg:grid-cols-2">
           <RSADemo era={era} />

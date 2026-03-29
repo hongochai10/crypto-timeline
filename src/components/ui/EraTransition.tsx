@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 
 interface EraTransitionProps {
@@ -12,6 +13,7 @@ interface EraTransitionProps {
 export default function EraTransition({ fromEra, toEra }: EraTransitionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-30% 0px -30% 0px" });
+  const te = useTranslations("eras");
 
   return (
     <div
@@ -39,7 +41,7 @@ export default function EraTransition({ fromEra, toEra }: EraTransitionProps) {
           animate={{ opacity: isInView ? 0.7 : 0, x: isInView ? 0 : -20 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {fromEra.name} · {fromEra.year}
+          {te(`${fromEra.id}.name`)} · {te(`${fromEra.id}.year`)}
         </motion.span>
 
         {/* Divider with era colors */}
@@ -102,7 +104,7 @@ export default function EraTransition({ fromEra, toEra }: EraTransitionProps) {
           animate={{ opacity: isInView ? 0.7 : 0, x: isInView ? 0 : 20 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          {toEra.name} · {toEra.year}
+          {te(`${toEra.id}.name`)} · {te(`${toEra.id}.year`)}
         </motion.span>
 
         {/* Year gap label */}
@@ -113,7 +115,7 @@ export default function EraTransition({ fromEra, toEra }: EraTransitionProps) {
           animate={{ opacity: isInView ? 0.5 : 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          {fromEra.year} → {toEra.year}
+          {te(`${fromEra.id}.year`)} → {te(`${toEra.id}.year`)}
         </motion.p>
       </div>
     </div>

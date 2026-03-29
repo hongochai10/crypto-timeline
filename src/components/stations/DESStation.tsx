@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import DESDemo from "@/components/demos/DESDemo";
 import DESAttack from "@/components/attacks/DESAttack";
@@ -9,22 +10,7 @@ interface StationProps {
   era: Era;
 }
 
-const TIMELINE_EVENTS = [
-  { year: "1973", label: "NBS issues a call", detail: "National Bureau of Standards asks for a national encryption standard — IBM submits Lucifer" },
-  { year: "1975", label: "NSA trims the key", detail: "NSA reduces Lucifer's 64-bit key to 56 bits — sparking decades of controversy over backdoor fears" },
-  { year: "1977", label: "DES adopted", detail: "FIPS 46 makes DES the official US government and banking encryption standard" },
-  { year: "1998", label: "Deep Crack breaks it", detail: "EFF's $250,000 machine cracks a DES key in 22 hours, proving 56-bit keys are insufficient" },
-  { year: "1999", label: "DES officially deprecated", detail: "Triple-DES (3DES) recommended as stopgap; AES competition already underway" },
-  { year: "2001", label: "Replaced by AES", detail: "AES officially supersedes DES as the federal encryption standard" },
-];
-
-const KEY_FIGURES = [
-  { name: "Walter Tuchman & Carl Meyer", role: "IBM Engineers", note: "Designed Lucifer (DES predecessor) — the algorithm that became DES after NSA modifications" },
-  { name: "Whitfield Diffie", role: "Cryptographer", note: "Publicly criticized the 56-bit key size in 1977, predicting it would eventually be brute-forced" },
-  { name: "EFF Deep Crack Team", role: "Electronic Frontier Foundation", note: "Built a $250,000 FPGA-based cracker in 1998 that exhausted the key space in 22 hours" },
-];
-
-function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]; color: string; index: number }) {
+function TimelineRow({ event, color, index }: { event: { year: string; label: string; detail: string }; color: string; index: number }) {
   return (
     <motion.div
       className="flex items-start gap-3"
@@ -49,6 +35,24 @@ function TimelineRow({ event, color, index }: { event: typeof TIMELINE_EVENTS[0]
 }
 
 export default function DESStation({ era }: StationProps) {
+  const t = useTranslations("stations.des");
+  const tc = useTranslations("common");
+
+  const TIMELINE_EVENTS = [
+    { year: t("timelineEvents.0.year"), label: t("timelineEvents.0.label"), detail: t("timelineEvents.0.detail") },
+    { year: t("timelineEvents.1.year"), label: t("timelineEvents.1.label"), detail: t("timelineEvents.1.detail") },
+    { year: t("timelineEvents.2.year"), label: t("timelineEvents.2.label"), detail: t("timelineEvents.2.detail") },
+    { year: t("timelineEvents.3.year"), label: t("timelineEvents.3.label"), detail: t("timelineEvents.3.detail") },
+    { year: t("timelineEvents.4.year"), label: t("timelineEvents.4.label"), detail: t("timelineEvents.4.detail") },
+    { year: t("timelineEvents.5.year"), label: t("timelineEvents.5.label"), detail: t("timelineEvents.5.detail") },
+  ];
+
+  const KEY_FIGURES = [
+    { name: t("keyFigures.0.name"), role: t("keyFigures.0.role"), note: t("keyFigures.0.note") },
+    { name: t("keyFigures.1.name"), role: t("keyFigures.1.role"), note: t("keyFigures.1.note") },
+    { name: t("keyFigures.2.name"), role: t("keyFigures.2.role"), note: t("keyFigures.2.note") },
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       {/* Historical Narrative */}
@@ -61,21 +65,13 @@ export default function DESStation({ era }: StationProps) {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <h3 className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Historical Narrative
+          {tc("historicalNarrative")}
         </h3>
         <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          In 1973, the US government had no unified encryption standard. Banks, agencies, and
-          contractors each invented their own — a fragmented mess. The National Bureau of Standards
-          (now NIST) issued an open call. IBM answered with <em style={{ color: "var(--text-primary)" }}>Lucifer</em>,
-          a 64-bit block cipher born from internal research. NSA quietly intervened — trimming the key
-          to 56 bits and adjusting the S-boxes. Cryptographers cried foul. Had the NSA weakened it intentionally?
+          {t("narrative1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          For 20 years DES encrypted everything from ATM transactions to classified communications.
-          Then in 1998, the EFF built{" "}
-          <em style={{ color: era.color }}>Deep Crack</em> — a $250,000 machine with 1,856 custom chips
-          — and cracked a DES key in just 22 hours. A cipher trusted by millions had fallen.
-          With only 2⁵⁶ (~72 quadrillion) possible keys, brute force had become feasible.
+          {t("narrative2")}
         </p>
       </motion.div>
 
@@ -83,7 +79,7 @@ export default function DESStation({ era }: StationProps) {
       <div className="grid gap-6 md:grid-cols-2">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Key Figures
+            {tc("keyFigures")}
           </h3>
           <div className="flex flex-col gap-3">
             {KEY_FIGURES.map((fig, i) => (
@@ -106,7 +102,7 @@ export default function DESStation({ era }: StationProps) {
 
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-            Timeline
+            {tc("timeline")}
           </h3>
           <div>
             {TIMELINE_EVENTS.map((event, i) => (
@@ -119,7 +115,7 @@ export default function DESStation({ era }: StationProps) {
       {/* Interactive Demo + Attack */}
       <div>
         <h3 className="mb-4 font-mono text-xs uppercase tracking-widest" style={{ color: era.color }}>
-          Interactive Demos
+          {tc("interactiveDemos")}
         </h3>
         <div className="grid gap-6 lg:grid-cols-2">
           <DESDemo era={era} />

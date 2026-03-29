@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { eccGenerateSigningKeyPair, eccSign, eccVerify, eccVsRsaComparison, type ECCKeyPair } from "@/lib/crypto/ecc";
@@ -12,6 +13,9 @@ interface Props {
 }
 
 export default function ECCDemo({ era }: Props) {
+  const t = useTranslations("demos.ecc");
+  const tc = useTranslations("common");
+
   const [message, setMessage] = useState("Sign this message!");
   const [keyPair, setKeyPair] = useState<ECCKeyPair | null>(null);
   const [signature, setSignature] = useState("");
@@ -74,8 +78,8 @@ export default function ECCDemo({ era }: Props) {
   if (!isWebCryptoAvailable()) {
     return (
       <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
-        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">Web Crypto API Unavailable</p>
-        <p className="text-sm text-[var(--text-secondary)]">This demo requires the Web Crypto API. Please use a modern browser (Chrome 37+, Firefox 34+, Safari 11+, Edge 12+).</p>
+        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">{tc("webCryptoUnavailable")}</p>
+        <p className="text-sm text-[var(--text-secondary)]">{tc("webCryptoMessage")}</p>
       </div>
     );
   }
@@ -84,14 +88,14 @@ export default function ECCDemo({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-          Interactive Demo
+          {tc("interactiveDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">ECDSA P-256 — elliptic curve digital signatures</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       {/* Key comparison table */}
       <div className="rounded-lg border p-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">ECC vs RSA key size comparison</p>
+        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("keySizeComparison")}</p>
         <div className="space-y-1">
           {comparison.slice(0, 2).map((row) => (
             <div key={row.curve} className="flex items-center justify-between font-mono text-[10px]">
@@ -105,8 +109,8 @@ export default function ECCDemo({ era }: Props) {
       {/* Step 1: Generate keys */}
       <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
         <div className="flex items-center justify-between">
-          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>Step 1 — Generate P-256 Key Pair</span>
-          {genStatus === "done" && <span className="font-mono text-xs text-green-400">✓ Ready</span>}
+          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>{t("step1")}</span>
+          {genStatus === "done" && <span className="font-mono text-xs text-green-400">{tc("ready")}</span>}
         </div>
         <button
           onClick={generateKeys}
@@ -116,11 +120,11 @@ export default function ECCDemo({ era }: Props) {
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
-          {genStatus === "loading" ? "Generating…" : "⚙ Generate ECDSA Key Pair"}
+          {genStatus === "loading" ? tc("generating") : t("generateECDSA")}
         </button>
         {keyPair?.publicKeyJwk && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-[10px] space-y-1">
-            <p className="text-[var(--text-muted)]">Public key (x coordinate):</p>
+            <p className="text-[var(--text-muted)]">{t("publicKeyX")}</p>
             <p className="break-all" style={{ color: era.color }}>{keyPair.publicKeyJwk.x?.slice(0, 44)}…</p>
             <p className="text-[var(--text-muted)]">Curve: {keyPair.curve} · Algorithm: ECDSA + SHA-256</p>
           </motion.div>
@@ -129,9 +133,9 @@ export default function ECCDemo({ era }: Props) {
 
       {/* Step 2: Sign */}
       <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>Step 2 — Sign Message</span>
+        <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>{t("step2")}</span>
         <InteractiveInput
-          label="Message to sign"
+          label={t("messageToSign")}
           value={message}
           onChange={(e) => { setMessage(e.target.value); setSignature(""); setVerifyResult(null); }}
           placeholder="Enter message..."
@@ -146,11 +150,11 @@ export default function ECCDemo({ era }: Props) {
           className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
           style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
         >
-          {signStatus === "loading" ? "Signing…" : !keyPair ? "Generate keys first" : "✍ Sign with Private Key"}
+          {signStatus === "loading" ? tc("signing") : !keyPair ? t("generateKeysFirst") : t("signWithPrivateKey")}
         </button>
         {signature && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col gap-1">
-            <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">Signature (base64)</p>
+            <p className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">{t("signatureBase64")}</p>
             <p className="font-mono text-[10px] break-all" style={{ color: era.color }}>{signature.slice(0, 64)}…</p>
           </motion.div>
         )}
@@ -159,17 +163,17 @@ export default function ECCDemo({ era }: Props) {
       {/* Step 3: Verify */}
       {signature && (
         <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>Step 3 — Verify Signature</span>
+          <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>{t("step3")}</span>
           <label className="flex items-center gap-2 font-mono text-xs text-[var(--text-muted)] cursor-pointer">
             <input
               type="checkbox"
               checked={tampered}
               onChange={(e) => { setTampered(e.target.checked); setVerifyResult(null); }}
               data-testid="ecc-tamper-checkbox"
-              aria-label="Simulate message tampering"
+              aria-label={t("simulateTampering")}
               className="rounded"
             />
-            Simulate message tampering
+            {t("simulateTampering")}
           </label>
           <button
             onClick={verify}
@@ -179,7 +183,7 @@ export default function ECCDemo({ era }: Props) {
             className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
             style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
           >
-            {verifyStatus === "loading" ? "Verifying…" : "✓ Verify with Public Key"}
+            {verifyStatus === "loading" ? tc("verifying") : t("verifyWithPublicKey")}
           </button>
           {verifyResult && (
             <motion.div
@@ -190,7 +194,7 @@ export default function ECCDemo({ era }: Props) {
               className={`rounded-lg border p-3 ${verifyResult.valid ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
               <p data-testid="ecc-verify-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${verifyResult.valid ? "text-green-400" : "text-red-400"}`}>
-                {verifyResult.valid ? "✓ Valid" : "✗ Invalid"}
+                {verifyResult.valid ? t("valid") : t("invalid")}
               </p>
               <p className="font-mono text-xs text-[var(--text-secondary)]">{verifyResult.message}</p>
             </motion.div>

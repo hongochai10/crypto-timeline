@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { eccVsRsaComparison } from "@/lib/crypto/ecc";
 
@@ -27,15 +28,11 @@ function toyECPoints(p: number, a: number, b: number): Array<[number, number]> {
 const PRIME = 17;
 const EC_POINTS = toyECPoints(PRIME, -1, 1);
 
-const DLP_STEPS = [
-  { label: "Pick private key k", value: "k = 7 (secret random integer)" },
-  { label: "Compute public key Q", value: "Q = k × G (point multiplication)" },
-  { label: "Attacker knows Q and G", value: "Must find k such that Q = k × G" },
-  { label: "ECDLP hardness", value: "Best known: √p steps — exponential in key size" },
-  { label: "P-256 security", value: "~2¹²⁸ operations needed — infeasible classically" },
-];
+const DLP_STEPS_COUNT = 5;
 
 export default function ECCAttack({ era }: Props) {
+  const t = useTranslations("attacks.ecc");
+  const tc = useTranslations("common");
   const comparison = eccVsRsaComparison();
   const [highlighted, setHighlighted] = useState<number | null>(null);
 
@@ -43,15 +40,15 @@ export default function ECCAttack({ era }: Props) {
     <div className="demo-container flex flex-col gap-5">
       <div>
         <h3 className="mb-1 font-mono text-xs tracking-widest uppercase text-red-400">
-          Attack Demo
+          {tc("attackDemo")}
         </h3>
-        <p className="text-sm text-[var(--text-secondary)]">ECDLP — the discrete logarithm problem on elliptic curves</p>
+        <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
       </div>
 
       {/* Toy curve visualization */}
       <div className="rounded-lg border p-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
         <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">
-          Toy curve: y² = x³ − x + 1 (mod {PRIME}) — {EC_POINTS.length} points
+          {t("toyCurve", { prime: PRIME, count: EC_POINTS.length })}
         </p>
         <div className="flex justify-center">
           <svg width={200} height={200} className="overflow-visible">
@@ -97,15 +94,15 @@ export default function ECCAttack({ era }: Props) {
           </svg>
         </div>
         <p className="mt-1 font-mono text-[9px] text-center text-[var(--text-muted)]">
-          Each dot = a point on the curve · Hover to see coordinates
+          {t("curveCaption")}
         </p>
       </div>
 
       {/* ECDLP steps */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">ECDLP — how it works</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("ecdlpHowItWorks")}</p>
         <div className="space-y-2">
-          {DLP_STEPS.map((step, i) => (
+          {Array.from({ length: DLP_STEPS_COUNT }, (_, i) => (
             <motion.div
               key={i}
               className="rounded-lg border px-3 py-2.5"
@@ -114,8 +111,8 @@ export default function ECCAttack({ era }: Props) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.08 }}
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest mb-0.5" style={{ color: era.color }}>{step.label}</p>
-              <p className="font-mono text-[10px] text-[var(--text-muted)]">{step.value}</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest mb-0.5" style={{ color: era.color }}>{t(`dlpSteps.${i}.label`)}</p>
+              <p className="font-mono text-[10px] text-[var(--text-muted)]">{t(`dlpSteps.${i}.value`)}</p>
             </motion.div>
           ))}
         </div>
@@ -123,14 +120,14 @@ export default function ECCAttack({ era }: Props) {
 
       {/* ECC vs RSA compact table */}
       <div>
-        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">ECC vs RSA — equivalent security</p>
+        <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("eccVsRsa")}</p>
         <div className="overflow-hidden rounded-lg border" style={{ borderColor: era.color + "25" }}>
           <table className="w-full font-mono text-[10px]">
             <thead>
               <tr style={{ backgroundColor: era.color + "12" }}>
-                <th className="px-3 py-2 text-left text-[var(--text-muted)]">Curve</th>
-                <th className="px-3 py-2 text-right text-[var(--text-muted)]">ECC bits</th>
-                <th className="px-3 py-2 text-right text-[var(--text-muted)]">RSA equiv</th>
+                <th className="px-3 py-2 text-left text-[var(--text-muted)]">{t("curve")}</th>
+                <th className="px-3 py-2 text-right text-[var(--text-muted)]">{t("eccBits")}</th>
+                <th className="px-3 py-2 text-right text-[var(--text-muted)]">{t("rsaEquiv")}</th>
               </tr>
             </thead>
             <tbody>
@@ -145,7 +142,7 @@ export default function ECCAttack({ era }: Props) {
           </table>
         </div>
         <p className="mt-2 font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">
-          Smaller keys = faster operations. Bitcoin uses secp256k1 (similar to P-256) for all wallet signatures.
+          {t("eccSummary")}
         </p>
       </div>
     </div>

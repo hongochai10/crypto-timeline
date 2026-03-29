@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function OfflineIndicator() {
   const [isOffline, setIsOffline] = useState(false);
+  const t = useTranslations("offline");
 
   useEffect(() => {
     setIsOffline(!navigator.onLine);
@@ -48,7 +50,7 @@ export default function OfflineIndicator() {
         <path d="M5 12.86a10 10 0 0 1 5.17-2.94" />
         <line x1="12" x2="12.01" y1="20" y2="20" />
       </svg>
-      You are offline — the app is running from cache
+      {t("message")}
     </div>
   );
 }

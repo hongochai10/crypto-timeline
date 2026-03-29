@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import WebVitalsReporter from "@/components/WebVitalsReporter";
 import OfflineIndicator from "@/components/OfflineIndicator";
@@ -75,13 +79,28 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang={locale} className="scroll-smooth">
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
@@ -90,11 +109,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <WebVitalsReporter />
-        <OfflineIndicator />
-        <ErrorBoundary>
-          {children}
-        </ErrorBoundary>
+        <NextIntlClientProvider messages={messages}>
+          <WebVitalsReporter />
+          <OfflineIndicator />
+          <ErrorBoundary>
+            {children}
+          </ErrorBoundary>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

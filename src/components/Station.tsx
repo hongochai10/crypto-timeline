@@ -2,7 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { type Era, ERAS, ERA_STATUS_LABELS, ERA_STATUS_COLORS } from "@/lib/constants";
+import { useTranslations } from "next-intl";
+import { type Era, ERAS } from "@/lib/constants";
 
 interface StationProps {
   era: Era;
@@ -13,6 +14,8 @@ interface StationProps {
 export default function Station({ era, index, children }: StationProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-25% 0px -25% 0px" });
+  const te = useTranslations("eras");
+  const tc = useTranslations("common");
 
   // Dynamically update CSS custom properties on <html> when this era is centered
   useEffect(() => {
@@ -27,12 +30,19 @@ export default function Station({ era, index, children }: StationProps) {
     root.style.setProperty("--bg-base",            era.bgColor);
   }, [isInView, era]);
 
+  const eraName = te(`${era.id}.name`);
+  const eraYear = te(`${era.id}.year`);
+  const eraSubtitle = te(`${era.id}.subtitle`);
+  const eraDescription = te(`${era.id}.description`);
+  const eraKeyFact = te(`${era.id}.keyFact`);
+  const statusLabel = te(`statusLabels.${era.status}`);
+
   return (
     <section
       ref={ref}
       id={era.id}
       className="station-section"
-      aria-label={`${era.name} — ${era.year}`}
+      aria-label={`${eraName} — ${eraYear}`}
       style={{ "--era-color": era.color } as React.CSSProperties}
     >
       {/* Full-bleed era background transition */}
@@ -119,10 +129,10 @@ export default function Station({ era, index, children }: StationProps) {
                     className="inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest"
                     style={{ color: era.color, borderColor: era.color + "50", backgroundColor: era.color + "14" }}
                   >
-                    {era.year}
+                    {eraYear}
                   </span>
-                  <span className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${ERA_STATUS_COLORS[era.status]}`}>
-                    {ERA_STATUS_LABELS[era.status]}
+                  <span className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${era.status === "broken" ? "text-red-400 bg-red-400/10 border-red-400/30" : era.status === "weakened" ? "text-orange-400 bg-orange-400/10 border-orange-400/30" : era.status === "secure" ? "text-green-400 bg-green-400/10 border-green-400/30" : era.status === "quantum-threatened" ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30" : "text-teal-400 bg-teal-400/10 border-teal-400/30"}`}>
+                    {statusLabel}
                   </span>
                 </div>
 
@@ -132,10 +142,10 @@ export default function Station({ era, index, children }: StationProps) {
                   className="text-3xl font-bold tracking-tight md:text-4xl"
                   style={{ color: era.textColor }}
                 >
-                  {era.name}
+                  {eraName}
                 </h2>
                 <p className="mt-1 font-mono text-sm" style={{ color: era.color }}>
-                  {era.subtitle}
+                  {eraSubtitle}
                 </p>
               </div>
 
@@ -152,7 +162,7 @@ export default function Station({ era, index, children }: StationProps) {
 
             {/* Description */}
             <p className="mt-4 max-w-3xl text-base leading-relaxed" style={{ color: era.textColor, opacity: 0.8 }}>
-              {era.description}
+              {eraDescription}
             </p>
 
             {/* Key fact panel */}
@@ -168,7 +178,7 @@ export default function Station({ era, index, children }: StationProps) {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <span className="mt-0.5 shrink-0 text-base">⚡</span>
-              <span>{era.keyFact}</span>
+              <span>{eraKeyFact}</span>
             </motion.div>
           </div>
 
@@ -189,7 +199,7 @@ export default function Station({ era, index, children }: StationProps) {
             href={`#${ERAS[index + 1].id}`}
             className="station-skip-nav"
           >
-            Skip to {ERAS[index + 1].name} →
+            {tc("skipToStation", { name: te(`${ERAS[index + 1].id}.name`) })}
           </a>
         )}
       </motion.div>
