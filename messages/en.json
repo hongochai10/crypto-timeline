@@ -24,6 +24,8 @@
     "jumpToEra": "Jump to era",
     "jumpTo": "Jump to {name}",
     "scrollToExplore": "Scroll to explore",
+    "stationOf": "Station {current} of {total}",
+    "stationRole": "timeline station",
     "endOfTimeline": "End of Timeline",
     "security": "Security",
     "breachStories": "Real-World Breaches",
@@ -522,5 +524,143 @@
     "benchmarking": "Benchmarking…",
     "opsPerSecond": "Operations / Second",
     "comparisonEmpty": "Click \"Run All Benchmarks\" to compare encryption speed across every algorithm in the timeline"
+  },
+  "quiz": {
+    "title": "Knowledge Check",
+    "startQuiz": "Start Quiz",
+    "questionCount": "{count} questions",
+    "progress": "{current} / {total}",
+    "score": "Score: {score}",
+    "hint": "Hint",
+    "correct": "Correct",
+    "nextQuestion": "Next Question →",
+    "seeResults": "See Results →",
+    "submitAnswer": "Submit Answer",
+    "selectAll": "Select all that apply",
+    "quizComplete": "Quiz Complete",
+    "resultPerfect": "Perfect score! You've mastered this era of cryptography.",
+    "resultGood": "Great job! You have a solid understanding of this topic.",
+    "resultTryAgain": "Keep learning! Try the demos above and quiz again.",
+    "retryQuiz": "Try Again",
+    "caesar": {
+      "q0": {
+        "question": "Crack this cipher: \"KHOOR\" was encrypted with a Caesar shift. What is the plaintext?",
+        "options": ["WORLD", "HELLO", "KNIFE", "JOLLY"],
+        "hint": "Try shifting each letter back by 3 positions in the alphabet.",
+        "explanation": "K→H, H→E, O→L, O→L, R→O. A shift of 3 gives us \"HELLO\" — Caesar's favorite shift."
+      },
+      "q1": {
+        "question": "How many possible keys does the Caesar cipher have?",
+        "options": ["25", "26", "52", "256"],
+        "hint": "The alphabet has 26 letters, but a shift of 0 leaves the text unchanged.",
+        "explanation": "There are only 25 meaningful shifts (1–25). This tiny key space makes brute-force trivial."
+      },
+      "q2": {
+        "question": "Which attack method is most effective against the Caesar cipher?",
+        "options": ["Quantum computing", "Man-in-the-middle", "Frequency analysis", "Rainbow tables"],
+        "hint": "In English, 'E' is the most common letter. What if you count letter frequencies in the ciphertext?",
+        "explanation": "Frequency analysis compares letter distribution in the ciphertext to known language patterns, instantly revealing the shift."
+      }
+    },
+    "des": {
+      "q0": {
+        "question": "Why is DES's 56-bit key considered breakable today?",
+        "options": ["The algorithm has a backdoor", "56 bits was never enough", "Modern hardware can try all 2⁵⁶ keys in hours", "The key is transmitted in plaintext"],
+        "hint": "Think about how fast computers have become since 1977.",
+        "explanation": "2⁵⁶ ≈ 72 quadrillion keys sounds like a lot, but modern hardware (and even 1998's Deep Crack) can exhaust this space in hours."
+      },
+      "q1": {
+        "question": "How long did the EFF's Deep Crack machine take to break DES in 1998?",
+        "options": ["22 minutes", "22 hours", "22 days", "22 months"],
+        "hint": "The machine cost $250,000 and used custom chips to brute-force the key space.",
+        "explanation": "Deep Crack broke DES in just 22 hours, proving that 56-bit keys were no longer secure for any serious use."
+      },
+      "q2": {
+        "question": "What algorithm replaced DES as the U.S. government standard?",
+        "options": ["RSA", "Blowfish", "Triple DES", "AES (Rijndael)"],
+        "hint": "NIST held an open competition from 1997–2000 to select the replacement.",
+        "explanation": "AES (originally named Rijndael) won the NIST competition and became the standard in 2001, supporting 128/192/256-bit keys."
+      }
+    },
+    "aes": {
+      "q0": {
+        "question": "Which AES key size provides the strongest security?",
+        "options": ["AES-64", "AES-128", "AES-256", "AES-512"],
+        "hint": "AES supports three key sizes: 128, 192, and 256 bits.",
+        "explanation": "AES-256 uses a 256-bit key, providing 2²⁵⁶ possible keys — more than atoms in the observable universe."
+      },
+      "q1": {
+        "question": "How was AES selected as the encryption standard?",
+        "options": ["Designed by the NSA in secret", "Won an open international competition", "Evolved from DES", "Mandated by the UN"],
+        "hint": "NIST invited researchers worldwide to submit candidates from 1997–2000.",
+        "explanation": "AES was selected through a transparent, public competition. Rijndael, created by Belgian cryptographers Daemen and Rijmen, won against 14 other candidates."
+      },
+      "q2": {
+        "question": "How large is the AES-256 key space compared to the physical universe?",
+        "options": ["About the same as grains of sand on Earth", "Larger than drops of water in the ocean", "Equal to the number of stars", "Larger than the number of atoms in the observable universe"],
+        "hint": "The observable universe has roughly 10⁸⁰ atoms. How does 2²⁵⁶ compare?",
+        "explanation": "2²⁵⁶ ≈ 1.16 × 10⁷⁷ — comparable to or exceeding the estimated number of atoms in the observable universe (~10⁸⁰)."
+      }
+    },
+    "rsa": {
+      "q0": {
+        "question": "What mathematical problem makes RSA secure?",
+        "options": ["Integer factorization of large semiprimes", "Discrete logarithm problem", "Elliptic curve point multiplication", "Lattice shortest vector problem"],
+        "hint": "RSA keys are built from two large prime numbers multiplied together.",
+        "explanation": "RSA security relies on the difficulty of factoring the product of two large primes. No classical algorithm can do this efficiently for large numbers."
+      },
+      "q1": {
+        "question": "Factor this number: 15 = ? × ?",
+        "options": ["2 × 7", "4 × 4", "3 × 5", "1 × 15"],
+        "hint": "15 is odd, so 2 can't be a factor. Try the smallest primes.",
+        "explanation": "15 = 3 × 5. Simple for small numbers, but factoring a 2048-bit number (617+ digits) is computationally infeasible with classical computers."
+      },
+      "q2": {
+        "question": "Why is RSA threatened by quantum computers?",
+        "options": ["Quantum computers are faster at everything", "Shor's algorithm can factor large numbers efficiently", "Quantum randomness breaks encryption keys", "RSA keys are too short for quantum resistance"],
+        "hint": "A specific quantum algorithm targets the exact mathematical problem RSA relies on.",
+        "explanation": "Shor's algorithm, running on a sufficiently powerful quantum computer, can factor large integers in polynomial time — directly breaking RSA."
+      }
+    },
+    "ecc": {
+      "q0": {
+        "question": "A 256-bit ECC key provides equivalent security to what RSA key size?",
+        "options": ["256-bit RSA", "1024-bit RSA", "3072-bit RSA", "8192-bit RSA"],
+        "hint": "ECC is famous for achieving the same security level with much smaller keys.",
+        "explanation": "256-bit ECC ≈ 3072-bit RSA in security strength. This dramatic size advantage makes ECC ideal for mobile devices and TLS."
+      },
+      "q1": {
+        "question": "Where is ECC used in practice? (Select all that apply)",
+        "options": ["TLS/HTTPS connections", "Bitcoin digital signatures", "Caesar cipher enhancement", "iPhone Secure Enclave"],
+        "hint": "ECC is everywhere in modern security — think web, cryptocurrency, and mobile hardware.",
+        "explanation": "ECC is used in TLS (ECDHE key exchange), Bitcoin (ECDSA signatures), and Apple's Secure Enclave. It is not related to Caesar cipher."
+      },
+      "q2": {
+        "question": "Why do smaller ECC keys matter for mobile devices?",
+        "options": ["Easier to remember", "More colorful visualization", "Less storage needed", "Less computation, bandwidth, and battery usage"],
+        "hint": "Mobile devices have limited power, bandwidth, and processing resources.",
+        "explanation": "Smaller keys mean faster computation, less data transmitted, and lower battery consumption — critical for billions of mobile devices establishing secure connections."
+      }
+    },
+    "pqc": {
+      "q0": {
+        "question": "Which of these algorithms are quantum-safe? (Select all that apply)",
+        "options": ["CRYSTALS-Kyber", "RSA-2048", "CRYSTALS-Dilithium", "ECDSA P-256", "SPHINCS+"],
+        "hint": "NIST standardized several lattice-based and hash-based algorithms in 2024.",
+        "explanation": "CRYSTALS-Kyber (key exchange), CRYSTALS-Dilithium (signatures), and SPHINCS+ (hash-based signatures) are all NIST-standardized post-quantum algorithms. RSA and ECDSA are vulnerable to Shor's algorithm."
+      },
+      "q1": {
+        "question": "Why can't quantum computers break lattice-based cryptography?",
+        "options": ["Lattice problems use larger keys", "No known quantum algorithm solves lattice problems efficiently", "Lattice math is too new for quantum computers", "Quantum computers can't process lattice structures"],
+        "hint": "Shor's algorithm works for factoring and discrete logs, but lattice problems are fundamentally different.",
+        "explanation": "Unlike factoring (broken by Shor's algorithm), the shortest vector problem in lattices has no known efficient quantum solution. This is why lattice-based crypto is considered quantum-safe."
+      },
+      "q2": {
+        "question": "When did NIST officially standardize its first post-quantum algorithms?",
+        "options": ["2020", "2022", "2024", "2026"],
+        "hint": "The standardization process began in 2016 and concluded after multiple rounds of evaluation.",
+        "explanation": "NIST published its first post-quantum cryptography standards (FIPS 203, 204, 205) in August 2024, after an 8-year evaluation process."
+      }
+    }
   }
 }

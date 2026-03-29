@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { ERAS } from "@/lib/constants";
+import { ERAS, type EraId } from "@/lib/constants";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
 import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
 import ErrorBoundary from "./ui/ErrorBoundary";
@@ -91,6 +92,16 @@ export default function Timeline() {
   const tf = useTranslations("footer");
   const te = useTranslations("eras");
   const searchParams = useSearchParams();
+
+  const { activeIndex, updateActiveFromScroll, navigateTo } = useKeyboardNavigation();
+
+  // Callback for Station to report when it scrolls into view
+  const handleStationInView = useCallback(
+    (eraId: EraId) => {
+      updateActiveFromScroll(eraId);
+    },
+    [updateActiveFromScroll],
+  );
 
   // Auto-scroll to station when ?station= param is present
   useEffect(() => {
@@ -201,12 +212,16 @@ export default function Timeline() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            {ERAS.map((era) => (
+            {ERAS.map((era, i) => (
               <a
                 key={era.id}
                 href={`#${era.id}`}
                 aria-label={tc("jumpTo", { name: te(`${era.id}.name`) })}
                 className="group flex flex-col items-center gap-1.5"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo(i);
+                }}
               >
                 <div
                   className="h-2.5 w-2.5 rounded-full transition-all duration-300 group-hover:scale-150"
@@ -243,12 +258,28 @@ export default function Timeline() {
 
       {/* ── Era Stations ──────────────────────────────────────── */}
       <div id="timeline-start" tabIndex={-1} />
+
+      {/* Screen reader live region for station announcements */}
+      <div
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+        role="status"
+      >
+        {activeIndex >= 0 && te(`${ERAS[activeIndex].id}.name`) + " — " + te(`${ERAS[activeIndex].id}.year`) + `. ${tc("stationOf", { current: String(activeIndex + 1), total: String(ERAS.length) })}`}
+      </div>
+
       {ERAS.map((era, index) => {
         const StationContent = STATION_COMPONENTS[era.id];
         const nextEra = ERAS[index + 1];
         return (
           <div key={era.id}>
-            <Station era={era} index={index}>
+            <Station
+              era={era}
+              index={index}
+              isKeyboardActive={activeIndex === index}
+              onInView={handleStationInView}
+            >
               <ErrorBoundary stationName={te(`${era.id}.name`)} accentColor={era.color}>
                 <StationContent era={era} />
               </ErrorBoundary>

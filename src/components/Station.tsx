@@ -3,15 +3,19 @@
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { type Era, ERAS } from "@/lib/constants";
+import { type Era, type EraId, ERAS } from "@/lib/constants";
 
 interface StationProps {
   era: Era;
   index: number;
   children: React.ReactNode;
+  /** Whether this station is the keyboard-active station */
+  isKeyboardActive?: boolean;
+  /** Called when this station scrolls into view */
+  onInView?: (eraId: EraId) => void;
 }
 
-export default function Station({ era, index, children }: StationProps) {
+export default function Station({ era, index, children, isKeyboardActive, onInView }: StationProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-25% 0px -25% 0px" });
   const te = useTranslations("eras");
@@ -30,6 +34,13 @@ export default function Station({ era, index, children }: StationProps) {
     root.style.setProperty("--bg-base",            era.bgColor);
   }, [isInView, era]);
 
+  // Notify parent when this station scrolls into view
+  useEffect(() => {
+    if (isInView) {
+      onInView?.(era.id);
+    }
+  }, [isInView, era.id, onInView]);
+
   const eraName = te(`${era.id}.name`);
   const eraYear = te(`${era.id}.year`);
   const eraSubtitle = te(`${era.id}.subtitle`);
@@ -41,8 +52,10 @@ export default function Station({ era, index, children }: StationProps) {
     <section
       ref={ref}
       id={era.id}
-      className="station-section"
+      className={`station-section${isKeyboardActive ? " station-keyboard-active" : ""}`}
       aria-label={`${eraName} — ${eraYear}`}
+      aria-roledescription={tc("stationRole")}
+      tabIndex={-1}
       style={{ "--era-color": era.color } as React.CSSProperties}
     >
       {/* Full-bleed era background transition */}
