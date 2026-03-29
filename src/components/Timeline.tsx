@@ -14,6 +14,7 @@ import RSAStation from "./stations/RSAStation";
 import ECCStation from "./stations/ECCStation";
 import PQCStation from "./stations/PQCStation";
 import ErrorBoundary from "./ui/ErrorBoundary";
+import BenchmarkComparison from "./ui/BenchmarkComparison";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const STATION_COMPONENTS = {
@@ -234,6 +235,15 @@ export default function Timeline() {
           </div>
         );
       })}
+
+      {/* ── Benchmark Comparison ─────────────────────────────── */}
+      <section
+        className="flex flex-col items-center justify-center gap-8 px-6 py-20"
+        style={{ backgroundColor: "#050a12" }}
+        aria-label="Algorithm Performance Comparison"
+      >
+        <BenchmarkComparison />
+      </section>
 
       {/* ── Footer ────────────────────────────────────────────── */}
       <footer

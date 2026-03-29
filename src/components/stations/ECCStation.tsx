@@ -6,6 +6,7 @@ import { type Era } from "@/lib/constants";
 import ECCDemo from "@/components/demos/ECCDemo";
 import ECCAttack from "@/components/attacks/ECCAttack";
 import BreachStories from "@/components/ui/BreachStories";
+import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 
 interface StationProps {
   era: Era;
@@ -149,6 +150,9 @@ export default function ECCStation({ era }: StationProps) {
 
       {/* Breach Stories */}
       <BreachStories stories={BREACH_STORIES} color={era.color} />
+
+      {/* Performance Benchmark */}
+      <BenchmarkPanel algorithm="ecc" color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>

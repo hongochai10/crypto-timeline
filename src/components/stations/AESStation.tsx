@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import AESDemo from "@/components/demos/AESDemo";
 import AESAttack from "@/components/attacks/AESAttack";
+import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 
 interface StationProps {
   era: Era;
@@ -146,6 +147,9 @@ export default function AESStation({ era }: StationProps) {
           </div>
         </div>
       </div>
+
+      {/* Performance Benchmark */}
+      <BenchmarkPanel algorithm="aes" color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>

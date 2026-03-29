@@ -6,6 +6,7 @@ import { type Era } from "@/lib/constants";
 import CaesarDemo from "@/components/demos/CaesarDemo";
 import CaesarAttack from "@/components/attacks/CaesarAttack";
 import BreachStories from "@/components/ui/BreachStories";
+import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 
 interface StationProps {
   era: Era;
@@ -119,6 +120,9 @@ export default function CaesarStation({ era }: StationProps) {
 
       {/* Breach Stories */}
       <BreachStories stories={BREACH_STORIES} color={era.color} />
+
+      {/* Performance Benchmark */}
+      <BenchmarkPanel algorithm="caesar" color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>

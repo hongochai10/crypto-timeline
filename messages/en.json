@@ -500,5 +500,25 @@
   },
   "offline": {
     "message": "You are offline — the app is running from cache"
+  },
+  "benchmarks": {
+    "title": "Performance Benchmark",
+    "run": "Run Benchmark",
+    "rerun": "Re-run",
+    "running": "Running…",
+    "measuring": "Measuring",
+    "encrypt": "Encrypt",
+    "decrypt": "Decrypt",
+    "keySize": "Key Size",
+    "iterations": "Iterations",
+    "duration": "Duration",
+    "keySizeVsSpeed": "Key Size vs Security Tradeoff",
+    "comparisonTitle": "Algorithm Performance Comparison",
+    "comparisonSubtitle": "Side-by-side encryption speed across all eras — see why AES replaced DES",
+    "runAll": "Run All Benchmarks",
+    "rerunAll": "Re-run All",
+    "benchmarking": "Benchmarking…",
+    "opsPerSecond": "Operations / Second",
+    "comparisonEmpty": "Click \"Run All Benchmarks\" to compare encryption speed across every algorithm in the timeline"
   }
 }

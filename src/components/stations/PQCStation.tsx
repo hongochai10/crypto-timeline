@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import PQCDemo from "@/components/demos/PQCDemo";
 import PQCAttack from "@/components/attacks/PQCAttack";
+import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 
 interface StationProps {
   era: Era;
@@ -179,6 +180,9 @@ export default function PQCStation({ era }: StationProps) {
           </div>
         </div>
       </div>
+
+      {/* Performance Benchmark */}
+      <BenchmarkPanel algorithm="pqc" color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>

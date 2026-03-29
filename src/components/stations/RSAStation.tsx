@@ -6,6 +6,7 @@ import { type Era } from "@/lib/constants";
 import RSADemo from "@/components/demos/RSADemo";
 import RSAAttack from "@/components/attacks/RSAAttack";
 import BreachStories from "@/components/ui/BreachStories";
+import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 
 interface StationProps {
   era: Era;
@@ -154,6 +155,9 @@ export default function RSAStation({ era }: StationProps) {
 
       {/* Breach Stories */}
       <BreachStories stories={BREACH_STORIES} color={era.color} />
+
+      {/* Performance Benchmark */}
+      <BenchmarkPanel algorithm="rsa" color={era.color} />
 
       {/* Interactive Demo + Attack */}
       <div>

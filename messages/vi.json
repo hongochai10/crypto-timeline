@@ -500,5 +500,25 @@
   },
   "offline": {
     "message": "Bạn đang ngoại tuyến — ứng dụng đang chạy từ bộ nhớ đệm"
+  },
+  "benchmarks": {
+    "title": "Đo hiệu năng",
+    "run": "Chạy Benchmark",
+    "rerun": "Chạy lại",
+    "running": "Đang chạy…",
+    "measuring": "Đang đo",
+    "encrypt": "Mã hóa",
+    "decrypt": "Giải mã",
+    "keySize": "Kích thước khóa",
+    "iterations": "Số lần lặp",
+    "duration": "Thời gian",
+    "keySizeVsSpeed": "Kích thước khóa vs Bảo mật",
+    "comparisonTitle": "So sánh hiệu năng thuật toán",
+    "comparisonSubtitle": "Tốc độ mã hóa song song giữa các kỷ nguyên — hiểu tại sao AES thay thế DES",
+    "runAll": "Chạy tất cả Benchmark",
+    "rerunAll": "Chạy lại tất cả",
+    "benchmarking": "Đang benchmark…",
+    "opsPerSecond": "Thao tác / Giây",
+    "comparisonEmpty": "Nhấn \"Chạy tất cả Benchmark\" để so sánh tốc độ mã hóa giữa mọi thuật toán trong dòng thời gian"
   }
 }
