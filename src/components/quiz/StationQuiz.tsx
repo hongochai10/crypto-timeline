@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { type EraId } from "@/lib/constants";
+import { useProgressTracking } from "@/hooks/useProgressTracking";
 
 export interface QuizQuestion {
   id: string;
@@ -119,8 +120,9 @@ function SelectManyButton({
   );
 }
 
-export default function StationQuiz({ eraId: _eraId, color, questions }: StationQuizProps) {
+export default function StationQuiz({ eraId, color, questions }: StationQuizProps) {
   const t = useTranslations("quiz");
+  const { markQuizCompleted } = useProgressTracking();
   const [currentQ, setCurrentQ] = useState(0);
   const [score, setScore] = useState(0);
   const [attempts, setAttempts] = useState(0);
@@ -131,6 +133,13 @@ export default function StationQuiz({ eraId: _eraId, color, questions }: Station
   const [optionStates, setOptionStates] = useState<Record<number, "idle" | "selected" | "correct" | "wrong">>({});
   const [quizComplete, setQuizComplete] = useState(false);
   const [started, setStarted] = useState(false);
+
+  // Mark quiz as completed in progress tracking
+  useEffect(() => {
+    if (quizComplete) {
+      markQuizCompleted(eraId);
+    }
+  }, [quizComplete, eraId, markQuizCompleted]);
 
   const question = questions[currentQ];
 

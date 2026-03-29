@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { type Era, type EraId, ERAS } from "@/lib/constants";
+import { useProgressTracking } from "@/hooks/useProgressTracking";
 
 interface StationProps {
   era: Era;
@@ -20,6 +21,18 @@ export default function Station({ era, index, children, isKeyboardActive, onInVi
   const isInView = useInView(ref, { once: false, margin: "-25% 0px -25% 0px" });
   const te = useTranslations("eras");
   const tc = useTranslations("common");
+  const tp = useTranslations("progress");
+  const { markStationVisited, isStationVisited, isQuizCompleted } = useProgressTracking();
+
+  // Mark station as visited when it scrolls into view
+  useEffect(() => {
+    if (isInView) {
+      markStationVisited(era.id);
+    }
+  }, [isInView, era.id, markStationVisited]);
+
+  const visited = isStationVisited(era.id);
+  const quizDone = isQuizCompleted(era.id);
 
   // Dynamically update CSS custom properties on <html> when this era is centered
   useEffect(() => {
@@ -147,6 +160,30 @@ export default function Station({ era, index, children, isKeyboardActive, onInVi
                   <span className={`inline-flex items-center rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest ${era.status === "broken" ? "text-red-400 bg-red-400/10 border-red-400/30" : era.status === "weakened" ? "text-orange-400 bg-orange-400/10 border-orange-400/30" : era.status === "secure" ? "text-green-400 bg-green-400/10 border-green-400/30" : era.status === "quantum-threatened" ? "text-yellow-400 bg-yellow-400/10 border-yellow-400/30" : "text-teal-400 bg-teal-400/10 border-teal-400/30"}`}>
                     {statusLabel}
                   </span>
+                  {visited && (
+                    <span
+                      className="inline-flex items-center gap-1 rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 border-emerald-400/30"
+                      role="status"
+                      aria-label={tp("stationVisited")}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {tp("visited")}
+                    </span>
+                  )}
+                  {quizDone && (
+                    <span
+                      className="inline-flex items-center gap-1 rounded-full border px-3 py-1 font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 bg-amber-400/10 border-amber-400/30"
+                      role="status"
+                      aria-label={tp("quizCompleted")}
+                    >
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M6 1l1.5 3 3.5.5-2.5 2.5.5 3.5L6 9l-3 1.5.5-3.5L1 4.5 4.5 4z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" fill="currentColor" fillOpacity="0.2"/>
+                      </svg>
+                      {tp("quizDone")}
+                    </span>
+                  )}
                 </div>
 
                 {/* Station title */}
