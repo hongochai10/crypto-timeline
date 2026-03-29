@@ -5,7 +5,7 @@ type TranslateFn = (key: string) => string;
 
 /**
  * Build quiz questions for a given era using the translation function.
- * Each era has 3 questions; translations live under `quiz.{eraId}.q{n}.*`.
+ * Each era has 5 questions; translations live under `quiz.{eraId}.q{n}.*`.
  */
 export function getQuizQuestions(eraId: EraId, t: TranslateFn): QuizQuestion[] {
   const meta = QUIZ_META[eraId];
@@ -37,6 +37,10 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     { type: "multiple-choice", optionCount: 4, correctAnswers: [0] },
     // Q2: What attack breaks Caesar?
     { type: "multiple-choice", optionCount: 4, correctAnswers: [2] },
+    // Q3: Who used the Caesar cipher historically?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
+    // Q4: What type of cipher is Caesar? (select many)
+    { type: "select-many", optionCount: 4, correctAnswers: [0, 2] },
   ],
   des: [
     // Q0: Why is 56-bit key breakable?
@@ -45,6 +49,10 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
     // Q2: What replaced DES?
     { type: "multiple-choice", optionCount: 4, correctAnswers: [3] },
+    // Q3: What is the DES block size?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [0] },
+    // Q4: What is Triple DES (3DES)?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [2] },
   ],
   aes: [
     // Q0: Match key size to security level
@@ -53,6 +61,10 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
     // Q2: AES-256 key space comparison
     { type: "multiple-choice", optionCount: 4, correctAnswers: [3] },
+    // Q3: What type of cipher is AES?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
+    // Q4: Where is AES used? (select many)
+    { type: "select-many", optionCount: 4, correctAnswers: [0, 1, 3] },
   ],
   rsa: [
     // Q0: What mathematical problem secures RSA?
@@ -60,6 +72,10 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     // Q1: Factor this small number (15 = 3 × 5)
     { type: "crack-cipher", optionCount: 4, correctAnswers: [2] },
     // Q2: Why is RSA quantum-threatened?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
+    // Q3: What makes RSA different from AES?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [2] },
+    // Q4: What is a typical RSA key size today?
     { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
   ],
   ecc: [
@@ -69,6 +85,10 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     { type: "select-many", optionCount: 4, correctAnswers: [0, 1, 3] },
     // Q2: Why smaller keys matter
     { type: "multiple-choice", optionCount: 4, correctAnswers: [3] },
+    // Q3: What curve does Bitcoin use?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [0] },
+    // Q4: What problem does ECDH solve?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [2] },
   ],
   pqc: [
     // Q0: Which algorithms are quantum-safe? (select many)
@@ -77,5 +97,9 @@ const QUIZ_META: Record<EraId, QuestionMeta[]> = {
     { type: "multiple-choice", optionCount: 4, correctAnswers: [1] },
     // Q2: When did NIST standardize PQC?
     { type: "multiple-choice", optionCount: 4, correctAnswers: [2] },
+    // Q3: What is "harvest now, decrypt later"?
+    { type: "multiple-choice", optionCount: 4, correctAnswers: [3] },
+    // Q4: Which PQC techniques exist? (select many)
+    { type: "select-many", optionCount: 5, correctAnswers: [0, 1, 3] },
   ],
 };

@@ -109,16 +109,48 @@
       "narrative1": "In 58 BC, Julius Caesar needed to coordinate troop movements across hundreds of miles without his messages falling into enemy hands. His solution was elegant: shift every letter of the alphabet by 3 positions. <em>ATTACK AT DAWN</em> became <em2>DWWDFN DW GDZQ</em2>. Enemies who intercepted the message saw only gibberish — unless they knew the key.",
       "narrative2": "For nearly a century this worked. But in the 9th century, the Arab polymath Al-Kindi discovered that letters appear with predictable frequency in any language. In English, 'E' appears ~12.7% of the time. If the most common letter in the ciphertext is 'H', the shift is almost certainly 3. The cipher was broken — permanently.",
       "timelineEvents": {
-        "0": { "year": "58 BC", "label": "Gallic Wars begin", "detail": "Caesar uses shift cipher to coordinate troop movements across vast distances" },
-        "1": { "year": "50 BC", "label": "Cipher documented", "detail": "Shift-3 becomes the standard for all Roman military dispatches and personal correspondence" },
-        "2": { "year": "60 AD", "label": "Suetonius records it", "detail": "Roman biographer documents the cipher in The Twelve Caesars — our earliest written record" },
-        "3": { "year": "9th c.", "label": "Al-Kindi breaks it", "detail": "Arab polymath invents frequency analysis, rendering all simple substitution ciphers obsolete" },
-        "4": { "year": "Today", "label": "ROT13 lives on", "detail": "Modern variant ROT13 (shift 13) still used in online forums and programming to lightly obscure text" }
+        "0": {
+          "year": "58 BC",
+          "label": "Gallic Wars begin",
+          "detail": "Caesar uses shift cipher to coordinate troop movements across vast distances"
+        },
+        "1": {
+          "year": "50 BC",
+          "label": "Cipher documented",
+          "detail": "Shift-3 becomes the standard for all Roman military dispatches and personal correspondence"
+        },
+        "2": {
+          "year": "60 AD",
+          "label": "Suetonius records it",
+          "detail": "Roman biographer documents the cipher in The Twelve Caesars — our earliest written record"
+        },
+        "3": {
+          "year": "9th c.",
+          "label": "Al-Kindi breaks it",
+          "detail": "Arab polymath invents frequency analysis, rendering all simple substitution ciphers obsolete"
+        },
+        "4": {
+          "year": "Today",
+          "label": "ROT13 lives on",
+          "detail": "Modern variant ROT13 (shift 13) still used in online forums and programming to lightly obscure text"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Julius Caesar", "role": "Roman General & Dictator", "note": "Used shift-3 for military dispatches and personal letters to Cicero" },
-        "1": { "name": "Al-Kindi", "role": "Arab Polymath (801–873 AD)", "note": "Invented frequency analysis — the technique that permanently breaks all Caesar-family ciphers" },
-        "2": { "name": "Suetonius", "role": "Roman Biographer (69–122 AD)", "note": "Documented the cipher in writing, providing the earliest historical record we have" }
+        "0": {
+          "name": "Julius Caesar",
+          "role": "Roman General & Dictator",
+          "note": "Used shift-3 for military dispatches and personal letters to Cicero"
+        },
+        "1": {
+          "name": "Al-Kindi",
+          "role": "Arab Polymath (801–873 AD)",
+          "note": "Invented frequency analysis — the technique that permanently breaks all Caesar-family ciphers"
+        },
+        "2": {
+          "name": "Suetonius",
+          "role": "Roman Biographer (69–122 AD)",
+          "note": "Documented the cipher in writing, providing the earliest historical record we have"
+        }
       },
       "breachStories": {
         "0": {
@@ -139,17 +171,53 @@
       "narrative1": "In 1973, the US government had no unified encryption standard. Banks, agencies, and contractors each invented their own — a fragmented mess. The National Bureau of Standards (now NIST) issued an open call. IBM answered with <em>Lucifer</em>, a 64-bit block cipher born from internal research. NSA quietly intervened — trimming the key to 56 bits and adjusting the S-boxes. Cryptographers cried foul. Had the NSA weakened it intentionally?",
       "narrative2": "For 20 years DES encrypted everything from ATM transactions to classified communications. Then in 1998, the EFF built <em2>Deep Crack</em2> — a $250,000 machine with 1,856 custom chips — and cracked a DES key in just 22 hours. A cipher trusted by millions had fallen. With only 2⁵⁶ (~72 quadrillion) possible keys, brute force had become feasible.",
       "timelineEvents": {
-        "0": { "year": "1973", "label": "NBS issues a call", "detail": "National Bureau of Standards asks for a national encryption standard — IBM submits Lucifer" },
-        "1": { "year": "1975", "label": "NSA trims the key", "detail": "NSA reduces Lucifer's 64-bit key to 56 bits — sparking decades of controversy over backdoor fears" },
-        "2": { "year": "1977", "label": "DES adopted", "detail": "FIPS 46 makes DES the official US government and banking encryption standard" },
-        "3": { "year": "1998", "label": "Deep Crack breaks it", "detail": "EFF's $250,000 machine cracks a DES key in 22 hours, proving 56-bit keys are insufficient" },
-        "4": { "year": "1999", "label": "DES officially deprecated", "detail": "Triple-DES (3DES) recommended as stopgap; AES competition already underway" },
-        "5": { "year": "2001", "label": "Replaced by AES", "detail": "AES officially supersedes DES as the federal encryption standard" }
+        "0": {
+          "year": "1973",
+          "label": "NBS issues a call",
+          "detail": "National Bureau of Standards asks for a national encryption standard — IBM submits Lucifer"
+        },
+        "1": {
+          "year": "1975",
+          "label": "NSA trims the key",
+          "detail": "NSA reduces Lucifer's 64-bit key to 56 bits — sparking decades of controversy over backdoor fears"
+        },
+        "2": {
+          "year": "1977",
+          "label": "DES adopted",
+          "detail": "FIPS 46 makes DES the official US government and banking encryption standard"
+        },
+        "3": {
+          "year": "1998",
+          "label": "Deep Crack breaks it",
+          "detail": "EFF's $250,000 machine cracks a DES key in 22 hours, proving 56-bit keys are insufficient"
+        },
+        "4": {
+          "year": "1999",
+          "label": "DES officially deprecated",
+          "detail": "Triple-DES (3DES) recommended as stopgap; AES competition already underway"
+        },
+        "5": {
+          "year": "2001",
+          "label": "Replaced by AES",
+          "detail": "AES officially supersedes DES as the federal encryption standard"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Walter Tuchman & Carl Meyer", "role": "IBM Engineers", "note": "Designed Lucifer (DES predecessor) — the algorithm that became DES after NSA modifications" },
-        "1": { "name": "Whitfield Diffie", "role": "Cryptographer", "note": "Publicly criticized the 56-bit key size in 1977, predicting it would eventually be brute-forced" },
-        "2": { "name": "EFF Deep Crack Team", "role": "Electronic Frontier Foundation", "note": "Built a $250,000 FPGA-based cracker in 1998 that exhausted the key space in 22 hours" }
+        "0": {
+          "name": "Walter Tuchman & Carl Meyer",
+          "role": "IBM Engineers",
+          "note": "Designed Lucifer (DES predecessor) — the algorithm that became DES after NSA modifications"
+        },
+        "1": {
+          "name": "Whitfield Diffie",
+          "role": "Cryptographer",
+          "note": "Publicly criticized the 56-bit key size in 1977, predicting it would eventually be brute-forced"
+        },
+        "2": {
+          "name": "EFF Deep Crack Team",
+          "role": "Electronic Frontier Foundation",
+          "note": "Built a $250,000 FPGA-based cracker in 1998 that exhausted the key space in 22 hours"
+        }
       },
       "breachStories": {
         "0": {
@@ -171,22 +239,73 @@
       "narrative2": "Two Belgian cryptographers — Joan Daemen and Vincent Rijmen — submitted <em2>Rijndael</em2>, an elegant design based on finite field mathematics. It was fast in hardware, fast in software, and resisted every known attack. AES-256 has a keyspace of 2²⁵⁶ — more combinations than atoms in the observable universe. No practical attack exists to this day. It encrypts everything from your Wi-Fi to classified US government communications.",
       "whyUnbreakable": "Why AES Is Unbreakable (Practically)",
       "keyspaceItems": {
-        "desKeys": { "label": "DES keys", "value": "2⁵⁶", "sub": "~7.2 × 10¹⁶", "note": "Cracked in 22 hrs" },
-        "aes128Keys": { "label": "AES-128 keys", "value": "2¹²⁸", "sub": "~3.4 × 10³⁸", "note": "Heat death of universe" },
-        "aes256Keys": { "label": "AES-256 keys", "value": "2²⁵⁶", "sub": "~1.2 × 10⁷⁷", "note": "More than atoms in universe" }
+        "desKeys": {
+          "label": "DES keys",
+          "value": "2⁵⁶",
+          "sub": "~7.2 × 10¹⁶",
+          "note": "Cracked in 22 hrs"
+        },
+        "aes128Keys": {
+          "label": "AES-128 keys",
+          "value": "2¹²⁸",
+          "sub": "~3.4 × 10³⁸",
+          "note": "Heat death of universe"
+        },
+        "aes256Keys": {
+          "label": "AES-256 keys",
+          "value": "2²⁵⁶",
+          "sub": "~1.2 × 10⁷⁷",
+          "note": "More than atoms in universe"
+        }
       },
       "timelineEvents": {
-        "0": { "year": "1997", "label": "NIST competition announced", "detail": "15 submissions from teams worldwide; requirements: 128-bit block, variable key (128/192/256-bit)" },
-        "1": { "year": "1998", "label": "Round 1 — 15 candidates", "detail": "Rijndael, Serpent, Twofish, RC6, and MARS emerge as frontrunners" },
-        "2": { "year": "1999", "label": "Round 2 — 5 finalists", "detail": "Extensive public cryptanalysis; Rijndael praised for elegant math and implementation efficiency" },
-        "3": { "year": "2000", "label": "Rijndael wins", "detail": "NIST selects Rijndael by Joan Daemen & Vincent Rijmen (Belgium) as the new AES standard" },
-        "4": { "year": "2001", "label": "FIPS 197 published", "detail": "AES officially adopted as US federal standard, replacing DES in all government use" },
-        "5": { "year": "Today", "label": "Universally deployed", "detail": "AES encrypts Wi-Fi (WPA2/3), HTTPS, disk encryption, messaging apps, and classified US communications" }
+        "0": {
+          "year": "1997",
+          "label": "NIST competition announced",
+          "detail": "15 submissions from teams worldwide; requirements: 128-bit block, variable key (128/192/256-bit)"
+        },
+        "1": {
+          "year": "1998",
+          "label": "Round 1 — 15 candidates",
+          "detail": "Rijndael, Serpent, Twofish, RC6, and MARS emerge as frontrunners"
+        },
+        "2": {
+          "year": "1999",
+          "label": "Round 2 — 5 finalists",
+          "detail": "Extensive public cryptanalysis; Rijndael praised for elegant math and implementation efficiency"
+        },
+        "3": {
+          "year": "2000",
+          "label": "Rijndael wins",
+          "detail": "NIST selects Rijndael by Joan Daemen & Vincent Rijmen (Belgium) as the new AES standard"
+        },
+        "4": {
+          "year": "2001",
+          "label": "FIPS 197 published",
+          "detail": "AES officially adopted as US federal standard, replacing DES in all government use"
+        },
+        "5": {
+          "year": "Today",
+          "label": "Universally deployed",
+          "detail": "AES encrypts Wi-Fi (WPA2/3), HTTPS, disk encryption, messaging apps, and classified US communications"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Joan Daemen & Vincent Rijmen", "role": "Belgian Cryptographers", "note": "Designed Rijndael, selected as AES. Daemen also co-designed SHA-3 (Keccak) later" },
-        "1": { "name": "Bruce Schneier", "role": "Twofish co-designer", "note": "Submitted Twofish as AES candidate; became one of the most respected cryptography voices after the competition" },
-        "2": { "name": "NIST team", "role": "National Institute of Standards & Technology", "note": "Ran an unprecedented open, global competition — credited as the gold standard for algorithm standardization" }
+        "0": {
+          "name": "Joan Daemen & Vincent Rijmen",
+          "role": "Belgian Cryptographers",
+          "note": "Designed Rijndael, selected as AES. Daemen also co-designed SHA-3 (Keccak) later"
+        },
+        "1": {
+          "name": "Bruce Schneier",
+          "role": "Twofish co-designer",
+          "note": "Submitted Twofish as AES candidate; became one of the most respected cryptography voices after the competition"
+        },
+        "2": {
+          "name": "NIST team",
+          "role": "National Institute of Standards & Technology",
+          "note": "Ran an unprecedented open, global competition — credited as the gold standard for algorithm standardization"
+        }
       }
     },
     "rsa": {
@@ -194,22 +313,70 @@
       "narrative2": "RSA's elegance: multiplying two large primes is trivial, but factoring the result back into those primes is computationally infeasible for classical computers. This mathematical trapdoor lets anyone encrypt a message with your <em2>public key</em2>, but only you can decrypt it with your <em2>private key</em2>. It unlocked HTTPS, email encryption, and secure banking. What no one knew in 1977 was that GCHQ mathematician Clifford Cocks had discovered the same thing 4 years earlier — classified until 1997.",
       "mathTrapdoor": "The Mathematical Trapdoor",
       "mathSteps": {
-        "0": { "label": "Pick two large primes", "value": "p = 61, q = 53", "detail": "In practice: 2048-bit primes" },
-        "1": { "label": "Compute n = p × q", "value": "n = 3,233", "detail": "Easy to compute, hard to reverse" },
-        "2": { "label": "Public key encrypts", "value": "e = 17, n = 3,233", "detail": "Anyone can encrypt with this" }
+        "0": {
+          "label": "Pick two large primes",
+          "value": "p = 61, q = 53",
+          "detail": "In practice: 2048-bit primes"
+        },
+        "1": {
+          "label": "Compute n = p × q",
+          "value": "n = 3,233",
+          "detail": "Easy to compute, hard to reverse"
+        },
+        "2": {
+          "label": "Public key encrypts",
+          "value": "e = 17, n = 3,233",
+          "detail": "Anyone can encrypt with this"
+        }
       },
       "timelineEvents": {
-        "0": { "year": "1976", "label": "Diffie & Hellman publish", "detail": "New Directions in Cryptography — describes asymmetric key exchange for the first time publicly" },
-        "1": { "year": "1977", "label": "RSA invented", "detail": "Rivest, Shamir & Adleman publish the RSA algorithm in an MIT technical memo — first practical public-key crypto" },
-        "2": { "year": "1977", "label": "Martin Gardner publishes it", "detail": "Scientific American column introduces RSA to the world — and offers a $100 challenge to factor a 129-digit number" },
-        "3": { "year": "1994", "label": "Shor's algorithm", "detail": "Peter Shor proves a quantum computer could factor large integers in polynomial time — RSA's theoretical death sentence" },
-        "4": { "year": "1994", "label": "RSA-129 factored", "detail": "Gardner's 1977 challenge finally cracked by 600 volunteers across the internet using distributed computing" },
-        "5": { "year": "Today", "label": "Powers HTTPS", "detail": "RSA still secures TLS handshakes for most websites; migration to post-quantum alternatives underway" }
+        "0": {
+          "year": "1976",
+          "label": "Diffie & Hellman publish",
+          "detail": "New Directions in Cryptography — describes asymmetric key exchange for the first time publicly"
+        },
+        "1": {
+          "year": "1977",
+          "label": "RSA invented",
+          "detail": "Rivest, Shamir & Adleman publish the RSA algorithm in an MIT technical memo — first practical public-key crypto"
+        },
+        "2": {
+          "year": "1977",
+          "label": "Martin Gardner publishes it",
+          "detail": "Scientific American column introduces RSA to the world — and offers a $100 challenge to factor a 129-digit number"
+        },
+        "3": {
+          "year": "1994",
+          "label": "Shor's algorithm",
+          "detail": "Peter Shor proves a quantum computer could factor large integers in polynomial time — RSA's theoretical death sentence"
+        },
+        "4": {
+          "year": "1994",
+          "label": "RSA-129 factored",
+          "detail": "Gardner's 1977 challenge finally cracked by 600 volunteers across the internet using distributed computing"
+        },
+        "5": {
+          "year": "Today",
+          "label": "Powers HTTPS",
+          "detail": "RSA still secures TLS handshakes for most websites; migration to post-quantum alternatives underway"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Ron Rivest, Adi Shamir, Leonard Adleman", "role": "MIT Cryptographers (1977)", "note": "RSA was invented after Clifford Cocks (GCHQ) did it secretly in 1973 — but RSA became the public, credited invention" },
-        "1": { "name": "Clifford Cocks", "role": "GCHQ Mathematician (1973)", "note": "Independently invented RSA 4 years earlier — classified until 1997. An uncredited parallel discovery" },
-        "2": { "name": "Peter Shor", "role": "MIT Mathematician (1994)", "note": "Proved a sufficiently large quantum computer breaks RSA — triggering the post-quantum cryptography race" }
+        "0": {
+          "name": "Ron Rivest, Adi Shamir, Leonard Adleman",
+          "role": "MIT Cryptographers (1977)",
+          "note": "RSA was invented after Clifford Cocks (GCHQ) did it secretly in 1973 — but RSA became the public, credited invention"
+        },
+        "1": {
+          "name": "Clifford Cocks",
+          "role": "GCHQ Mathematician (1973)",
+          "note": "Independently invented RSA 4 years earlier — classified until 1997. An uncredited parallel discovery"
+        },
+        "2": {
+          "name": "Peter Shor",
+          "role": "MIT Mathematician (1994)",
+          "note": "Proved a sufficiently large quantum computer breaks RSA — triggering the post-quantum cryptography race"
+        }
       },
       "breachStories": {
         "0": {
@@ -231,17 +398,53 @@
       "narrative2": "A 256-bit ECC key provides the same security as a 3072-bit RSA key. This dramatic efficiency gain made ECC ideal for mobile devices, TLS certificates, and blockchain wallets. When Satoshi Nakamoto designed Bitcoin in 2008, they chose ECC curve <em2>secp256k1</em2> for digital signatures — an unusual curve with near-prime structure properties. Every Bitcoin transaction signed today uses ECC. Like RSA, ECC is vulnerable to Shor's algorithm on quantum computers.",
       "keySizeComparison": "ECC vs RSA — Key Size for Equivalent Security",
       "timelineEvents": {
-        "0": { "year": "1985", "label": "Koblitz & Miller independently", "detail": "Neal Koblitz and Victor Miller separately propose using elliptic curves for cryptography — neither knew about the other" },
-        "1": { "year": "1999", "label": "NSA adopts Suite B", "detail": "NSA recommends ECC for government use — first major institutional endorsement" },
-        "2": { "year": "2004", "label": "BlackBerry uses ECC", "detail": "Mobile devices adopt ECC for its small key size — 256-bit ECC replaces 3072-bit RSA in many applications" },
-        "3": { "year": "2008", "label": "Bitcoin launches with secp256k1", "detail": "Satoshi Nakamoto chooses ECC curve secp256k1 for Bitcoin digital signatures — still securing trillions in value" },
-        "4": { "year": "2013", "label": "NSA Dual_EC controversy", "detail": "Snowden revelations suggest NSA may have backdoored the Dual_EC_DRBG elliptic curve standard" },
-        "5": { "year": "2015", "label": "TLS 1.3 defaults to ECC", "detail": "The new TLS standard prefers ECDHE key exchange — most HTTPS connections now use ECC" }
+        "0": {
+          "year": "1985",
+          "label": "Koblitz & Miller independently",
+          "detail": "Neal Koblitz and Victor Miller separately propose using elliptic curves for cryptography — neither knew about the other"
+        },
+        "1": {
+          "year": "1999",
+          "label": "NSA adopts Suite B",
+          "detail": "NSA recommends ECC for government use — first major institutional endorsement"
+        },
+        "2": {
+          "year": "2004",
+          "label": "BlackBerry uses ECC",
+          "detail": "Mobile devices adopt ECC for its small key size — 256-bit ECC replaces 3072-bit RSA in many applications"
+        },
+        "3": {
+          "year": "2008",
+          "label": "Bitcoin launches with secp256k1",
+          "detail": "Satoshi Nakamoto chooses ECC curve secp256k1 for Bitcoin digital signatures — still securing trillions in value"
+        },
+        "4": {
+          "year": "2013",
+          "label": "NSA Dual_EC controversy",
+          "detail": "Snowden revelations suggest NSA may have backdoored the Dual_EC_DRBG elliptic curve standard"
+        },
+        "5": {
+          "year": "2015",
+          "label": "TLS 1.3 defaults to ECC",
+          "detail": "The new TLS standard prefers ECDHE key exchange — most HTTPS connections now use ECC"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Neal Koblitz", "role": "University of Washington Mathematician (1985)", "note": "Independently proposed ECC — also a co-inventor of Hyperelliptic curve cryptography" },
-        "1": { "name": "Victor Miller", "role": "IBM Research Mathematician (1985)", "note": "Independently proposed ECC in the same year — both papers presented at CRYPTO 1985" },
-        "2": { "name": "Satoshi Nakamoto", "role": "Bitcoin creator (2008)", "note": "Chose secp256k1 ECC curve for Bitcoin wallets and signatures — still securing all BTC transactions" }
+        "0": {
+          "name": "Neal Koblitz",
+          "role": "University of Washington Mathematician (1985)",
+          "note": "Independently proposed ECC — also a co-inventor of Hyperelliptic curve cryptography"
+        },
+        "1": {
+          "name": "Victor Miller",
+          "role": "IBM Research Mathematician (1985)",
+          "note": "Independently proposed ECC in the same year — both papers presented at CRYPTO 1985"
+        },
+        "2": {
+          "name": "Satoshi Nakamoto",
+          "role": "Bitcoin creator (2008)",
+          "note": "Chose secp256k1 ECC curve for Bitcoin wallets and signatures — still securing all BTC transactions"
+        }
       },
       "breachStories": {
         "0": {
@@ -265,24 +468,83 @@
       "narrative2": "The danger isn't just future attacks — it's <em2>harvest-now, decrypt-later</em2>. Nation-state actors are collecting encrypted traffic today, waiting for quantum computers powerful enough to decrypt it. Sensitive data encrypted in 2024 could be read in 2035. NIST's response: CRYSTALS-Kyber and CRYSTALS-Dilithium, standardized in 2024 as the first official post-quantum algorithms. The race to migrate has begun.",
       "threatAssessment": "Quantum Threat Assessment — All Algorithms",
       "threatComparison": {
-        "0": { "algo": "Caesar", "threat": "Classical", "status": "broken" },
-        "1": { "algo": "DES", "threat": "Classical", "status": "broken" },
-        "2": { "algo": "AES-256", "threat": "Quantum (Grover)", "status": "weakened", "note": "Halves key strength — AES-256 → AES-128 equivalent" },
-        "3": { "algo": "RSA/ECC", "threat": "Quantum (Shor)", "status": "broken", "note": "Polynomial time factoring — both broken by Shor" },
-        "4": { "algo": "Kyber/Dilithium", "threat": "Quantum", "status": "safe", "note": "Lattice problems resist both classical and quantum attacks" }
+        "0": {
+          "algo": "Caesar",
+          "threat": "Classical",
+          "status": "broken"
+        },
+        "1": {
+          "algo": "DES",
+          "threat": "Classical",
+          "status": "broken"
+        },
+        "2": {
+          "algo": "AES-256",
+          "threat": "Quantum (Grover)",
+          "status": "weakened",
+          "note": "Halves key strength — AES-256 → AES-128 equivalent"
+        },
+        "3": {
+          "algo": "RSA/ECC",
+          "threat": "Quantum (Shor)",
+          "status": "broken",
+          "note": "Polynomial time factoring — both broken by Shor"
+        },
+        "4": {
+          "algo": "Kyber/Dilithium",
+          "threat": "Quantum",
+          "status": "safe",
+          "note": "Lattice problems resist both classical and quantum attacks"
+        }
       },
       "timelineEvents": {
-        "0": { "year": "1994", "label": "Shor's algorithm", "detail": "Peter Shor proves a quantum computer can factor large integers in polynomial time — RSA and ECC both threatened" },
-        "1": { "year": "2001", "label": "First qubit demonstrations", "detail": "IBM and other labs demonstrate small quantum circuits; the engineering challenge becomes clear" },
-        "2": { "year": "2016", "label": "NIST PQC competition", "detail": "NIST launches a global competition for quantum-resistant algorithms — 82 submissions from 25 countries" },
-        "3": { "year": "2022", "label": "Finalists selected", "detail": "CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium, FALCON, SPHINCS+ (signatures) selected for standardization" },
-        "4": { "year": "2024", "label": "FIPS 203/204/205 published", "detail": "NIST officially standardizes ML-KEM (Kyber), ML-DSA (Dilithium), and SLH-DSA — the post-quantum era begins" },
-        "5": { "year": "Now", "label": "The migration begins", "detail": "Governments, cloud providers, and browsers begin migrating infrastructure — a multi-year, global effort" }
+        "0": {
+          "year": "1994",
+          "label": "Shor's algorithm",
+          "detail": "Peter Shor proves a quantum computer can factor large integers in polynomial time — RSA and ECC both threatened"
+        },
+        "1": {
+          "year": "2001",
+          "label": "First qubit demonstrations",
+          "detail": "IBM and other labs demonstrate small quantum circuits; the engineering challenge becomes clear"
+        },
+        "2": {
+          "year": "2016",
+          "label": "NIST PQC competition",
+          "detail": "NIST launches a global competition for quantum-resistant algorithms — 82 submissions from 25 countries"
+        },
+        "3": {
+          "year": "2022",
+          "label": "Finalists selected",
+          "detail": "CRYSTALS-Kyber (KEM) and CRYSTALS-Dilithium, FALCON, SPHINCS+ (signatures) selected for standardization"
+        },
+        "4": {
+          "year": "2024",
+          "label": "FIPS 203/204/205 published",
+          "detail": "NIST officially standardizes ML-KEM (Kyber), ML-DSA (Dilithium), and SLH-DSA — the post-quantum era begins"
+        },
+        "5": {
+          "year": "Now",
+          "label": "The migration begins",
+          "detail": "Governments, cloud providers, and browsers begin migrating infrastructure — a multi-year, global effort"
+        }
       },
       "keyFigures": {
-        "0": { "name": "Peter Shor", "role": "MIT Mathematician (1994)", "note": "Shor's algorithm for quantum integer factorization — the mathematical sword hanging over RSA and ECC" },
-        "1": { "name": "Oded Regev", "role": "NYU Mathematician (2005)", "note": "Invented the Learning With Errors (LWE) problem — the mathematical foundation of Kyber and Dilithium" },
-        "2": { "name": "CRYSTALS Team", "role": "IBM, CWI, Radboud, others", "note": "Designed CRYSTALS-Kyber and Dilithium — now ML-KEM and ML-DSA, the world's first post-quantum standards" }
+        "0": {
+          "name": "Peter Shor",
+          "role": "MIT Mathematician (1994)",
+          "note": "Shor's algorithm for quantum integer factorization — the mathematical sword hanging over RSA and ECC"
+        },
+        "1": {
+          "name": "Oded Regev",
+          "role": "NYU Mathematician (2005)",
+          "note": "Invented the Learning With Errors (LWE) problem — the mathematical foundation of Kyber and Dilithium"
+        },
+        "2": {
+          "name": "CRYSTALS Team",
+          "role": "IBM, CWI, Radboud, others",
+          "note": "Designed CRYSTALS-Kyber and Dilithium — now ML-KEM and ML-DSA, the world's first post-quantum standards"
+        }
       }
     }
   },
@@ -408,12 +670,30 @@
       "estimatedTime": "Estimated real time on FPGA cluster: {duration}",
       "breakingTimeline": "Breaking DES — Historical Timeline",
       "timelineItems": {
-        "0": { "year": "1977", "event": "DES standardized — 56-bit key deemed secure" },
-        "1": { "year": "1993", "event": "Michael Wiener estimates $1M machine cracks in 3.5h" },
-        "2": { "year": "1997", "event": "RSA DES Challenge cracked in 96 days by internet volunteers" },
-        "3": { "year": "1998", "event": "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K" },
-        "4": { "year": "1999", "event": "Deep Crack + distributed.net: 22 hours 15 minutes" },
-        "5": { "year": "2008", "event": "COPACOBANA FPGA cluster: ~6 days, cost ~$10K" }
+        "0": {
+          "year": "1977",
+          "event": "DES standardized — 56-bit key deemed secure"
+        },
+        "1": {
+          "year": "1993",
+          "event": "Michael Wiener estimates $1M machine cracks in 3.5h"
+        },
+        "2": {
+          "year": "1997",
+          "event": "RSA DES Challenge cracked in 96 days by internet volunteers"
+        },
+        "3": {
+          "year": "1998",
+          "event": "EFF Deep Crack: 250,000 chips, cracked in 22 hours, cost $250K"
+        },
+        "4": {
+          "year": "1999",
+          "event": "Deep Crack + distributed.net: 22 hours 15 minutes"
+        },
+        "5": {
+          "year": "2008",
+          "event": "COPACOBANA FPGA cluster: ~6 days, cost ~$10K"
+        }
       }
     },
     "aes": {
@@ -422,18 +702,54 @@
       "sincestandardization": "Since standardization in 2001",
       "scaleComparison": "Scale comparison",
       "comparisons": {
-        "0": { "label": "AES-256 keyspace", "value": "2²⁵⁶ ≈ 1.16 × 10⁷⁷", "note": "keys" },
-        "1": { "label": "Atoms in universe", "value": "≈ 10⁸⁰", "note": "atoms" },
-        "2": { "label": "Stars in observable universe", "value": "≈ 10²⁴", "note": "stars" },
-        "3": { "label": "Seconds since Big Bang", "value": "≈ 4.3 × 10¹⁷", "note": "seconds" }
+        "0": {
+          "label": "AES-256 keyspace",
+          "value": "2²⁵⁶ ≈ 1.16 × 10⁷⁷",
+          "note": "keys"
+        },
+        "1": {
+          "label": "Atoms in universe",
+          "value": "≈ 10⁸⁰",
+          "note": "atoms"
+        },
+        "2": {
+          "label": "Stars in observable universe",
+          "value": "≈ 10²⁴",
+          "note": "stars"
+        },
+        "3": {
+          "label": "Seconds since Big Bang",
+          "value": "≈ 4.3 × 10¹⁷",
+          "note": "seconds"
+        }
       },
       "knownAttacks": "Known attack attempts",
       "knownAttackItems": {
-        "0": { "name": "Brute Force", "status": "Impossible", "detail": "10⁷⁷ operations — heat death of universe required" },
-        "1": { "name": "Related-Key Attack", "status": "Theoretical", "detail": "Requires 2⁹⁹·⁵ operations — impractical" },
-        "2": { "name": "Biclique Cryptanalysis", "status": "Academic only", "detail": "Reduces to 2²⁵⁴·⁴ — still infeasible" },
-        "3": { "name": "Side-Channel Attack", "status": "Implementation risk", "detail": "Targets weak implementations, not the algorithm" },
-        "4": { "name": "Grover's Algorithm", "status": "Quantum halving", "detail": "Reduces to 2¹²⁸ — AES-256 remains secure" }
+        "0": {
+          "name": "Brute Force",
+          "status": "Impossible",
+          "detail": "10⁷⁷ operations — heat death of universe required"
+        },
+        "1": {
+          "name": "Related-Key Attack",
+          "status": "Theoretical",
+          "detail": "Requires 2⁹⁹·⁵ operations — impractical"
+        },
+        "2": {
+          "name": "Biclique Cryptanalysis",
+          "status": "Academic only",
+          "detail": "Reduces to 2²⁵⁴·⁴ — still infeasible"
+        },
+        "3": {
+          "name": "Side-Channel Attack",
+          "status": "Implementation risk",
+          "detail": "Targets weak implementations, not the algorithm"
+        },
+        "4": {
+          "name": "Grover's Algorithm",
+          "status": "Quantum halving",
+          "detail": "Reduces to 2¹²⁸ — AES-256 remains secure"
+        }
       }
     },
     "rsa": {
@@ -457,11 +773,26 @@
       "curveCaption": "Each dot = a point on the curve · Hover to see coordinates",
       "ecdlpHowItWorks": "ECDLP — how it works",
       "dlpSteps": {
-        "0": { "label": "Pick private key k", "value": "k = 7 (secret random integer)" },
-        "1": { "label": "Compute public key Q", "value": "Q = k × G (point multiplication)" },
-        "2": { "label": "Attacker knows Q and G", "value": "Must find k such that Q = k × G" },
-        "3": { "label": "ECDLP hardness", "value": "Best known: √p steps — exponential in key size" },
-        "4": { "label": "P-256 security", "value": "~2¹²⁸ operations needed — infeasible classically" }
+        "0": {
+          "label": "Pick private key k",
+          "value": "k = 7 (secret random integer)"
+        },
+        "1": {
+          "label": "Compute public key Q",
+          "value": "Q = k × G (point multiplication)"
+        },
+        "2": {
+          "label": "Attacker knows Q and G",
+          "value": "Must find k such that Q = k × G"
+        },
+        "3": {
+          "label": "ECDLP hardness",
+          "value": "Best known: √p steps — exponential in key size"
+        },
+        "4": {
+          "label": "P-256 security",
+          "value": "~2¹²⁸ operations needed — infeasible classically"
+        }
       },
       "eccVsRsa": "ECC vs RSA — equivalent security",
       "curve": "Curve",
@@ -478,11 +809,26 @@
       "quantumDesc": "Parallel — all states at once",
       "shorAlgorithm": "Shor's Algorithm — how it breaks RSA",
       "shorSteps": {
-        "0": { "label": "Superposition", "desc": "Quantum computer initializes qubits in superposition of all possible states simultaneously" },
-        "1": { "label": "Quantum Parallelism", "desc": "Evaluates modular exponentiation for ALL possible periods at once — exponential speedup" },
-        "2": { "label": "QFT", "desc": "Quantum Fourier Transform finds the period r of f(x) = aˣ mod N" },
-        "3": { "label": "Period → Factors", "desc": "Classical post-processing: r → gcd(aʳ/² ± 1, N) → prime factors p, q" },
-        "4": { "label": "RSA broken", "desc": "Private key recovered from public key in polynomial time O((log N)³)" }
+        "0": {
+          "label": "Superposition",
+          "desc": "Quantum computer initializes qubits in superposition of all possible states simultaneously"
+        },
+        "1": {
+          "label": "Quantum Parallelism",
+          "desc": "Evaluates modular exponentiation for ALL possible periods at once — exponential speedup"
+        },
+        "2": {
+          "label": "QFT",
+          "desc": "Quantum Fourier Transform finds the period r of f(x) = aˣ mod N"
+        },
+        "3": {
+          "label": "Period → Factors",
+          "desc": "Classical post-processing: r → gcd(aʳ/² ± 1, N) → prime factors p, q"
+        },
+        "4": {
+          "label": "RSA broken",
+          "desc": "Private key recovered from public key in polynomial time O((log N)³)"
+        }
       },
       "threatAnalysis": "Quantum threat analysis",
       "brokenByQuantum": "⚠ BROKEN by quantum",
@@ -545,121 +891,345 @@
     "caesar": {
       "q0": {
         "question": "Crack this cipher: \"KHOOR\" was encrypted with a Caesar shift. What is the plaintext?",
-        "options": ["WORLD", "HELLO", "KNIFE", "JOLLY"],
+        "options": [
+          "WORLD",
+          "HELLO",
+          "KNIFE",
+          "JOLLY"
+        ],
         "hint": "Try shifting each letter back by 3 positions in the alphabet.",
         "explanation": "K→H, H→E, O→L, O→L, R→O. A shift of 3 gives us \"HELLO\" — Caesar's favorite shift."
       },
       "q1": {
         "question": "How many possible keys does the Caesar cipher have?",
-        "options": ["25", "26", "52", "256"],
+        "options": [
+          "25",
+          "26",
+          "52",
+          "256"
+        ],
         "hint": "The alphabet has 26 letters, but a shift of 0 leaves the text unchanged.",
         "explanation": "There are only 25 meaningful shifts (1–25). This tiny key space makes brute-force trivial."
       },
       "q2": {
         "question": "Which attack method is most effective against the Caesar cipher?",
-        "options": ["Quantum computing", "Man-in-the-middle", "Frequency analysis", "Rainbow tables"],
+        "options": [
+          "Quantum computing",
+          "Man-in-the-middle",
+          "Frequency analysis",
+          "Rainbow tables"
+        ],
         "hint": "In English, 'E' is the most common letter. What if you count letter frequencies in the ciphertext?",
         "explanation": "Frequency analysis compares letter distribution in the ciphertext to known language patterns, instantly revealing the shift."
+      },
+      "q3": {
+        "question": "Who famously used this type of substitution cipher to communicate with his generals?",
+        "options": [
+          "Alexander the Great",
+          "Julius Caesar",
+          "Napoleon Bonaparte",
+          "Genghis Khan"
+        ],
+        "hint": "The cipher is literally named after this historical figure.",
+        "explanation": "Julius Caesar used a shift of 3 to encode military messages. While the cipher bears his name, similar techniques existed earlier."
+      },
+      "q4": {
+        "question": "Which properties describe the Caesar cipher? (Select all that apply)",
+        "options": [
+          "Substitution cipher",
+          "Uses a public key",
+          "Monoalphabetic",
+          "Block cipher"
+        ],
+        "hint": "Think about how each letter maps to exactly one other letter, always the same way.",
+        "explanation": "Caesar cipher is a substitution cipher (replaces letters) and monoalphabetic (each letter always maps to the same letter). It has no public key and operates on individual letters, not blocks."
       }
     },
     "des": {
       "q0": {
         "question": "Why is DES's 56-bit key considered breakable today?",
-        "options": ["The algorithm has a backdoor", "56 bits was never enough", "Modern hardware can try all 2⁵⁶ keys in hours", "The key is transmitted in plaintext"],
+        "options": [
+          "The algorithm has a backdoor",
+          "56 bits was never enough",
+          "Modern hardware can try all 2⁵⁶ keys in hours",
+          "The key is transmitted in plaintext"
+        ],
         "hint": "Think about how fast computers have become since 1977.",
         "explanation": "2⁵⁶ ≈ 72 quadrillion keys sounds like a lot, but modern hardware (and even 1998's Deep Crack) can exhaust this space in hours."
       },
       "q1": {
         "question": "How long did the EFF's Deep Crack machine take to break DES in 1998?",
-        "options": ["22 minutes", "22 hours", "22 days", "22 months"],
+        "options": [
+          "22 minutes",
+          "22 hours",
+          "22 days",
+          "22 months"
+        ],
         "hint": "The machine cost $250,000 and used custom chips to brute-force the key space.",
         "explanation": "Deep Crack broke DES in just 22 hours, proving that 56-bit keys were no longer secure for any serious use."
       },
       "q2": {
         "question": "What algorithm replaced DES as the U.S. government standard?",
-        "options": ["RSA", "Blowfish", "Triple DES", "AES (Rijndael)"],
+        "options": [
+          "RSA",
+          "Blowfish",
+          "Triple DES",
+          "AES (Rijndael)"
+        ],
         "hint": "NIST held an open competition from 1997–2000 to select the replacement.",
         "explanation": "AES (originally named Rijndael) won the NIST competition and became the standard in 2001, supporting 128/192/256-bit keys."
+      },
+      "q3": {
+        "question": "What is the block size used by DES?",
+        "options": [
+          "64 bits",
+          "128 bits",
+          "56 bits",
+          "32 bits"
+        ],
+        "hint": "Don't confuse block size with key size — DES uses a 56-bit key but a different block size.",
+        "explanation": "DES operates on 64-bit blocks. The key is 56 bits (64 bits with 8 parity bits). The small block size also contributes to its vulnerability."
+      },
+      "q4": {
+        "question": "What is Triple DES (3DES) and why was it created?",
+        "options": [
+          "A completely new algorithm to replace DES",
+          "DES applied once with a triple-length key",
+          "DES encryption applied three times with two or three different keys",
+          "A quantum-resistant version of DES"
+        ],
+        "hint": "The name hints at running the DES algorithm multiple times to increase security.",
+        "explanation": "3DES applies DES encryption three times (encrypt-decrypt-encrypt) with 2 or 3 different keys, effectively increasing the key length to 112 or 168 bits as a stopgap before AES."
       }
     },
     "aes": {
       "q0": {
         "question": "Which AES key size provides the strongest security?",
-        "options": ["AES-64", "AES-128", "AES-256", "AES-512"],
+        "options": [
+          "AES-64",
+          "AES-128",
+          "AES-256",
+          "AES-512"
+        ],
         "hint": "AES supports three key sizes: 128, 192, and 256 bits.",
         "explanation": "AES-256 uses a 256-bit key, providing 2²⁵⁶ possible keys — more than atoms in the observable universe."
       },
       "q1": {
         "question": "How was AES selected as the encryption standard?",
-        "options": ["Designed by the NSA in secret", "Won an open international competition", "Evolved from DES", "Mandated by the UN"],
+        "options": [
+          "Designed by the NSA in secret",
+          "Won an open international competition",
+          "Evolved from DES",
+          "Mandated by the UN"
+        ],
         "hint": "NIST invited researchers worldwide to submit candidates from 1997–2000.",
         "explanation": "AES was selected through a transparent, public competition. Rijndael, created by Belgian cryptographers Daemen and Rijmen, won against 14 other candidates."
       },
       "q2": {
         "question": "How large is the AES-256 key space compared to the physical universe?",
-        "options": ["About the same as grains of sand on Earth", "Larger than drops of water in the ocean", "Equal to the number of stars", "Larger than the number of atoms in the observable universe"],
+        "options": [
+          "About the same as grains of sand on Earth",
+          "Larger than drops of water in the ocean",
+          "Equal to the number of stars",
+          "Larger than the number of atoms in the observable universe"
+        ],
         "hint": "The observable universe has roughly 10⁸⁰ atoms. How does 2²⁵⁶ compare?",
         "explanation": "2²⁵⁶ ≈ 1.16 × 10⁷⁷ — comparable to or exceeding the estimated number of atoms in the observable universe (~10⁸⁰)."
+      },
+      "q3": {
+        "question": "What type of cipher is AES?",
+        "options": [
+          "Stream cipher",
+          "Symmetric block cipher",
+          "Asymmetric cipher",
+          "Hash function"
+        ],
+        "hint": "AES uses the same key for encryption and decryption, and processes data in fixed-size chunks.",
+        "explanation": "AES is a symmetric block cipher — it uses one shared key and processes data in 128-bit blocks through multiple rounds of substitution and permutation."
+      },
+      "q4": {
+        "question": "Where is AES used today? (Select all that apply)",
+        "options": [
+          "Full-disk encryption (BitLocker, FileVault)",
+          "Wi-Fi security (WPA2/WPA3)",
+          "DNS resolution",
+          "HTTPS/TLS connections"
+        ],
+        "hint": "AES is the most widely deployed encryption algorithm — think about what protects your data at rest and in transit.",
+        "explanation": "AES secures disk encryption (BitLocker, FileVault), Wi-Fi (WPA2/WPA3), and TLS connections. DNS resolution uses a different mechanism and is not encryption."
       }
     },
     "rsa": {
       "q0": {
         "question": "What mathematical problem makes RSA secure?",
-        "options": ["Integer factorization of large semiprimes", "Discrete logarithm problem", "Elliptic curve point multiplication", "Lattice shortest vector problem"],
+        "options": [
+          "Integer factorization of large semiprimes",
+          "Discrete logarithm problem",
+          "Elliptic curve point multiplication",
+          "Lattice shortest vector problem"
+        ],
         "hint": "RSA keys are built from two large prime numbers multiplied together.",
         "explanation": "RSA security relies on the difficulty of factoring the product of two large primes. No classical algorithm can do this efficiently for large numbers."
       },
       "q1": {
         "question": "Factor this number: 15 = ? × ?",
-        "options": ["2 × 7", "4 × 4", "3 × 5", "1 × 15"],
+        "options": [
+          "2 × 7",
+          "4 × 4",
+          "3 × 5",
+          "1 × 15"
+        ],
         "hint": "15 is odd, so 2 can't be a factor. Try the smallest primes.",
         "explanation": "15 = 3 × 5. Simple for small numbers, but factoring a 2048-bit number (617+ digits) is computationally infeasible with classical computers."
       },
       "q2": {
         "question": "Why is RSA threatened by quantum computers?",
-        "options": ["Quantum computers are faster at everything", "Shor's algorithm can factor large numbers efficiently", "Quantum randomness breaks encryption keys", "RSA keys are too short for quantum resistance"],
+        "options": [
+          "Quantum computers are faster at everything",
+          "Shor's algorithm can factor large numbers efficiently",
+          "Quantum randomness breaks encryption keys",
+          "RSA keys are too short for quantum resistance"
+        ],
         "hint": "A specific quantum algorithm targets the exact mathematical problem RSA relies on.",
         "explanation": "Shor's algorithm, running on a sufficiently powerful quantum computer, can factor large integers in polynomial time — directly breaking RSA."
+      },
+      "q3": {
+        "question": "What makes RSA fundamentally different from AES?",
+        "options": [
+          "RSA is faster than AES",
+          "RSA uses smaller keys than AES",
+          "RSA uses a public/private key pair (asymmetric)",
+          "RSA was invented more recently"
+        ],
+        "hint": "Think about how many keys each algorithm requires and whether they're shared.",
+        "explanation": "RSA is asymmetric — it uses a public key for encryption and a separate private key for decryption. AES is symmetric, using one shared key for both. This makes RSA ideal for key exchange."
+      },
+      "q4": {
+        "question": "What is the minimum recommended RSA key size for secure use today?",
+        "options": [
+          "512 bits",
+          "2048 bits",
+          "256 bits",
+          "1024 bits"
+        ],
+        "hint": "NIST deprecated 1024-bit RSA keys in 2013. What's the current minimum?",
+        "explanation": "2048 bits is the current minimum recommendation from NIST and most security standards. 1024-bit keys are considered insecure, and many organizations are moving to 3072 or 4096 bits."
       }
     },
     "ecc": {
       "q0": {
         "question": "A 256-bit ECC key provides equivalent security to what RSA key size?",
-        "options": ["256-bit RSA", "1024-bit RSA", "3072-bit RSA", "8192-bit RSA"],
+        "options": [
+          "256-bit RSA",
+          "1024-bit RSA",
+          "3072-bit RSA",
+          "8192-bit RSA"
+        ],
         "hint": "ECC is famous for achieving the same security level with much smaller keys.",
         "explanation": "256-bit ECC ≈ 3072-bit RSA in security strength. This dramatic size advantage makes ECC ideal for mobile devices and TLS."
       },
       "q1": {
         "question": "Where is ECC used in practice? (Select all that apply)",
-        "options": ["TLS/HTTPS connections", "Bitcoin digital signatures", "Caesar cipher enhancement", "iPhone Secure Enclave"],
+        "options": [
+          "TLS/HTTPS connections",
+          "Bitcoin digital signatures",
+          "Caesar cipher enhancement",
+          "iPhone Secure Enclave"
+        ],
         "hint": "ECC is everywhere in modern security — think web, cryptocurrency, and mobile hardware.",
         "explanation": "ECC is used in TLS (ECDHE key exchange), Bitcoin (ECDSA signatures), and Apple's Secure Enclave. It is not related to Caesar cipher."
       },
       "q2": {
         "question": "Why do smaller ECC keys matter for mobile devices?",
-        "options": ["Easier to remember", "More colorful visualization", "Less storage needed", "Less computation, bandwidth, and battery usage"],
+        "options": [
+          "Easier to remember",
+          "More colorful visualization",
+          "Less storage needed",
+          "Less computation, bandwidth, and battery usage"
+        ],
         "hint": "Mobile devices have limited power, bandwidth, and processing resources.",
         "explanation": "Smaller keys mean faster computation, less data transmitted, and lower battery consumption — critical for billions of mobile devices establishing secure connections."
+      },
+      "q3": {
+        "question": "What elliptic curve does Bitcoin use for its digital signatures?",
+        "options": [
+          "secp256k1",
+          "P-256 (secp256r1)",
+          "Curve25519",
+          "P-384"
+        ],
+        "hint": "Bitcoin chose a Koblitz curve with a specific 256-bit parameter defined by SECG standards.",
+        "explanation": "Bitcoin uses secp256k1 for ECDSA signatures. P-256 is used in TLS/government, Curve25519 is used in Signal/SSH, and P-384 is for higher security levels."
+      },
+      "q4": {
+        "question": "What problem does Elliptic Curve Diffie-Hellman (ECDH) solve?",
+        "options": [
+          "Storing passwords securely",
+          "Signing digital documents",
+          "Establishing a shared secret over an insecure channel",
+          "Encrypting large files"
+        ],
+        "hint": "Diffie-Hellman is about two parties agreeing on something secret without an eavesdropper learning it.",
+        "explanation": "ECDH allows two parties to establish a shared secret key over a public channel. Neither party needs to send the actual key — they derive it from their ECC key pairs."
       }
     },
     "pqc": {
       "q0": {
         "question": "Which of these algorithms are quantum-safe? (Select all that apply)",
-        "options": ["CRYSTALS-Kyber", "RSA-2048", "CRYSTALS-Dilithium", "ECDSA P-256", "SPHINCS+"],
+        "options": [
+          "CRYSTALS-Kyber",
+          "RSA-2048",
+          "CRYSTALS-Dilithium",
+          "ECDSA P-256",
+          "SPHINCS+"
+        ],
         "hint": "NIST standardized several lattice-based and hash-based algorithms in 2024.",
         "explanation": "CRYSTALS-Kyber (key exchange), CRYSTALS-Dilithium (signatures), and SPHINCS+ (hash-based signatures) are all NIST-standardized post-quantum algorithms. RSA and ECDSA are vulnerable to Shor's algorithm."
       },
       "q1": {
         "question": "Why can't quantum computers break lattice-based cryptography?",
-        "options": ["Lattice problems use larger keys", "No known quantum algorithm solves lattice problems efficiently", "Lattice math is too new for quantum computers", "Quantum computers can't process lattice structures"],
+        "options": [
+          "Lattice problems use larger keys",
+          "No known quantum algorithm solves lattice problems efficiently",
+          "Lattice math is too new for quantum computers",
+          "Quantum computers can't process lattice structures"
+        ],
         "hint": "Shor's algorithm works for factoring and discrete logs, but lattice problems are fundamentally different.",
         "explanation": "Unlike factoring (broken by Shor's algorithm), the shortest vector problem in lattices has no known efficient quantum solution. This is why lattice-based crypto is considered quantum-safe."
       },
       "q2": {
         "question": "When did NIST officially standardize its first post-quantum algorithms?",
-        "options": ["2020", "2022", "2024", "2026"],
+        "options": [
+          "2020",
+          "2022",
+          "2024",
+          "2026"
+        ],
         "hint": "The standardization process began in 2016 and concluded after multiple rounds of evaluation.",
         "explanation": "NIST published its first post-quantum cryptography standards (FIPS 203, 204, 205) in August 2024, after an 8-year evaluation process."
+      },
+      "q3": {
+        "question": "What is the \"harvest now, decrypt later\" threat?",
+        "options": [
+          "A type of brute-force attack",
+          "A social engineering technique",
+          "A flaw in current quantum computers",
+          "Storing encrypted data today to decrypt when quantum computers are ready"
+        ],
+        "hint": "Adversaries may be collecting encrypted traffic right now, betting on future capabilities.",
+        "explanation": "Nation-state actors may be recording today's encrypted communications (RSA/ECC) to decrypt later when large-scale quantum computers become available. This makes PQC migration urgent even before quantum computers exist."
+      },
+      "q4": {
+        "question": "Which mathematical techniques underpin post-quantum cryptography? (Select all that apply)",
+        "options": [
+          "Lattice-based problems",
+          "Hash-based signatures",
+          "Integer factorization",
+          "Code-based cryptography",
+          "Elliptic curve arithmetic"
+        ],
+        "hint": "PQC algorithms avoid the math that Shor's algorithm can break — factoring and discrete logs.",
+        "explanation": "Lattice-based (CRYSTALS-Kyber/Dilithium), hash-based (SPHINCS+), and code-based (Classic McEliece) approaches are all quantum-safe. Integer factorization (RSA) and elliptic curves (ECC) are vulnerable to Shor's algorithm."
       }
     }
   }
