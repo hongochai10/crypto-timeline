@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
@@ -34,16 +34,26 @@ const STATION_COMPONENTS = {
   pqc: PQCStation,
 } as const;
 
+// Pre-generate deterministic star positions (seeded by index) to avoid impure Math.random in render
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+}
+
 // Hero background: subtle animated star-field using CSS animations (no JS animation overhead)
 function StarField() {
-  const stars = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 1.5 + 0.5,
-    delay: Math.random() * 4,
-    duration: Math.random() * 3 + 3,
-  }));
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        x: seededRandom(i * 5) * 100,
+        y: seededRandom(i * 5 + 1) * 100,
+        size: seededRandom(i * 5 + 2) * 1.5 + 0.5,
+        delay: seededRandom(i * 5 + 3) * 4,
+        duration: seededRandom(i * 5 + 4) * 3 + 3,
+      })),
+    [],
+  );
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>

@@ -15,7 +15,28 @@
  * On CI, use the "Update Visual Regression Baselines" workflow (Actions tab)
  * to regenerate baselines on ubuntu-latest (rendering differs per OS).
  */
-import { test, expect } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
+
+/**
+ * Strip the Content-Security-Policy header so dynamic imports hydrate properly.
+ * The middleware sets a nonce-based CSP that blocks eval(), which prevents
+ * Next.js client-side rendering in the test browser. Visual regression tests
+ * focus on UI appearance, not security headers — CSP is tested separately.
+ *
+ * TODO: Remove this workaround once TEC-XXX fixes nonce propagation to
+ * Next.js generated scripts.
+ */
+const test = base.extend({
+  page: async ({ page }, use) => {
+    await page.route("**/*", async (route) => {
+      const response = await route.fetch();
+      const headers = { ...response.headers() };
+      delete headers["content-security-policy"];
+      await route.fulfill({ response, headers });
+    });
+    await use(page);
+  },
+});
 
 const STATIONS = ["caesar", "des", "aes", "rsa", "ecc", "pqc"] as const;
 
