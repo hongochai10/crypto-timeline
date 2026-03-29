@@ -2,21 +2,26 @@
 
 import { useRef, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, MotionConfig } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ERAS } from "@/lib/constants";
 import Station from "./Station";
 import ScrollProgress from "./ui/ScrollProgress";
-import EraTransition from "./ui/EraTransition";
-import CaesarStation from "./stations/CaesarStation";
-import DESStation from "./stations/DESStation";
-import AESStation from "./stations/AESStation";
-import RSAStation from "./stations/RSAStation";
-import ECCStation from "./stations/ECCStation";
-import PQCStation from "./stations/PQCStation";
 import ErrorBoundary from "./ui/ErrorBoundary";
-import BenchmarkComparison from "./ui/BenchmarkComparison";
 import LanguageSwitcher from "./LanguageSwitcher";
+
+// Lazy-load station content components — each pulls in demos, attacks, and crypto libs
+const CaesarStation = dynamic(() => import("./stations/CaesarStation"), { ssr: false });
+const DESStation = dynamic(() => import("./stations/DESStation"), { ssr: false });
+const AESStation = dynamic(() => import("./stations/AESStation"), { ssr: false });
+const RSAStation = dynamic(() => import("./stations/RSAStation"), { ssr: false });
+const ECCStation = dynamic(() => import("./stations/ECCStation"), { ssr: false });
+const PQCStation = dynamic(() => import("./stations/PQCStation"), { ssr: false });
+
+// Lazy-load heavy below-fold components
+const EraTransition = dynamic(() => import("./ui/EraTransition"), { ssr: false });
+const BenchmarkComparison = dynamic(() => import("./ui/BenchmarkComparison"), { ssr: false });
 
 const STATION_COMPONENTS = {
   caesar: CaesarStation,
@@ -27,9 +32,9 @@ const STATION_COMPONENTS = {
   pqc: PQCStation,
 } as const;
 
-// Hero background: subtle animated star-field particles
+// Hero background: subtle animated star-field using CSS animations (no JS animation overhead)
 function StarField() {
-  const stars = Array.from({ length: 60 }, (_, i) => ({
+  const stars = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -41,12 +46,17 @@ function StarField() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       {stars.map((s) => (
-        <motion.div
+        <div
           key={s.id}
-          className="absolute rounded-full bg-white"
-          style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size }}
-          animate={{ opacity: [0.1, 0.6, 0.1] }}
-          transition={{ duration: s.duration, delay: s.delay, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute rounded-full bg-white animate-twinkle"
+          style={{
+            left: `${s.x}%`,
+            top: `${s.y}%`,
+            width: s.size,
+            height: s.size,
+            animationDuration: `${s.duration}s`,
+            animationDelay: `${s.delay}s`,
+          }}
         />
       ))}
     </div>
@@ -144,13 +154,10 @@ export default function Timeline() {
             {t("label")}
           </motion.p>
 
-          {/* Main headline */}
-          <motion.h1
+          {/* Main headline — no initial hidden state to avoid delaying LCP */}
+          <h1
             className="text-balance text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
             style={{ color: "var(--text-primary)" }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             {t("title1")}
             <span
@@ -164,7 +171,7 @@ export default function Timeline() {
             >
               {t("title2")}
             </span>
-          </motion.h1>
+          </h1>
 
           {/* Era color bar */}
           <motion.div

@@ -4,29 +4,8 @@
  * Uses performance.now() for accurate timing. Runs on user click only.
  */
 
-import { caesarEncrypt, caesarDecrypt } from "@/lib/crypto/caesar";
-import { desEncrypt, desDecrypt } from "@/lib/crypto/des";
-import {
-  aesGenerateKey,
-  aesEncrypt,
-  aesDecrypt,
-  type AESKey,
-} from "@/lib/crypto/aes";
-import {
-  rsaGenerateKeyPair,
-  rsaEncrypt,
-  rsaDecrypt,
-} from "@/lib/crypto/rsa";
-import {
-  eccGenerateSigningKeyPair,
-  eccSign,
-  eccVerify,
-} from "@/lib/crypto/ecc";
-import {
-  pqcGenerateKeyPair,
-  pqcEncryptBit,
-  pqcDecryptBit,
-} from "@/lib/crypto/pqc";
+// Crypto libs are dynamically imported per-algorithm to avoid loading all 6
+// implementations into a single bundle chunk.
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -87,6 +66,7 @@ function opsPerSec(ops: number, durationMs: number): number {
 // ─── Per-algorithm benchmarks ───────────────────────────────────────────────
 
 async function benchmarkCaesar(): Promise<BenchmarkResult> {
+  const { caesarEncrypt, caesarDecrypt } = await import("@/lib/crypto/caesar");
   const shift = 13;
   const enc = measureSync(() => caesarEncrypt(SAMPLE_TEXT, shift), TARGET_DURATION_MS);
   const encrypted = caesarEncrypt(SAMPLE_TEXT, shift).output;
@@ -104,6 +84,7 @@ async function benchmarkCaesar(): Promise<BenchmarkResult> {
 }
 
 async function benchmarkDES(): Promise<BenchmarkResult> {
+  const { desEncrypt, desDecrypt } = await import("@/lib/crypto/des");
   const key = "secret!8";
   const enc = measureSync(() => desEncrypt(SAMPLE_TEXT, key), TARGET_DURATION_MS);
   const encrypted = desEncrypt(SAMPLE_TEXT, key).hex;
@@ -121,7 +102,8 @@ async function benchmarkDES(): Promise<BenchmarkResult> {
 }
 
 async function benchmarkAES(): Promise<BenchmarkResult> {
-  const key: AESKey = await aesGenerateKey();
+  const { aesGenerateKey, aesEncrypt, aesDecrypt } = await import("@/lib/crypto/aes");
+  const key = await aesGenerateKey();
   const enc = await measureAsync(() => aesEncrypt(SAMPLE_TEXT, key).then(() => {}), TARGET_DURATION_MS);
   const encrypted = await aesEncrypt(SAMPLE_TEXT, key);
   const dec = await measureAsync(
@@ -141,6 +123,7 @@ async function benchmarkAES(): Promise<BenchmarkResult> {
 }
 
 async function benchmarkRSA(): Promise<BenchmarkResult> {
+  const { rsaGenerateKeyPair, rsaEncrypt, rsaDecrypt } = await import("@/lib/crypto/rsa");
   const keyPair = await rsaGenerateKeyPair(2048);
   const shortText = SAMPLE_TEXT.slice(0, 100); // RSA-OAEP has size limits
   const enc = await measureAsync(
@@ -165,6 +148,7 @@ async function benchmarkRSA(): Promise<BenchmarkResult> {
 }
 
 async function benchmarkECC(): Promise<BenchmarkResult> {
+  const { eccGenerateSigningKeyPair, eccSign, eccVerify } = await import("@/lib/crypto/ecc");
   const keyPair = await eccGenerateSigningKeyPair("P-256");
   const enc = await measureAsync(
     () => eccSign(SAMPLE_TEXT, keyPair.privateKey).then(() => {}),
@@ -188,6 +172,7 @@ async function benchmarkECC(): Promise<BenchmarkResult> {
 }
 
 async function benchmarkPQC(): Promise<BenchmarkResult> {
+  const { pqcGenerateKeyPair, pqcEncryptBit, pqcDecryptBit } = await import("@/lib/crypto/pqc");
   const keyPair = pqcGenerateKeyPair();
   const enc = measureSync(() => pqcEncryptBit(1, keyPair.publicKey), TARGET_DURATION_MS);
   const encrypted = pqcEncryptBit(1, keyPair.publicKey);

@@ -7,9 +7,9 @@ import { type Era } from "@/lib/constants";
 import ECCDemo from "@/components/demos/ECCDemo";
 import ECCAttack from "@/components/attacks/ECCAttack";
 import BreachStories from "@/components/ui/BreachStories";
-import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 import { getQuizQuestions } from "@/lib/quiz-data";
 
+const BenchmarkPanel = dynamic(() => import("@/components/ui/BenchmarkPanel"), { ssr: false });
 const StationQuiz = dynamic(() => import("@/components/quiz/StationQuiz"), { ssr: false });
 
 interface StationProps {

@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import AESDemo from "@/components/demos/AESDemo";
 import AESAttack from "@/components/attacks/AESAttack";
-import BenchmarkPanel from "@/components/ui/BenchmarkPanel";
 import { getQuizQuestions } from "@/lib/quiz-data";
 
+const BenchmarkPanel = dynamic(() => import("@/components/ui/BenchmarkPanel"), { ssr: false });
 const StationQuiz = dynamic(() => import("@/components/quiz/StationQuiz"), { ssr: false });
 
 interface StationProps {
