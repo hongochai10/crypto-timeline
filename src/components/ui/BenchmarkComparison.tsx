@@ -4,11 +4,11 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import {
-  runAllBenchmarks,
   ALGORITHM_META,
   type AlgorithmId,
   type BenchmarkResult,
 } from "@/lib/benchmarks/crypto-benchmark";
+import { useBenchmarkWorker } from "@/lib/benchmarks/useBenchmarkWorker";
 import { ERAS } from "@/lib/constants";
 
 const ALGO_COLORS: Record<AlgorithmId, string> = {
@@ -149,20 +149,20 @@ export default function BenchmarkComparison() {
   const [running, setRunning] = useState(false);
   const [currentAlgo, setCurrentAlgo] = useState<AlgorithmId | null>(null);
   const t = useTranslations("benchmarks");
+  const { runAll } = useBenchmarkWorker();
 
   const handleRunAll = useCallback(async () => {
     setRunning(true);
     setResults([]);
-    await new Promise((r) => setTimeout(r, 50));
 
-    await runAllBenchmarks((result) => {
+    await runAll((result) => {
       setCurrentAlgo(result.algorithm);
       setResults((prev) => [...prev, result]);
     });
 
     setCurrentAlgo(null);
     setRunning(false);
-  }, []);
+  }, [runAll]);
 
   const maxOps = results.length > 0
     ? Math.max(...results.flatMap((r) => [r.encryptOpsPerSec, r.decryptOpsPerSec]))

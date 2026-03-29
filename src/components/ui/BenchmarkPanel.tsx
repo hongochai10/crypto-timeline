@@ -3,11 +3,8 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import {
-  runBenchmark,
-  type AlgorithmId,
-  type BenchmarkResult,
-} from "@/lib/benchmarks/crypto-benchmark";
+import { type AlgorithmId, type BenchmarkResult } from "@/lib/benchmarks/crypto-benchmark";
+import { useBenchmarkWorker } from "@/lib/benchmarks/useBenchmarkWorker";
 
 interface BenchmarkPanelProps {
   algorithm: AlgorithmId;
@@ -60,19 +57,18 @@ export default function BenchmarkPanel({ algorithm, color }: BenchmarkPanelProps
   const [result, setResult] = useState<BenchmarkResult | null>(null);
   const [running, setRunning] = useState(false);
   const t = useTranslations("benchmarks");
+  const { run } = useBenchmarkWorker();
 
   const handleRun = useCallback(async () => {
     setRunning(true);
     setResult(null);
-    // Yield to UI before heavy work
-    await new Promise((r) => setTimeout(r, 50));
     try {
-      const res = await runBenchmark(algorithm);
+      const res = await run(algorithm);
       setResult(res);
     } finally {
       setRunning(false);
     }
-  }, [algorithm]);
+  }, [algorithm, run]);
 
   const maxOps = result
     ? Math.max(result.encryptOpsPerSec, result.decryptOpsPerSec)
