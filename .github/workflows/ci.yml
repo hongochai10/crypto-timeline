@@ -73,10 +73,24 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nextjs-build
+          path: |
+            .next/
+            !.next/cache
+          retention-days: 1
+
+  # ── E2E Tests — parallel browser matrix ────────────────────────────────────
   e2e-tests:
-    name: E2E Tests
+    name: E2E Tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4
 
@@ -89,27 +103,28 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps ${{ matrix.browser }}
 
-      - name: Cache Next.js build
-        uses: actions/cache@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          path: .next/cache
-          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
-          restore-keys: |
-            nextjs-${{ hashFiles('package-lock.json') }}-
+          name: nextjs-build
+          path: .next
 
       - name: Run E2E tests
-        run: npx playwright test --project=chromium
+        run: npx playwright test --project=${{ matrix.browser }} --workers=2
+        env:
+          CI_USE_BUILD: true
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.browser }}
           path: playwright-report/
           retention-days: 14
 
+  # ── Accessibility Audit (primary — Chromium) ───────────────────────────────
   a11y-audit:
     name: Accessibility Audit (axe-core)
     runs-on: ubuntu-latest
@@ -128,16 +143,16 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Cache Next.js build
-        uses: actions/cache@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          path: .next/cache
-          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
-          restore-keys: |
-            nextjs-${{ hashFiles('package-lock.json') }}-
+          name: nextjs-build
+          path: .next
 
       - name: Run accessibility audit
         run: npx playwright test --project=chromium src/e2e/accessibility.spec.ts
+        env:
+          CI_USE_BUILD: true
 
       - name: Upload a11y report
         uses: actions/upload-artifact@v4
@@ -147,10 +162,15 @@ jobs:
           path: a11y-report/
           retention-days: 14
 
-  visual-regression:
-    name: Visual Regression Tests
+  # ── Cross-Browser A11y Spot-Check ──────────────────────────────────────────
+  a11y-cross-browser:
+    name: A11y Cross-Browser (${{ matrix.browser }})
     runs-on: ubuntu-latest
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [firefox, webkit]
     steps:
       - uses: actions/checkout@v4
 
@@ -163,29 +183,64 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps ${{ matrix.browser }}
 
-      - name: Cache Next.js build
-        uses: actions/cache@v4
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
         with:
-          path: .next/cache
-          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**') }}
-          restore-keys: |
-            nextjs-${{ hashFiles('package-lock.json') }}-
+          name: nextjs-build
+          path: .next
+
+      - name: Run accessibility audit
+        run: npx playwright test --project=${{ matrix.browser }} src/e2e/accessibility.spec.ts
+        env:
+          CI_USE_BUILD: true
+
+  # ── Visual Regression — parallel browser matrix ────────────────────────────
+  visual-regression:
+    name: Visual Regression (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nextjs-build
+          path: .next
 
       - name: Run visual regression tests
-        run: npx playwright test --project=chromium src/e2e/visual-regression.spec.ts
+        run: npx playwright test --project=${{ matrix.browser }} src/e2e/visual-regression.spec.ts
+        env:
+          CI_USE_BUILD: true
 
       - name: Upload visual diff report
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: visual-regression-report
+          name: visual-regression-report-${{ matrix.browser }}
           path: |
             playwright-report/
             test-results/
           retention-days: 14
 
+  # ── Lighthouse CI ──────────────────────────────────────────────────────────
   lighthouse-ci:
     name: Lighthouse CI — Performance Budget
     runs-on: ubuntu-latest
@@ -227,10 +282,11 @@ jobs:
           path: .lighthouseci/
           retention-days: 14
 
+  # ── Deploy ─────────────────────────────────────────────────────────────────
   deploy:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
-    needs: [lint-typecheck, unit-tests, build, e2e-tests, a11y-audit, visual-regression, lighthouse-ci]
+    needs: [lint-typecheck, unit-tests, build, e2e-tests, a11y-audit, a11y-cross-browser, visual-regression, lighthouse-ci]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - uses: actions/checkout@v4

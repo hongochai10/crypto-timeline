@@ -23,6 +23,7 @@ export default defineConfig({
   },
 
   /* Visual regression snapshot settings */
+  snapshotPathTemplate: "{snapshotDir}/{snapshotFileName}-{projectName}{ext}",
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.005,
@@ -60,9 +61,10 @@ export default defineConfig({
     },
   ],
 
-  // Start Next.js dev server before running tests
+  // In CI with a pre-built artifact, use `next start` (faster).
+  // Locally or without a build, fall back to `next dev`.
   webServer: {
-    command: "npm run dev",
+    command: process.env.CI_USE_BUILD ? "npm run start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
