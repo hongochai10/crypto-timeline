@@ -51,7 +51,7 @@ export default function ECCAttack({ era }: Props) {
           {t("toyCurve", { prime: PRIME, count: EC_POINTS.length })}
         </p>
         <div className="flex justify-center">
-          <svg width={200} height={200} className="overflow-visible">
+          <svg width={200} height={200} className="overflow-visible" role="img" aria-label={t("curveAriaLabel", { prime: PRIME })}>
             {/* Grid */}
             {Array.from({ length: PRIME + 1 }, (_, i) => (
               <g key={i}>

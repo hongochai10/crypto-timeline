@@ -770,6 +770,7 @@
     "ecc": {
       "subtitle": "ECDLP — bài toán logarit rời rạc trên đường cong elliptic",
       "toyCurve": "Đường cong đồ chơi: y² = x³ − x + 1 (mod {prime}) — {count} điểm",
+      "curveAriaLabel": "Minh họa các điểm trên đường cong elliptic trong trường hữu hạn mod {prime}",
       "curveCaption": "Mỗi chấm = một điểm trên đường cong · Di chuột để xem tọa độ",
       "ecdlpHowItWorks": "ECDLP — cách hoạt động",
       "dlpSteps": {

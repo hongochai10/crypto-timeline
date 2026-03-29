@@ -770,6 +770,7 @@
     "ecc": {
       "subtitle": "ECDLP — the discrete logarithm problem on elliptic curves",
       "toyCurve": "Toy curve: y² = x³ − x + 1 (mod {prime}) — {count} points",
+      "curveAriaLabel": "Elliptic curve point visualization over finite field mod {prime}",
       "curveCaption": "Each dot = a point on the curve · Hover to see coordinates",
       "ecdlpHowItWorks": "ECDLP — how it works",
       "dlpSteps": {

@@ -183,6 +183,10 @@ const config: Config = {
           "0%":   { transform: "scale(0.8)", opacity: "1" },
           "100%": { transform: "scale(2.4)", opacity: "0" },
         },
+        twinkle: {
+          "0%, 100%": { opacity: "0.1" },
+          "50%":      { opacity: "0.6" },
+        },
       },
 
       animation: {
@@ -197,6 +201,7 @@ const config: Config = {
         scan:              "scan 10s linear infinite",
         flicker:           "flicker 12s infinite",
         "pulse-ring":      "pulse-ring 1.5s cubic-bezier(0,0,0.2,1) infinite",
+        twinkle:           "twinkle 4s ease-in-out infinite",
       },
 
       transitionTimingFunction: {
