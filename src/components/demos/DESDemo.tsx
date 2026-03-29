@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { desEncrypt, desDecrypt, type DESRound } from "@/lib/crypto/des";
 import { getCryptoErrorMessage } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
-import ShareDemoButton from "@/components/ui/ShareDemoButton";
 import { useShareableDemoParams } from "@/lib/useShareableDemo";
+import { DemoHeader, ModeToggle, DemoActionButton, ErrorAlert, OutputReveal } from "./shared";
 
 interface Props {
   era: Era;
@@ -16,7 +16,6 @@ interface Props {
 
 export default function DESDemo({ era }: Props) {
   const t = useTranslations("demos.des");
-  const tc = useTranslations("common");
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "des";
 
@@ -48,35 +47,15 @@ export default function DESDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-            {tc("interactiveDemo")}
-          </h3>
-          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
-        </div>
-        <ShareDemoButton stationId="des" params={{ text: plaintext, key }} accentColor={era.color} />
-      </div>
+      <DemoHeader era={era} subtitle={t("subtitle")} stationId="des" shareParams={{ text: plaintext, key }} />
 
-      <div className="flex gap-2" role="group" aria-label="Encryption mode">
-        {(["encrypt", "decrypt"] as const).map((m) => (
-          <button
-            key={m}
-            data-testid={`des-${m}-btn`}
-            onClick={() => { setMode(m); setOutput(""); setRounds([]); setError(""); }}
-            aria-pressed={mode === m}
-            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
-            className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
-            style={
-              mode === m
-                ? { backgroundColor: era.color + "30", color: era.color, border: `1px solid ${era.color}` }
-                : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
-            }
-          >
-            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
-          </button>
-        ))}
-      </div>
+      <ModeToggle
+        era={era}
+        mode={mode}
+        modes={["encrypt", "decrypt"]}
+        onModeChange={(m) => { setMode(m as "encrypt" | "decrypt"); setOutput(""); setRounds([]); setError(""); }}
+        testIdPrefix="des"
+      />
 
       <InteractiveInput
         label={mode === "encrypt" ? t("plaintext") : t("hexCiphertext")}
@@ -98,34 +77,26 @@ export default function DESDemo({ era }: Props) {
         data-testid="des-key"
       />
 
-      <button
+      <DemoActionButton
+        era={era}
         onClick={run}
         disabled={!plaintext.trim() || !key.trim()}
-        data-testid="des-run-btn"
-        aria-label={mode === "encrypt" ? "Encrypt with DES" : "Decrypt with DES"}
-        className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-        style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-      >
-        {mode === "encrypt" ? t("encryptWithDES") : t("decryptWithDES")}
-      </button>
+        testId="des-run-btn"
+        ariaLabel={mode === "encrypt" ? "Encrypt with DES" : "Decrypt with DES"}
+        label={mode === "encrypt" ? t("encryptWithDES") : t("decryptWithDES")}
+      />
 
-      {error && (
-        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{error}</p>
-      )}
+      {error && <ErrorAlert message={error} />}
 
       {output && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-2"
-        >
+        <OutputReveal className="flex flex-col gap-2">
           <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
             {mode === "encrypt" ? t("ciphertextHex") : t("plaintext")}
           </label>
           <div className="code-display break-all text-sm tracking-wider" data-testid="des-output" style={{ color: era.color }} role="status" aria-live="polite">
             {output}
           </div>
-        </motion.div>
+        </OutputReveal>
       )}
 
       {rounds.length > 0 && (
@@ -141,12 +112,7 @@ export default function DESDemo({ era }: Props) {
           </button>
           <AnimatePresence>
             {showRounds && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-3 overflow-hidden"
-              >
+              <OutputReveal className="mt-3 overflow-hidden">
                 <div className="space-y-1">
                   {rounds.map((r) => (
                     <div
@@ -160,7 +126,7 @@ export default function DESDemo({ era }: Props) {
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </OutputReveal>
             )}
           </AnimatePresence>
         </div>

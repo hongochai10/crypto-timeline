@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
 import { type Era } from "@/lib/constants";
 import { aesKeyFromPassphrase, aesEncrypt, aesDecrypt, type AESKey } from "@/lib/crypto/aes";
-import { getCryptoErrorMessage, isWebCryptoAvailable } from "@/lib/crypto/errors";
+import { getCryptoErrorMessage } from "@/lib/crypto/errors";
 import InteractiveInput from "@/components/ui/InteractiveInput";
-import ShareDemoButton from "@/components/ui/ShareDemoButton";
 import { useShareableDemoParams } from "@/lib/useShareableDemo";
+import { DemoHeader, ModeToggle, DemoActionButton, ErrorAlert, WebCryptoGuard, OutputReveal } from "./shared";
 
 interface Props {
   era: Era;
@@ -63,128 +62,86 @@ export default function AESDemo({ era }: Props) {
     }
   };
 
-  if (!isWebCryptoAvailable()) {
-    return (
-      <div className="demo-container rounded-lg border border-amber-500/30 bg-amber-500/10 p-6 text-center" role="alert">
-        <p className="font-mono text-xs font-semibold uppercase tracking-widest text-amber-400 mb-2">{tc("webCryptoUnavailable")}</p>
-        <p className="text-sm text-[var(--text-secondary)]">{tc("webCryptoMessage")}</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="demo-container flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-            {tc("interactiveDemo")}
-          </h3>
-          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
-        </div>
-        <ShareDemoButton stationId="aes" params={{ text: plaintext, passphrase }} accentColor={era.color} />
-      </div>
+    <WebCryptoGuard>
+      <div className="demo-container flex flex-col gap-5">
+        <DemoHeader era={era} subtitle={t("subtitle")} stationId="aes" shareParams={{ text: plaintext, passphrase }} />
 
-      <div className="flex gap-2" role="group" aria-label="Encryption mode">
-        {(["encrypt", "decrypt"] as const).map((m) => (
-          <button
-            key={m}
-            data-testid={`aes-${m}-btn`}
-            onClick={() => { setMode(m); setStatus("idle"); }}
-            aria-pressed={mode === m}
-            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
-            className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
-            style={
-              mode === m
-                ? { backgroundColor: era.color + "30", color: era.color, border: `1px solid ${era.color}` }
-                : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
-            }
-          >
-            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
-          </button>
-        ))}
-      </div>
+        <ModeToggle
+          era={era}
+          mode={mode}
+          modes={["encrypt", "decrypt"]}
+          onModeChange={(m) => { setMode(m as "encrypt" | "decrypt"); setStatus("idle"); }}
+          testIdPrefix="aes"
+        />
 
-      <InteractiveInput
-        label={t("passphrase")}
-        value={passphrase}
-        onChange={(e) => { setPassphrase(e.target.value); setCiphertext(""); setDecrypted(""); setActiveKey(null); setStatus("idle"); }}
-        placeholder={t("defaultPassphrase")}
-        accentColor={era.color}
-        type="password"
-        data-testid="aes-passphrase"
-      />
+        <InteractiveInput
+          label={t("passphrase")}
+          value={passphrase}
+          onChange={(e) => { setPassphrase(e.target.value); setCiphertext(""); setDecrypted(""); setActiveKey(null); setStatus("idle"); }}
+          placeholder={t("defaultPassphrase")}
+          accentColor={era.color}
+          type="password"
+          data-testid="aes-passphrase"
+        />
 
-      {mode === "encrypt" ? (
-        <>
-          <InteractiveInput
-            label={t("plaintext")}
-            value={plaintext}
-            onChange={(e) => { setPlaintext(e.target.value); setCiphertext(""); setStatus("idle"); }}
-            placeholder={t("enterMessage")}
-            accentColor={era.color}
-            data-testid="aes-plaintext"
+        {mode === "encrypt" ? (
+          <>
+            <InteractiveInput
+              label={t("plaintext")}
+              value={plaintext}
+              onChange={(e) => { setPlaintext(e.target.value); setCiphertext(""); setStatus("idle"); }}
+              placeholder={t("enterMessage")}
+              accentColor={era.color}
+              data-testid="aes-plaintext"
+            />
+            <DemoActionButton
+              era={era}
+              onClick={handleEncrypt}
+              disabled={status === "loading" || !plaintext.trim() || !passphrase.trim()}
+              testId="aes-encrypt-run-btn"
+              ariaLabel="Encrypt with AES-256"
+              label={status === "loading" ? tc("encrypting") : t("encryptWithAES")}
+            />
+          </>
+        ) : (
+          <DemoActionButton
+            era={era}
+            onClick={handleDecrypt}
+            disabled={status === "loading" || !ciphertext || !activeKey}
+            testId="aes-decrypt-run-btn"
+            ariaLabel="Decrypt with AES-256"
+            label={status === "loading" ? tc("decrypting") : !activeKey ? t("encryptFirst") : t("decryptBtn")}
           />
-          <button
-            onClick={handleEncrypt}
-            disabled={status === "loading" || !plaintext.trim() || !passphrase.trim()}
-            data-testid="aes-encrypt-run-btn"
-            aria-label="Encrypt with AES-256"
-            className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-            style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-          >
-            {status === "loading" ? tc("encrypting") : t("encryptWithAES")}
-          </button>
-        </>
-      ) : (
-        <button
-          onClick={handleDecrypt}
-          disabled={status === "loading" || !ciphertext || !activeKey}
-          data-testid="aes-decrypt-run-btn"
-          aria-label="Decrypt with AES-256"
-          className="rounded-lg px-4 py-3 font-mono text-xs font-bold tracking-widest uppercase transition-all disabled:opacity-40"
-          style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-        >
-          {status === "loading" ? tc("decrypting") : !activeKey ? t("encryptFirst") : t("decryptBtn")}
-        </button>
-      )}
+        )}
 
-      {keyInfo && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-lg border p-3 font-mono text-xs space-y-1"
-          style={{ borderColor: era.color + "30", backgroundColor: era.color + "08" }}
-        >
-          <p className="text-[var(--text-muted)] uppercase tracking-widest mb-1">{t("derivedKey")}</p>
-          <p style={{ color: era.color }}>Key: {keyInfo.base64}</p>
-          <p style={{ color: era.color }}>Salt: {keyInfo.salt}</p>
-          <p className="text-[var(--text-muted)]">{t("iterations")}</p>
-        </motion.div>
-      )}
+        {keyInfo && (
+          <OutputReveal className="rounded-lg border p-3 font-mono text-xs space-y-1" style={{ borderColor: era.color + "30", backgroundColor: era.color + "08" }}>
+            <p className="text-[var(--text-muted)] uppercase tracking-widest mb-1">{t("derivedKey")}</p>
+            <p style={{ color: era.color }}>Key: {keyInfo.base64}</p>
+            <p style={{ color: era.color }}>Salt: {keyInfo.salt}</p>
+            <p className="text-[var(--text-muted)]">{t("iterations")}</p>
+          </OutputReveal>
+        )}
 
-      {ciphertext && (
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-2">
-          <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">{t("ciphertextBase64")}</label>
-          <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }} role="status" aria-live="polite">
-            {ciphertext.slice(0, 80)}…
-          </div>
-        </motion.div>
-      )}
+        {ciphertext && (
+          <OutputReveal className="flex flex-col gap-2">
+            <label className="font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">{t("ciphertextBase64")}</label>
+            <div className="code-display break-all text-xs" data-testid="aes-ciphertext" style={{ color: era.color }} role="status" aria-live="polite">
+              {ciphertext.slice(0, 80)}…
+            </div>
+          </OutputReveal>
+        )}
 
-      {decrypted && (
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="rounded-lg border border-green-500/30 bg-green-500/10 p-3"
-        >
-          <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">{tc("decrypted")}</p>
-          <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted" role="status" aria-live="polite">{decrypted}</p>
-        </motion.div>
-      )}
+        {decrypted && (
+          <OutputReveal className="rounded-lg border border-green-500/30 bg-green-500/10 p-3">
+            <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">{tc("decrypted")}</p>
+            <p className="font-mono text-sm text-[var(--text-primary)]" data-testid="aes-decrypted" role="status" aria-live="polite">{decrypted}</p>
+          </OutputReveal>
+        )}
 
-      {status === "error" && errorMsg && (
-        <p role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 font-mono text-xs text-red-400">{errorMsg}</p>
-      )}
-    </div>
+        {status === "error" && errorMsg && <ErrorAlert message={errorMsg} />}
+      </div>
+    </WebCryptoGuard>
   );
 }

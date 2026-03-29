@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { type Era } from "@/lib/constants";
 import { caesarEncrypt, caesarDecrypt } from "@/lib/crypto/caesar";
-// caesarEncrypt/caesarDecrypt return { output, shift }
 import InteractiveInput from "@/components/ui/InteractiveInput";
-import ShareDemoButton from "@/components/ui/ShareDemoButton";
 import { useShareableDemoParams } from "@/lib/useShareableDemo";
+import { DemoHeader, ModeToggle } from "./shared";
 
 interface Props {
   era: Era;
@@ -15,7 +14,6 @@ interface Props {
 
 export default function CaesarDemo({ era }: Props) {
   const t = useTranslations("demos.caesar");
-  const tc = useTranslations("common");
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "caesar";
 
@@ -31,35 +29,9 @@ export default function CaesarDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-            {tc("interactiveDemo")}
-          </h3>
-          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
-        </div>
-        <ShareDemoButton stationId="caesar" params={{ text: plaintext, shift }} accentColor={era.color} />
-      </div>
+      <DemoHeader era={era} subtitle={t("subtitle")} stationId="caesar" shareParams={{ text: plaintext, shift }} />
 
-      <div className="flex gap-2" role="group" aria-label="Encryption mode">
-        {(["encrypt", "decrypt"] as const).map((m) => (
-          <button
-            key={m}
-            data-testid={`caesar-${m}-btn`}
-            onClick={() => setMode(m)}
-            aria-pressed={mode === m}
-            aria-label={m === "encrypt" ? tc("encryptMode") : tc("decryptMode")}
-            className="rounded-lg px-4 py-2 font-mono text-xs tracking-widest uppercase transition-all"
-            style={
-              mode === m
-                ? { backgroundColor: era.color + "30", color: era.color, border: `1px solid ${era.color}` }
-                : { backgroundColor: "transparent", color: "var(--text-muted)", border: "1px solid var(--border-default)" }
-            }
-          >
-            {m === "encrypt" ? tc("encrypt") : tc("decrypt")}
-          </button>
-        ))}
-      </div>
+      <ModeToggle era={era} mode={mode} modes={["encrypt", "decrypt"]} onModeChange={(m) => setMode(m as "encrypt" | "decrypt")} testIdPrefix="caesar" />
 
       <InteractiveInput
         label={mode === "encrypt" ? t("plaintext") : t("ciphertext")}

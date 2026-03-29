@@ -12,8 +12,8 @@ import {
   type LWEKeyPair,
   type LWEEncryptResult,
 } from "@/lib/crypto/pqc";
-import ShareDemoButton from "@/components/ui/ShareDemoButton";
 import { useShareableDemoParams } from "@/lib/useShareableDemo";
+import { DemoHeader, DemoActionButton, StepCard, OutputReveal } from "./shared";
 
 interface Props {
   era: Era;
@@ -21,7 +21,6 @@ interface Props {
 
 export default function PQCDemo({ era }: Props) {
   const t = useTranslations("demos.pqc");
-  const tc = useTranslations("common");
   const urlParams = useShareableDemoParams();
   const isTargeted = urlParams.station === "pqc";
 
@@ -57,35 +56,17 @@ export default function PQCDemo({ era }: Props) {
 
   return (
     <div className="demo-container flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h3 className="mb-1 font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>
-            {tc("interactiveDemo")}
-          </h3>
-          <p className="text-sm text-[var(--text-secondary)]">{t("subtitle")}</p>
-        </div>
-        <ShareDemoButton stationId="pqc" params={{ bit }} accentColor={era.color} />
-      </div>
+      <DemoHeader era={era} subtitle={t("subtitle")} stationId="pqc" shareParams={{ bit }} />
 
       {/* Lattice visualization */}
-      <div className="rounded-lg border p-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
-        <p className="mb-2 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("latticeVisualization")}</p>
+      <StepCard era={era}>
+        <p className="font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("latticeVisualization")}</p>
         <div className="flex justify-center">
           <svg width={svgSize} height={svgSize} className="overflow-visible" role="img" aria-label={t("latticeAriaLabel")}>
-            {/* Lattice points */}
             {lattice.points.map(([x, y], i) => (
-              <circle
-                key={i}
-                cx={cx + x}
-                cy={cy + y}
-                r={2}
-                fill={era.color}
-                opacity={0.4}
-              />
+              <circle key={i} cx={cx + x} cy={cy + y} r={2} fill={era.color} opacity={0.4} />
             ))}
-            {/* Origin */}
             <circle cx={cx} cy={cy} r={3} fill={era.color} opacity={0.9} />
-            {/* Noisy point (the "hard" LWE problem) */}
             <motion.circle
               cx={cx + lattice.noisyPoint[0]}
               cy={cy + lattice.noisyPoint[1]}
@@ -104,12 +85,10 @@ export default function PQCDemo({ era }: Props) {
             >
               {t("noisy")}
             </text>
-            {/* Basis vectors */}
             <line
               x1={cx} y1={cy}
               x2={cx + lattice.basis[0][0]} y2={cy + lattice.basis[0][1]}
               stroke={era.color} strokeWidth={1.5} opacity={0.6}
-              markerEnd="none"
             />
             <line
               x1={cx} y1={cy}
@@ -121,12 +100,12 @@ export default function PQCDemo({ era }: Props) {
         <p className="mt-1 font-mono text-[9px] text-center text-[var(--text-muted)]">
           {t("latticeCaption")}
         </p>
-      </div>
+      </StepCard>
 
       {/* Parameters */}
-      <div className="rounded-lg border px-4 py-3 font-mono text-xs" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
+      <StepCard era={era}>
         <p className="text-[var(--text-muted)] mb-1 uppercase tracking-widest text-[10px]">{t("lweParams")}</p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 font-mono text-xs">
           <div>
             <p className="text-[var(--text-muted)] text-[10px]">{t("dimensionN")}</p>
             <p style={{ color: era.color }}>8</p>
@@ -140,18 +119,16 @@ export default function PQCDemo({ era }: Props) {
             <p style={{ color: era.color }}>±3</p>
           </div>
         </div>
-      </div>
+      </StepCard>
 
       {/* Step 1 */}
-      <button
+      <DemoActionButton
+        era={era}
         onClick={generate}
-        data-testid="pqc-generate-btn"
-        aria-label="Generate LWE key pair"
-        className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
-        style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-      >
-        {t("generateLWE")}
-      </button>
+        testId="pqc-generate-btn"
+        ariaLabel="Generate LWE key pair"
+        label={t("generateLWE")}
+      />
 
       {keyPair && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-[10px] rounded-lg border px-3 py-2 space-y-1" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
@@ -164,7 +141,7 @@ export default function PQCDemo({ era }: Props) {
 
       {/* Step 2 */}
       {keyPair && (
-        <div className="rounded-lg border p-4 flex flex-col gap-3" style={{ borderColor: era.color + "25", backgroundColor: era.color + "06" }}>
+        <StepCard era={era}>
           <span className="font-mono text-xs tracking-widest uppercase" style={{ color: era.color }}>{t("encryptBit")}</span>
           <div className="flex gap-3" role="group" aria-label={t("selectBit")}>
             {([0, 1] as const).map((b) => (
@@ -185,51 +162,45 @@ export default function PQCDemo({ era }: Props) {
               </button>
             ))}
           </div>
-          <button
+          <DemoActionButton
+            era={era}
             onClick={encrypt}
-            data-testid="pqc-encrypt-btn"
-            aria-label={`Encrypt bit ${bit} with LWE`}
-            className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
-            style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-          >
-            {t("encryptBitBtn")}
-          </button>
+            testId="pqc-encrypt-btn"
+            ariaLabel={`Encrypt bit ${bit} with LWE`}
+            label={t("encryptBitBtn")}
+          />
           {ciphertext && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-mono text-[10px] space-y-1">
               <p className="text-[var(--text-muted)]">u (first 4 values): [{ciphertext.u.slice(0, 4).join(", ")}…]</p>
               <p className="text-[var(--text-muted)]">v: {ciphertext.v}</p>
             </motion.div>
           )}
-        </div>
+        </StepCard>
       )}
 
       {/* Step 3 */}
       {ciphertext && (
         <div className="flex flex-col gap-3">
-          <button
+          <DemoActionButton
+            era={era}
             onClick={decrypt}
-            data-testid="pqc-decrypt-btn"
-            aria-label="Decrypt LWE ciphertext"
-            className="rounded-lg px-4 py-2.5 font-mono text-xs font-bold tracking-widest uppercase transition-all"
-            style={{ backgroundColor: era.color + "20", color: era.color, border: `1px solid ${era.color}50` }}
-          >
-            {t("decryptBtn")}
-          </button>
+            testId="pqc-decrypt-btn"
+            ariaLabel="Decrypt LWE ciphertext"
+            label={t("decryptBtn")}
+          />
           {decrypted !== null && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              role="status"
-              aria-live="polite"
+            <OutputReveal
               className={`rounded-lg border p-3 ${decrypted === bit ? "border-green-500/30 bg-green-500/10" : "border-red-500/30 bg-red-500/10"}`}
             >
-              <p data-testid="pqc-decrypt-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>
-                {t("decryptedBit", { bit: decrypted })} {decrypted === bit ? t("correct") : t("error")}
-              </p>
-              <p className="font-mono text-[10px] text-[var(--text-muted)]">
-                {t("lweExplanation")}
-              </p>
-            </motion.div>
+              <div role="status" aria-live="polite">
+                <p data-testid="pqc-decrypt-result" className={`font-mono text-xs uppercase tracking-widest mb-1 ${decrypted === bit ? "text-green-400" : "text-red-400"}`}>
+                  {t("decryptedBit", { bit: decrypted })} {decrypted === bit ? t("correct") : t("error")}
+                </p>
+                <p className="font-mono text-[10px] text-[var(--text-muted)]">
+                  {t("lweExplanation")}
+                </p>
+              </div>
+            </OutputReveal>
           )}
         </div>
       )}
