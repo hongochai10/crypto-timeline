@@ -145,17 +145,18 @@ function mapViolations(raw: unknown[]): AxeViolation[] {
   }));
 }
 
-// ─── Per-Station Scans ────────────────────────────────────────────────────────
+// ─── Per-Station Scans (Dark Theme — default) ────────────────────────────────
 
-test.describe("Accessibility audit — axe-core", () => {
+test.describe("Accessibility audit — axe-core (dark theme)", () => {
   test.use({ reducedMotion: "reduce" });
+  test.setTimeout(60_000);
 
   for (const station of STATIONS) {
     test(`station "${station}" has no critical or serious a11y violations`, async ({
       page,
     }) => {
-      await page.goto("/");
-      await page.waitForLoadState("networkidle");
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      await page.waitForTimeout(2000);
       await activateStation(page, station);
 
       const results = await new AxeBuilder({ page })
@@ -180,8 +181,8 @@ test.describe("Accessibility audit — axe-core", () => {
   // ─── Generate HTML Report ─────────────────────────────────────────────────
 
   test("generate a11y HTML report for all stations", async ({ page }) => {
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(2000);
 
     const allResults: {
       station: string;
@@ -224,6 +225,92 @@ test.describe("Accessibility audit — axe-core", () => {
     );
     console.log(
       `\nA11y report generated: ${REPORT_DIR}/index.html (${totalViolations} violations found)\n`
+    );
+  });
+});
+
+// ─── Light Theme Scans ──────────────────────────────────────────────────────
+
+/** Switch to light theme by setting data-theme attribute and localStorage. */
+async function enableLightTheme(page: import("@playwright/test").Page) {
+  await page.evaluate(() => {
+    document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("crypto-timeline-theme", "light");
+  });
+  await page.waitForTimeout(500);
+}
+
+test.describe("Accessibility audit — axe-core (light theme)", () => {
+  test.use({ reducedMotion: "reduce" });
+  test.setTimeout(60_000);
+
+  for (const station of STATIONS) {
+    test(`station "${station}" has no critical or serious a11y violations in light theme`, async ({
+      page,
+    }) => {
+      await page.goto("/", { waitUntil: "domcontentloaded" });
+      await page.waitForTimeout(2000);
+      await enableLightTheme(page);
+      await activateStation(page, station);
+
+      const results = await new AxeBuilder({ page })
+        .include(`#${station}`)
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze();
+
+      const criticalOrSerious = results.violations.filter(
+        (v) => v.impact === "critical" || v.impact === "serious"
+      );
+
+      expect(
+        criticalOrSerious,
+        `Station "${station}" has ${criticalOrSerious.length} critical/serious a11y violations in light theme:\n` +
+          criticalOrSerious
+            .map((v) => `  [${v.impact}] ${v.id}: ${v.help}`)
+            .join("\n")
+      ).toHaveLength(0);
+    });
+  }
+
+  test("generate light theme a11y report for all stations", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(2000);
+    await enableLightTheme(page);
+
+    const allResults: {
+      station: string;
+      violations: AxeViolation[];
+      passes: number;
+    }[] = [];
+
+    for (const station of STATIONS) {
+      await activateStation(page, station);
+
+      const results = await new AxeBuilder({ page })
+        .include(`#${station}`)
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        .analyze();
+
+      allResults.push({
+        station,
+        violations: mapViolations(results.violations),
+        passes: results.passes.length,
+      });
+    }
+
+    mkdirSync(REPORT_DIR, { recursive: true });
+    writeFileSync(
+      join(REPORT_DIR, "light-theme-results.json"),
+      JSON.stringify(allResults, null, 2),
+      "utf-8"
+    );
+
+    const totalViolations = allResults.reduce(
+      (sum, r) => sum + r.violations.length,
+      0
+    );
+    console.log(
+      `\nLight theme a11y report: ${REPORT_DIR}/light-theme-results.json (${totalViolations} violations found)\n`
     );
   });
 });

@@ -4,6 +4,7 @@ import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { useTheme } from "./ThemeProvider";
 
 export default function LanguageSwitcher() {
   const locale = useLocale();
@@ -11,6 +12,7 @@ export default function LanguageSwitcher() {
   const pathname = usePathname();
   const t = useTranslations("languageSwitcher");
   const [isPending, startTransition] = useTransition();
+  const { theme } = useTheme();
 
   const switchLocale = (newLocale: string) => {
     startTransition(() => {
@@ -40,8 +42,12 @@ export default function LanguageSwitcher() {
           style={
             locale === loc
               ? {
-                  backgroundColor: "var(--era-active-color, #c9a227)" + "30",
-                  color: "var(--era-active-color, #c9a227)",
+                  backgroundColor: theme === "light"
+                    ? "var(--era-active-color, #c9a227)" + "18"
+                    : "var(--era-active-color, #c9a227)" + "30",
+                  color: theme === "light"
+                    ? "var(--text-primary)"
+                    : "var(--era-active-color, #c9a227)",
                 }
               : {
                   backgroundColor: "transparent",
