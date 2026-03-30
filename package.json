@@ -16,7 +16,7 @@
     "e2e:chromium": "playwright test --project=chromium",
     "e2e:firefox": "playwright test --project=firefox",
     "e2e:webkit": "playwright test --project=webkit",
-    "e2e:update-snapshots": "CI_USE_BUILD=1 playwright test src/e2e/visual-regression.spec.ts --update-snapshots"
+    "e2e:update-snapshots": "CI_USE_BUILD=1 playwright test src/e2e/visual-regression.spec.ts --update-snapshots=all"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.2.1",
