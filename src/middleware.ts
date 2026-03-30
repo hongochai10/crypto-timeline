@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
@@ -31,27 +31,15 @@ export default function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
 
-  // Run next-intl middleware
-  const intlResponse = intlMiddleware(request);
-
-  // If next-intl returns a redirect or rewrite, copy CSP onto that response
-  if (intlResponse.headers.has("location") || intlResponse.status !== 200) {
-    intlResponse.headers.set("Content-Security-Policy", buildCsp(nonce));
-    intlResponse.headers.set("x-nonce", nonce);
-    return intlResponse;
-  }
-
-  // For normal responses, create a new response that passes nonce via request headers
-  const response = NextResponse.next({
-    request: { headers: requestHeaders },
+  // Create a new request with the nonce header before passing to next-intl
+  const requestWithNonce = new NextRequest(request, {
+    headers: requestHeaders,
   });
 
-  // Copy next-intl headers (locale cookie, etc.) onto our response
-  intlResponse.headers.forEach((value, key) => {
-    response.headers.set(key, value);
-  });
+  // Run next-intl middleware with the nonce-enriched request
+  const response = intlMiddleware(requestWithNonce);
 
-  // Set CSP on response
+  // Set CSP and nonce on the response (works for redirects, rewrites, and pass-throughs)
   response.headers.set("Content-Security-Policy", buildCsp(nonce));
   response.headers.set("x-nonce", nonce);
 
