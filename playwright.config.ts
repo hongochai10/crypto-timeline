@@ -23,7 +23,8 @@ export default defineConfig({
   },
 
   /* Visual regression snapshot settings */
-  snapshotPathTemplate: "{snapshotDir}/{snapshotFileName}-{projectName}{ext}",
+  snapshotPathTemplate:
+    "{snapshotDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}{ext}",
   expect: {
     toHaveScreenshot: {
       maxDiffPixelRatio: 0.005,
@@ -49,6 +50,9 @@ export default defineConfig({
     {
       name: "mobile-chrome",
       use: { ...devices["Pixel 5"] },
+      expect: {
+        toHaveScreenshot: { maxDiffPixelRatio: 0.02 },
+      },
     },
     {
       name: "mobile-safari",

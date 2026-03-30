@@ -1,6 +1,6 @@
 # Features — Crypto Timeline Project
 
-> Cập nhật: 2026-03-29 (TEC-619)
+> Cập nhật: 2026-03-30 (TEC-716)
 
 ## Tính năng hiện có (Shipped)
 
@@ -28,8 +28,8 @@
 
 | Feature | Business Value | Phạm vi | Priority | Status |
 |---------|---------------|---------|----------|--------|
-| Progress Tracking | Gamification, tăng retention | Medium | P2 | backlog |
-| Dark/Light Theme | UX preference, accessibility | Small | P2 | backlog |
+| Progress Tracking | Gamification, tăng retention | Medium | P2 | ✅ Done (6231978) |
+| Dark/Light Theme | UX preference, accessibility | Small | P2 | ✅ Done (TEC-669, uncommitted) |
 | Educator Analytics | Giá trị cho use case giáo dục | Large | P3 | backlog |
 | Completion Certificate | Gamification, shareable achievement | Small | P3 | backlog |
 | Social Share Quiz Results | Viral marketing, engagement | Small | P3 | backlog |

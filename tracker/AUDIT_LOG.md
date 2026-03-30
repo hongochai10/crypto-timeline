@@ -1,5 +1,73 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-30 (CEO Heartbeat TEC-716)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass (Next.js 16.2.1 Turbopack) |
+| Unit Tests | ✅ 39/39 files, 396/396 tests pass |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 96.82% statement, 85.32% branch |
+| npm audit | ✅ 0 vulnerabilities |
+| Security Headers | ✅ CSP nonce-based + comprehensive HTTP headers |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1256 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+| QA Browser | ✅ Dark/Light theme toggle, Caesar demo, EN locale verified |
+| Overall Score | ✅ 9.1/10 |
+
+### Tiến độ kể từ audit trước (TEC-672)
+
+| Commit/Ticket | Tiêu đề | Status |
+|--------|---------|--------|
+| 5e101fe | FOUC prevention script + ThemeProvider unit tests | ✅ Done |
+| — | Rich text (em/em2) cho narrative paragraphs (6 stations) | 🔲 Uncommitted |
+| — | E2E visual regression spec refactor (remove CSP stripping) | 🔲 Uncommitted |
+| — | Snapshot path template update (playwright.config.ts) | 🔲 Uncommitted |
+| — | CI_USE_BUILD=1 cho e2e:update-snapshots script | 🔲 Uncommitted |
+
+### Vấn đề phát hiện mới
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| 1 | 8 modified + 126 untracked snapshot files chưa commit | 🟡 Trung bình | 🔲 Open |
+| 2 | Light theme: subtitle text contrast thấp trên hero section | 🟢 Thấp | 🔲 Open (I-19) |
+| 3 | Light theme: input fields giữ nền tối → contrast issue | 🟢 Thấp | 🔲 Open (I-19) |
+| 4 | middleware.ts deprecated warning ("middleware" → "proxy") | 🟢 Thấp | 🔲 Open (new) |
+| 5 | `unsafe-eval` added to script-src (uncommitted) | 🟡 Trung bình | 🔲 Open (I-20) |
+| 6 | VI locale navigation từ EN page gây error page tạm thời | 🟢 Thấp | 🔲 Open (new) |
+
+### Vấn đề đã giải quyết kể từ audit trước
+
+| # | Vấn đề | Resolved By |
+|---|--------|-------------|
+| 1 | FOUC (Flash of Unstyled Content) khi theme toggle | ✅ commit 5e101fe — inline prevention script |
+| 2 | ThemeProvider thiếu unit tests | ✅ commit 5e101fe |
+
+### Build Metrics (so sánh)
+
+| Metric | TEC-672 | TEC-716 | Trend |
+|--------|---------|---------|-------|
+| Unit Tests | 389 / 38 files | 396 / 39 files | ↑ +7 tests, +1 file |
+| Coverage (statement) | 96.82% | 96.82% | → Stable |
+| Coverage (branch) | 85.32% | 85.32% | → Stable |
+| npm audit | 0 vulns | 0 vulns | → Clean |
+| First Load JS | 164 KB | 164 KB | → Stable |
+
+### Quyết định
+
+- **Không có blocker nghiêm trọng** — project score 9.1/10.
+- Phase 3 vẫn pending commit (I-16 từ TEC-672 chưa resolved).
+- **P0**: Commit tất cả uncommitted changes bao gồm rich text narratives, E2E refactor, snapshot baselines.
+- **P1**: Light theme accessibility audit (I-19) — phát hiện contrast issues qua QA browser.
+- **P2**: Investigate middleware deprecation warning (Next.js 16 "proxy" convention).
+- Phase 4 sẵn sàng sau khi commit.
+
+---
+
 ## Audit: 2026-03-29 (CEO Heartbeat TEC-672)
 
 ### Tổng quan

@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-29 (TEC-672)
+> Cập nhật: 2026-03-30 (TEC-716)
 
 ## Tech Stack
 
@@ -13,13 +13,13 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-29 — TEC-672)
+## Build Metrics (2026-03-30 — TEC-716)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
 | First Load JS | 164 KB (page) / 89.1 KB (shared) | Stable |
-| Unit Tests | 389 pass / 0 fail | Stable |
-| Test Files | 38/38 pass | Stable |
+| Unit Tests | 396 pass / 0 fail | ↑ +7 |
+| Test Files | 39/39 pass | ↑ +1 |
 | Lint | Clean | — |
 | TypeScript | Zero errors (strict mode) | — |
 | Statement Coverage | 96.82% | — |
@@ -55,6 +55,9 @@
 - [ ] Update E2E visual regression baselines (I-17)
 - [ ] Persist theme preference via localStorage (I-18)
 - [ ] Light theme accessibility audit (I-19)
+- [ ] Fix light theme input contrast issues (I-22)
+- [ ] Fix VI locale navigation error (I-23)
+- [ ] Investigate middleware deprecation → proxy convention (I-21)
 
 ### Phase 4 — Advanced Features (P2/P3) ⏳ NEXT
 - [ ] Production Web Vitals analytics export (F-08)

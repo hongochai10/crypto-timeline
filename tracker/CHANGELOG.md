@@ -1,5 +1,34 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-30 — CEO Audit #6 (TEC-716)
+
+### Completed Since Last Audit
+- FOUC prevention script + ThemeProvider unit tests (5e101fe)
+- Rich text (em/em2) cho station narrative paragraphs (6 stations — uncommitted)
+- E2E visual regression spec refactor: removed CSP stripping workaround (uncommitted)
+- Snapshot path template update + CI_USE_BUILD=1 script (uncommitted)
+
+### Identified (New)
+- I-21: Middleware deprecated warning (Next.js 16 "proxy" convention)
+- I-22: Light theme input fields giữ nền tối → contrast issue
+- I-23: VI locale navigation gây error page tạm thời
+
+### QA Results (Browser Testing)
+- ✅ Hero section: dark theme renders correctly
+- ✅ Theme toggle: dark → light switching works
+- ✅ Caesar station: interactive demo + attack demo functional
+- ⚠️ Light theme: subtitle text contrast low on hero
+- ⚠️ Light theme: input fields retain dark background
+- ⚠️ VI locale: navigation from EN gây transient error
+
+### Metrics
+- Unit Tests: 396 pass / 39 files (↑7 tests, ↑1 file)
+- Coverage: 96.82% statement, 85.32% branch (stable)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.1/10
+
+---
+
 ## 2026-03-29 — CEO Audit #5 (TEC-672)
 
 ### Completed Since Last Audit

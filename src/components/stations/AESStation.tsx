@@ -78,7 +78,7 @@ export default function AESStation({ era }: StationProps) {
           {t("narrative1")}
         </p>
         <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-          {t("narrative2")}
+          {t.rich("narrative2", { em2: (chunks) => <em>{chunks}</em> })}
         </p>
       </motion.div>
 

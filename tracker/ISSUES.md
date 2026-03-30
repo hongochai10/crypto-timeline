@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-29 (TEC-672)
+> Cập nhật: 2026-03-30 (TEC-716)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -33,6 +33,9 @@
 | I-18 | Persist theme preference (localStorage) | P1 | Senior Frontend Engineer | todo | I-16 |
 | I-19 | Light theme accessibility audit (contrast ratios) | P1 | QA Engineer | todo | I-16 |
 | I-20 | CSP style-src unsafe-inline (Framer Motion) | P2 | Security Engineer | backlog | — |
+| I-21 | Middleware deprecated warning: "middleware" → "proxy" convention | P2 | Senior Frontend Engineer | backlog | — |
+| I-22 | Light theme: input fields giữ nền tối gây contrast issue | P1 | Senior Frontend Engineer | todo | I-16 |
+| I-23 | VI locale navigation gây error page tạm thời | P1 | Senior Frontend Engineer | todo | — |
 
 ## Tính năng mới (New Features) — Open
 

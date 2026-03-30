@@ -102,10 +102,10 @@ export default function PQCStation({ era }: StationProps) {
             {t("quantumThreatTitle")}
           </h3>
           <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            {t("narrative1")}
+            {t.rich("narrative1", { em2: (chunks) => <em>{chunks}</em> })}
           </p>
           <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            {t("narrative2")}
+            {t.rich("narrative2", { em2: (chunks) => <em>{chunks}</em> })}
           </p>
         </div>
       </motion.div>

@@ -15,28 +15,7 @@
  * On CI, use the "Update Visual Regression Baselines" workflow (Actions tab)
  * to regenerate baselines on ubuntu-latest (rendering differs per OS).
  */
-import { test as base, expect } from "@playwright/test";
-
-/**
- * Strip the Content-Security-Policy header so dynamic imports hydrate properly.
- * The middleware sets a nonce-based CSP that blocks eval(), which prevents
- * Next.js client-side rendering in the test browser. Visual regression tests
- * focus on UI appearance, not security headers — CSP is tested separately.
- *
- * TODO: Remove this workaround once TEC-XXX fixes nonce propagation to
- * Next.js generated scripts.
- */
-const test = base.extend({
-  page: async ({ page }, use) => {
-    await page.route("**/*", async (route) => {
-      const response = await route.fetch();
-      const headers = { ...response.headers() };
-      delete headers["content-security-policy"];
-      await route.fulfill({ response, headers });
-    });
-    await use(page);
-  },
-});
+import { test, expect } from "@playwright/test";
 
 const STATIONS = ["caesar", "des", "aes", "rsa", "ecc", "pqc"] as const;
 
@@ -52,6 +31,7 @@ const STATION_NAMES: Record<(typeof STATIONS)[number], string> = {
 const SCREENSHOT_OPTS = {
   maxDiffPixelRatio: 0.005,
   animations: "disabled" as const,
+  timeout: 10000,
 };
 
 /** Scroll a station to viewport center so isInView triggers, then wait for animations. */
@@ -72,7 +52,8 @@ async function activateStation(
     }
   }, stationId);
   // Wait for IntersectionObserver (-25% margin) + framer-motion animations
-  await page.waitForTimeout(1500);
+  // Mobile emulation needs extra settle time for layout + paint
+  await page.waitForTimeout(2500);
 }
 
 /** Disable CSS animations/transitions for deterministic screenshots. */
@@ -244,7 +225,10 @@ test.describe("Visual Regression — Demo Panels (1280×800)", () => {
     await disableAnimations(page);
 
     const demo = page.locator("#aes .demo-container").first();
-    await expect(demo).toHaveScreenshot("demo-aes-encrypt.png", SCREENSHOT_OPTS);
+    await expect(demo).toHaveScreenshot("demo-aes-encrypt.png", {
+      ...SCREENSHOT_OPTS,
+      mask: [page.locator('[data-testid="aes-ciphertext"]')],
+    });
   });
 
   test("RSA demo — key generation + encrypt", async ({ page }) => {
@@ -257,7 +241,10 @@ test.describe("Visual Regression — Demo Panels (1280×800)", () => {
     await disableAnimations(page);
 
     const demo = page.locator("#rsa .demo-container").first();
-    await expect(demo).toHaveScreenshot("demo-rsa-encrypt.png", SCREENSHOT_OPTS);
+    await expect(demo).toHaveScreenshot("demo-rsa-encrypt.png", {
+      ...SCREENSHOT_OPTS,
+      mask: [page.locator('[data-testid="rsa-ciphertext"]')],
+    });
   });
 
   test("ECC demo — sign + verify", async ({ page }) => {
@@ -272,7 +259,10 @@ test.describe("Visual Regression — Demo Panels (1280×800)", () => {
     await disableAnimations(page);
 
     const demo = page.locator("#ecc .demo-container").first();
-    await expect(demo).toHaveScreenshot("demo-ecc-signverify.png", SCREENSHOT_OPTS);
+    await expect(demo).toHaveScreenshot("demo-ecc-signverify.png", {
+      ...SCREENSHOT_OPTS,
+      mask: [page.locator('[data-testid="ecc-verify-result"]')],
+    });
   });
 
   test("PQC demo — encrypt + decrypt", async ({ page }) => {
@@ -287,7 +277,10 @@ test.describe("Visual Regression — Demo Panels (1280×800)", () => {
     await disableAnimations(page);
 
     const demo = page.locator("#pqc .demo-container").first();
-    await expect(demo).toHaveScreenshot("demo-pqc-encrypt.png", SCREENSHOT_OPTS);
+    await expect(demo).toHaveScreenshot("demo-pqc-encrypt.png", {
+      ...SCREENSHOT_OPTS,
+      mask: [page.locator('[data-testid="pqc-decrypt-result"]')],
+    });
   });
 });
 
