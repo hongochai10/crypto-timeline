@@ -43,8 +43,6 @@ export default function Station({ era, index, children, isKeyboardActive, onInVi
     root.style.setProperty("--era-active-surface", era.surfaceColor);
     root.style.setProperty("--era-active-text",    era.textColor);
     root.style.setProperty("--era-active-glow",    era.glowColor);
-    // Also update the legacy vars used by ScrollProgress + globals
-    root.style.setProperty("--bg-base",            era.bgColor);
   }, [isInView, era]);
 
   // Notify parent when this station scrolls into view
