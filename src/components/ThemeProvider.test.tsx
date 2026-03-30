@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 // Unmock ThemeProvider for this test file
@@ -124,6 +124,65 @@ describe("ThemeProvider", () => {
         <ThemeConsumer />
       </ThemeProvider>
     );
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+  });
+
+  it("syncs theme across tabs via storage event", () => {
+    render(
+      <ThemeProvider>
+        <ThemeConsumer />
+      </ThemeProvider>
+    );
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+
+    // Simulate storage event from another tab
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: STORAGE_KEY,
+        newValue: "light",
+        oldValue: "dark",
+      }));
+    });
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("light");
+  });
+
+  it("ignores storage events with invalid values", () => {
+    render(
+      <ThemeProvider>
+        <ThemeConsumer />
+      </ThemeProvider>
+    );
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: STORAGE_KEY,
+        newValue: "invalid",
+      }));
+    });
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+  });
+
+  it("ignores storage events for other keys", () => {
+    render(
+      <ThemeProvider>
+        <ThemeConsumer />
+      </ThemeProvider>
+    );
+
+    expect(screen.getByTestId("theme")).toHaveTextContent("dark");
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: "other-key",
+        newValue: "light",
+      }));
+    });
 
     expect(screen.getByTestId("theme")).toHaveTextContent("dark");
   });

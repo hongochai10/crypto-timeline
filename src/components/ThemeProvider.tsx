@@ -57,6 +57,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
+  // Sync theme across tabs via storage event
+  useEffect(() => {
+    const handler = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && (e.newValue === "light" || e.newValue === "dark")) {
+        setTheme(e.newValue);
+      }
+    };
+    window.addEventListener("storage", handler);
+    return () => window.removeEventListener("storage", handler);
+  }, []);
+
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   }, []);
