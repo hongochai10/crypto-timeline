@@ -1,6 +1,6 @@
 # Features — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-716)
+> Cập nhật: 2026-03-30 (TEC-762)
 
 ## Tính năng hiện có (Shipped)
 
@@ -19,7 +19,7 @@
 | Shareable Demo States | URL parameters cho demo states | ✅ Done | TEC-529 |
 | Breach Stories | Real-world crypto breach narratives | ✅ Done | TEC-528 |
 | Algorithm Benchmarks | Real-time ops/sec measurements | ✅ Done | TEC-527 |
-| CSP Hardened | Nonce-based script-src, no unsafe-* | ✅ Done | TEC-566 |
+| CSP Hardened | Nonce-based script-src — no unsafe-inline/unsafe-eval | ✅ Done | TEC-566 / TEC-764 |
 | Interactive Quiz System | 5 câu/station, multi-type questions | ✅ Done | TEC-570 |
 | Keyboard Navigation | Arrow keys, Home/End, Vim j/k | ✅ Done | TEC-569 |
 | Translation Fallbacks | Deep merge EN base + locale, silent missing key | ✅ Done | TEC-597 |

@@ -1,5 +1,75 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-30 (CEO Heartbeat TEC-762)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass (Next.js 16.2.1 Turbopack) |
+| Unit Tests | ✅ 39/39 files, 396/396 tests pass |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 88.46% statement, 71.85% branch (threshold 80%) |
+| npm audit | ✅ 0 vulnerabilities |
+| Security Headers | ✅ CSP hardened — nonce-based, no unsafe-inline/unsafe-eval |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1256 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+| Overall Score | ✅ 9.0/10 (unsafe-eval fixed, coverage still pending) |
+
+### Tiến độ kể từ audit trước (TEC-716)
+
+| Commit/Ticket | Tiêu đề | Status |
+|--------|---------|--------|
+| — | middleware.ts simplified: removed complex intl+CSP merging | 🔲 Uncommitted |
+| — | error.tsx + not-found.tsx added for locale error handling | 🔲 Uncommitted (untracked) |
+| — | Visual regression snapshots updated (3 files) | 🔲 Uncommitted |
+
+### Vấn đề phát hiện mới
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| 1 | `unsafe-eval` vẫn còn trong CSP script-src (middleware.ts:15) | 🔴 Cao | ✅ Fixed (TEC-764) |
+| 2 | Coverage giảm: 88.46% stmt / 71.85% branch (từ 96.82% / 85.32%) | 🟡 Trung bình | 🔲 Open (I-25) |
+| 3 | error.tsx + not-found.tsx untracked — cần commit | 🟢 Thấp | 🔲 Open (I-16) |
+| 4 | Console.error không có NODE_ENV guard trong i18n/request.ts | 🟢 Thấp | 🔲 Open (I-26) |
+| 5 | ShareDemoButton setTimeout không cleanup on unmount | 🟢 Thấp | 🔲 Open (I-27) |
+
+### Vấn đề chưa giải quyết từ audit trước (TEC-716)
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| I-16 | Commit uncommitted changes | P0 | 🔲 Open — thêm error.tsx, not-found.tsx |
+| I-17 | Update E2E visual regression baselines | P0 | 🔲 Open |
+| I-18 | Persist theme preference (localStorage) | P1 | 🔲 Open |
+| I-19 | Light theme accessibility audit | P1 | 🔲 Open |
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P2 | 🔲 Open |
+| I-21 | Middleware deprecation warning | P2 | 🔲 Open — warning confirmed in build |
+| I-22 | Light theme input contrast issue | P1 | 🔲 Open |
+| I-23 | VI locale navigation error | P1 | 🔲 Open |
+
+### Build Metrics (so sánh)
+
+| Metric | TEC-716 | TEC-762 | Trend |
+|--------|---------|---------|-------|
+| Unit Tests | 396 / 39 files | 396 / 39 files | → Stable |
+| Coverage (statement) | 96.82% | 88.46% | ↓ −8.36% |
+| Coverage (branch) | 85.32% | 71.85% | ↓ −13.47% |
+| npm audit | 0 vulns | 0 vulns | → Clean |
+| First Load JS | 164 KB | 164 KB | → Stable |
+
+### Quyết định
+
+- **Không có blocker nghiêm trọng** nhưng score giảm xuống 8.8/10.
+- **P0 urgent**: Loại bỏ `unsafe-eval` khỏi CSP — đây là regression từ I-01 đã fix trước đó.
+- **P0**: Commit tất cả uncommitted changes (middleware, error/not-found pages, snapshots).
+- **P1**: Coverage giảm đáng kể — cần investigate và bổ sung tests.
+- **P1**: Các issues light theme (I-19, I-22) và VI locale (I-23) vẫn chưa resolved.
+- Phase 3 vẫn pending hoàn thành.
+
+---
+
 ## Audit: 2026-03-30 (CEO Heartbeat TEC-716)
 
 ### Tổng quan

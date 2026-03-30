@@ -1,5 +1,29 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-30 — CEO Audit #7 (TEC-762)
+
+### Completed Since Last Audit
+- middleware.ts simplified: removed complex intl+CSP response merging logic (uncommitted)
+- error.tsx + not-found.tsx added for locale error handling (untracked)
+- Visual regression snapshots updated (3 files — uncommitted)
+
+### Identified (New)
+- I-24: `unsafe-eval` removed from CSP script-src — regression fixed (TEC-764) ✅
+- I-25: Coverage dropped to 88.46% stmt / 71.85% branch (P1)
+- I-26: Console.error missing NODE_ENV guard in i18n/request.ts (P2)
+- I-27: ShareDemoButton setTimeout not cleaned up on unmount (P2)
+
+### Still Open from Previous Audits
+- I-16 through I-23: All remain open — no commits since TEC-716
+
+### Metrics
+- Unit Tests: 396 pass / 39 files (stable)
+- Coverage: 88.46% statement, 71.85% branch (↓ from 96.82% / 85.32%)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.0/10 (unsafe-eval fixed, coverage regression still pending)
+
+---
+
 ## 2026-03-30 — CEO Audit #6 (TEC-716)
 
 ### Completed Since Last Audit

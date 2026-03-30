@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-716)
+> Cập nhật: 2026-03-30 (TEC-762)
 
 ## Tech Stack
 
@@ -13,18 +13,18 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-30 — TEC-716)
+## Build Metrics (2026-03-30 — TEC-762)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
 | First Load JS | 164 KB (page) / 89.1 KB (shared) | Stable |
-| Unit Tests | 396 pass / 0 fail | ↑ +7 |
-| Test Files | 39/39 pass | ↑ +1 |
+| Unit Tests | 396 pass / 0 fail | → Stable |
+| Test Files | 39/39 pass | → Stable |
 | Lint | Clean | — |
 | TypeScript | Zero errors (strict mode) | — |
-| Statement Coverage | 96.82% | — |
-| Branch Coverage | 85.32% | — |
-| npm audit | ✅ 0 vulnerabilities | Fixed (was 9) |
+| Statement Coverage | 88.46% | ↓ −8.36% (was 96.82%) |
+| Branch Coverage | 71.85% | ↓ −13.47% (was 85.32%) |
+| npm audit | ✅ 0 vulnerabilities | → Clean |
 | Coverage Threshold | 80% (lines/functions/branches/statements) | — |
 
 ## Milestones
@@ -58,6 +58,8 @@
 - [ ] Fix light theme input contrast issues (I-22)
 - [ ] Fix VI locale navigation error (I-23)
 - [ ] Investigate middleware deprecation → proxy convention (I-21)
+- [x] **Remove unsafe-eval from CSP script-src (I-24) — FIXED (TEC-764)**
+- [ ] Investigate & fix coverage drop (I-25)
 
 ### Phase 4 — Advanced Features (P2/P3) ⏳ NEXT
 - [ ] Production Web Vitals analytics export (F-08)

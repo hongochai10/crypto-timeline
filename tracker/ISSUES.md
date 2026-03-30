@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-716)
+> Cập nhật: 2026-03-30 (TEC-762)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -36,6 +36,10 @@
 | I-21 | Middleware deprecated warning: "middleware" → "proxy" convention | P2 | Senior Frontend Engineer | backlog | — |
 | I-22 | Light theme: input fields giữ nền tối gây contrast issue | P1 | Senior Frontend Engineer | todo | I-16 |
 | I-23 | VI locale navigation gây error page tạm thời | P1 | Senior Frontend Engineer | todo | — |
+| I-24 | Loại bỏ unsafe-eval khỏi CSP script-src (regression) | P0 | Security Engineer (TEC-764) | ✅ Done | — |
+| I-25 | Coverage giảm: 88% stmt / 72% branch — investigate & fix | P1 | QA Engineer | todo | — |
+| I-26 | Console.error thiếu NODE_ENV guard trong i18n/request.ts | P2 | Senior Frontend Engineer | backlog | — |
+| I-27 | ShareDemoButton setTimeout không cleanup on unmount | P2 | Senior Frontend Engineer | backlog | — |
 
 ## Tính năng mới (New Features) — Open
 
