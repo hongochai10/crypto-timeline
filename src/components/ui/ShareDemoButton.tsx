@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { type EraId } from "@/lib/constants";
 import { useShareDemo } from "@/lib/useShareableDemo";
@@ -15,12 +15,20 @@ export default function ShareDemoButton({ stationId, params, accentColor }: Prop
   const t = useTranslations("common");
   const { copyShareUrl } = useShareDemo();
   const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleClick = useCallback(async () => {
     const ok = await copyShareUrl(stationId, params);
     if (ok) {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setCopied(false), 2000);
     }
   }, [copyShareUrl, stationId, params]);
 
