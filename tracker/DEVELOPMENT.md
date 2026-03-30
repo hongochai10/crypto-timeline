@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-762)
+> Cập nhật: 2026-03-30 (TEC-787)
 
 ## Tech Stack
 
@@ -13,19 +13,19 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-30 — TEC-762)
+## Build Metrics (2026-03-30 — TEC-787)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
 | First Load JS | 164 KB (page) / 89.1 KB (shared) | Stable |
-| Unit Tests | 396 pass / 0 fail | → Stable |
-| Test Files | 39/39 pass | → Stable |
+| Unit Tests | 415 pass / 0 fail | ↑ +19 tests |
+| Test Files | 42/42 pass | ↑ +3 files |
 | Lint | Clean | — |
 | TypeScript | Zero errors (strict mode) | — |
-| Statement Coverage | 88.46% | ↓ −8.36% (was 96.82%) |
-| Branch Coverage | 71.85% | ↓ −13.47% (was 85.32%) |
+| Statement Coverage | 94.75% | ↑ +6.29% (was 88.46%) |
+| Branch Coverage | 81.48% | ↑ +9.63% (was 71.85%) |
 | npm audit | ✅ 0 vulnerabilities | → Clean |
-| Coverage Threshold | 80% (lines/functions/branches/statements) | — |
+| Coverage Threshold | 80% (lines/functions/branches/statements) | ✅ All above |
 
 ## Milestones
 
@@ -46,20 +46,22 @@
 - [x] Refactor Demo components — extract shared components (79fc622)
 - [x] Progress tracking / completion badges (6231978, d0f52b5, 8757c17)
 
-### Phase 3 — UX Polish & Security (P0/P2) ✅ COMPLETE (pending commit)
+### Phase 3 — UX Polish & Security (P0/P2) ⏳ 90% COMPLETE
 - [x] **Upgrade Next.js 14→16** — fix 9 npm audit vulns (0b22608 / TEC-666)
 - [x] Add NODE_ENV guards cho console.log (11d85d2 / TEC-667)
 - [x] Move benchmarks to Web Worker (bb4caa8 / TEC-668)
-- [x] Dark/Light theme toggle (TEC-669 — uncommitted)
-- [ ] Commit all uncommitted changes (I-16) **P0**
-- [ ] Update E2E visual regression baselines (I-17)
-- [ ] Persist theme preference via localStorage (I-18)
-- [ ] Light theme accessibility audit (I-19)
-- [ ] Fix light theme input contrast issues (I-22)
-- [ ] Fix VI locale navigation error (I-23)
-- [ ] Investigate middleware deprecation → proxy convention (I-21)
-- [x] **Remove unsafe-eval from CSP script-src (I-24) — FIXED (TEC-764)**
-- [ ] Investigate & fix coverage drop (I-25)
+- [x] Dark/Light theme toggle (TEC-669)
+- [x] Commit all uncommitted changes (I-16) ✅
+- [x] Update E2E visual regression baselines (I-17) ✅ 97a0b3b + 12289fc
+- [x] Light theme accessibility audit (I-19) ✅ 27c06ad
+- [x] Fix light theme input contrast issues (I-22) ✅ 27c06ad + 62471a9
+- [x] Fix VI locale navigation error (I-23) ✅ 0247fd8
+- [x] **Remove unsafe-eval from CSP script-src (I-24)** ✅ d754dd2 / TEC-764
+- [x] Investigate & fix coverage drop (I-25) ✅ 94.75% stmt / 81.48% branch
+- [ ] Persist theme preference via localStorage (I-18) **P1**
+- [ ] Migrate middleware → proxy convention (I-21) **P2**
+- [ ] Console.error NODE_ENV guard in i18n/request.ts (I-26) **P2**
+- [ ] ShareDemoButton setTimeout cleanup (I-27) **P2**
 
 ### Phase 4 — Advanced Features (P2/P3) ⏳ NEXT
 - [ ] Production Web Vitals analytics export (F-08)
@@ -81,4 +83,4 @@
 - Console.logs trong production code đều được guard bởi NODE_ENV check
 - No TODO/FIXME/HACK comments — codebase sạch
 - Benchmarks chạy off-thread via Web Worker (bb4caa8)
-- Theme toggle: ThemeProvider + ThemeToggle components (chưa persist localStorage)
+- Theme toggle: ThemeProvider + ThemeToggle components (cần persist localStorage — I-18)

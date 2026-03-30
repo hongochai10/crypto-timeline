@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-762)
+> Cập nhật: 2026-03-30 (TEC-787)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -22,22 +22,22 @@
 | I-14 | Upgrade Next.js 14→16 (9 npm audit vulns) | P0 | 0b22608 / TEC-666 | ✅ Done |
 | I-15 | Add NODE_ENV guards cho console.log calls | P2 | 11d85d2 / TEC-667 | ✅ Done |
 | I-08 | Move crypto benchmark sang Web Worker | P2 | bb4caa8 / TEC-668 | ✅ Done |
-| F-03 | Dark/Light theme toggle | P2 | TEC-669 (uncommitted) | ✅ Done |
+| F-03 | Dark/Light theme toggle | P2 | TEC-669 | ✅ Done |
+| I-16 | Commit uncommitted changes | P0 | All committed (git clean) | ✅ Done |
+| I-17 | Update E2E visual regression baselines | P0 | 97a0b3b + 12289fc | ✅ Done |
+| I-19 | Light theme accessibility audit (contrast ratios) | P1 | 27c06ad | ✅ Done |
+| I-22 | Light theme input contrast issues | P1 | 27c06ad + 62471a9 | ✅ Done |
+| I-23 | VI locale navigation error | P1 | 0247fd8 | ✅ Done |
+| I-24 | Remove unsafe-eval from CSP script-src | P0 | d754dd2 / TEC-764 | ✅ Done |
+| I-25 | Coverage regression — investigate & fix | P1 | 6909afd (94.75% stmt / 81.48% branch) | ✅ Done |
 
 ## Cải thiện (Improvements) — Open
 
 | ID | Tiêu đề | Priority | Owner | Status | Dependency |
 |----|---------|----------|-------|--------|------------|
-| I-16 | Commit uncommitted theme + i18n + tracker changes | P0 | Senior Frontend Engineer | todo | — |
-| I-17 | Update E2E visual regression baselines | P0 | QA Engineer | todo | I-16 |
-| I-18 | Persist theme preference (localStorage) | P1 | Senior Frontend Engineer | todo | I-16 |
-| I-19 | Light theme accessibility audit (contrast ratios) | P1 | QA Engineer | todo | I-16 |
-| I-20 | CSP style-src unsafe-inline (Framer Motion) | P2 | Security Engineer | backlog | — |
-| I-21 | Middleware deprecated warning: "middleware" → "proxy" convention | P2 | Senior Frontend Engineer | backlog | — |
-| I-22 | Light theme: input fields giữ nền tối gây contrast issue | P1 | Senior Frontend Engineer | todo | I-16 |
-| I-23 | VI locale navigation gây error page tạm thời | P1 | Senior Frontend Engineer | todo | — |
-| I-24 | Loại bỏ unsafe-eval khỏi CSP script-src (regression) | P0 | Security Engineer (TEC-764) | ✅ Done | — |
-| I-25 | Coverage giảm: 88% stmt / 72% branch — investigate & fix | P1 | QA Engineer | todo | — |
+| I-18 | Persist theme preference (localStorage) | P1 | Senior Frontend Engineer | todo | — |
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | Security Engineer | backlog | Framer Motion upstream |
+| I-21 | Middleware deprecated → proxy convention (Next.js 16) | P2 | Senior Frontend Engineer | backlog | — |
 | I-26 | Console.error thiếu NODE_ENV guard trong i18n/request.ts | P2 | Senior Frontend Engineer | backlog | — |
 | I-27 | ShareDemoButton setTimeout không cleanup on unmount | P2 | Senior Frontend Engineer | backlog | — |
 

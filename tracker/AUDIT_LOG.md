@@ -1,5 +1,79 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-30 (CEO Heartbeat TEC-787)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass (Next.js 16.2.1 Turbopack) |
+| Unit Tests | ✅ 42/42 files, 415/415 tests pass (↑19 tests, ↑3 files) |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 94.75% statement, 81.48% branch (↑ from 88.46%/71.85%) |
+| npm audit | ✅ 0 vulnerabilities |
+| Security Headers | ✅ CSP nonce-based, no unsafe-eval, comprehensive headers |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1256 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+| Git Status | ✅ Clean (all changes committed) |
+| Overall Score | ✅ 9.4/10 (↑ từ 9.0) |
+
+### Tiến độ kể từ audit trước (TEC-762)
+
+| Commit | Tiêu đề | Issues Resolved |
+|--------|---------|----------------|
+| 6909afd | test: add tests for useShareableDemo, benchmark.worker, useBenchmarkWorker | I-25 (coverage) |
+| 27c06ad | fix: resolve light theme WCAG 2.1 AA contrast violations | I-22, I-19 |
+| d754dd2 | fix: remove unsafe-eval from CSP script-src | I-24 |
+| 0247fd8 | fix: resolve VI locale navigation causing transient error page | I-23 |
+| 12289fc | fix: stabilize mobile-chrome visual regression baselines | I-17 |
+| 62471a9 | fix: resolve light theme contrast issues for inputs and hero subtitle | I-22 |
+| 97a0b3b | feat: add rich text narratives, E2E visual regression refactor | I-16, I-17 |
+
+### Vấn đề đã giải quyết (8 issues closed)
+
+| # | Vấn đề | Resolved By |
+|---|--------|-------------|
+| I-16 | Commit uncommitted changes | ✅ All committed (git status clean) |
+| I-17 | Update E2E visual regression baselines | ✅ 97a0b3b + 12289fc |
+| I-19 | Light theme accessibility audit | ✅ 27c06ad |
+| I-22 | Light theme input contrast | ✅ 27c06ad + 62471a9 |
+| I-23 | VI locale navigation error | ✅ 0247fd8 |
+| I-24 | Remove unsafe-eval from CSP | ✅ d754dd2 |
+| I-25 | Coverage regression fixed | ✅ 94.75% stmt / 81.48% branch (6909afd) |
+
+### Vấn đề còn mở
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| I-18 | Persist theme preference (localStorage) | P1 | 🔲 Open |
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P2 | 🔲 Open |
+| I-21 | Middleware deprecated → proxy convention | P2 | 🔲 Open |
+| I-26 | Console.error NODE_ENV guard in i18n/request.ts | P2 | 🔲 Open |
+| I-27 | ShareDemoButton setTimeout cleanup on unmount | P2 | 🔲 Open |
+
+### Build Metrics (so sánh)
+
+| Metric | TEC-762 | TEC-787 | Trend |
+|--------|---------|---------|-------|
+| Unit Tests | 396 / 39 files | 415 / 42 files | ↑ +19 tests, +3 files |
+| Coverage (statement) | 88.46% | 94.75% | ↑ +6.29% |
+| Coverage (branch) | 71.85% | 81.48% | ↑ +9.63% |
+| npm audit | 0 vulns | 0 vulns | → Clean |
+| First Load JS | 164 KB | 164 KB | → Stable |
+
+### Quyết định
+
+- **Không có blocker nghiêm trọng** — project score 9.4/10 (cao nhất từ trước đến nay).
+- 8 issues resolved kể từ TEC-762 — tiến bộ đáng kể.
+- Coverage phục hồi mạnh: 94.75% stmt / 81.48% branch (vượt threshold 80%).
+- Git status clean — không còn uncommitted changes.
+- Phase 3 gần hoàn thành — chỉ còn 5 items nhỏ (I-18, I-21, I-26, I-27, I-20).
+- Tạo subtasks cho Phase 3 completion và Phase 4 kickoff.
+
+---
+
 ## Audit: 2026-03-30 (CEO Heartbeat TEC-762)
 
 ### Tổng quan

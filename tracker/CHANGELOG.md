@@ -1,5 +1,32 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-30 — CEO Audit #8 (TEC-787)
+
+### Completed Since Last Audit (8 issues resolved)
+- I-16: All uncommitted changes committed (git status clean)
+- I-17: E2E visual regression baselines updated (97a0b3b + 12289fc)
+- I-19: Light theme accessibility audit passed (27c06ad)
+- I-22: Light theme input contrast fixed (27c06ad + 62471a9)
+- I-23: VI locale navigation error fixed (0247fd8)
+- I-24: unsafe-eval removed from CSP script-src (d754dd2)
+- I-25: Coverage regression recovered — 94.75% stmt / 81.48% branch (6909afd)
+- Tests expanded: 415 tests / 42 files (↑19 tests, ↑3 files)
+
+### Still Open (5 items remaining in Phase 3)
+- I-18: Persist theme preference via localStorage (P1)
+- I-21: Middleware → proxy convention migration (P2)
+- I-26: Console.error NODE_ENV guard in i18n/request.ts (P2)
+- I-27: ShareDemoButton setTimeout cleanup (P2)
+- I-20: CSP style-src unsafe-inline — depends on Framer Motion upstream (P3)
+
+### Metrics
+- Unit Tests: 415 pass / 42 files (↑ from 396/39)
+- Coverage: 94.75% statement, 81.48% branch (↑ from 88.46%/71.85%)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.4/10 (↑ from 9.0) — highest score to date
+
+---
+
 ## 2026-03-30 — CEO Audit #7 (TEC-762)
 
 ### Completed Since Last Audit
