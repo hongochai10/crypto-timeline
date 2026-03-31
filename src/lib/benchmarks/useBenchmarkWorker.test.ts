@@ -83,6 +83,80 @@ describe("useBenchmarkWorker", () => {
     ]);
   });
 
+  describe("unexpected worker message type handling", () => {
+    let listeners: Array<(e: unknown) => void>;
+    let mockWorker: {
+      addEventListener: ReturnType<typeof vi.fn>;
+      removeEventListener: ReturnType<typeof vi.fn>;
+      postMessage: ReturnType<typeof vi.fn>;
+      terminate: ReturnType<typeof vi.fn>;
+    };
+
+    beforeEach(() => {
+      listeners = [];
+      mockWorker = {
+        addEventListener: vi.fn((_event: string, fn: (e: unknown) => void) => {
+          listeners.push(fn);
+        }),
+        removeEventListener: vi.fn(),
+        postMessage: vi.fn(),
+        terminate: vi.fn(),
+      };
+      vi.stubGlobal(
+        "Worker",
+        class MockWorker {
+          addEventListener = mockWorker.addEventListener;
+          removeEventListener = mockWorker.removeEventListener;
+          postMessage = mockWorker.postMessage;
+          terminate = mockWorker.terminate;
+        }
+      );
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it("run() rejects on unexpected message type", async () => {
+      const { result } = renderHook(() => useBenchmarkWorker());
+
+      // Start run without awaiting — promise won't resolve until message arrives
+      let runPromise!: Promise<unknown>;
+      act(() => {
+        runPromise = result.current.run("aes");
+      });
+
+      // Find the message handler registered by run()
+      const handler = listeners[listeners.length - 1];
+
+      // Simulate unexpected message
+      act(() => {
+        handler({ data: { type: "unexpected" } });
+      });
+
+      await expect(runPromise).rejects.toThrow("Unexpected worker message type: unexpected");
+      expect(mockWorker.removeEventListener).toHaveBeenCalledWith("message", expect.any(Function));
+    });
+
+    it("runAll() rejects on unexpected message type", async () => {
+      const { result } = renderHook(() => useBenchmarkWorker());
+
+      let runAllPromise!: Promise<unknown>;
+      act(() => {
+        runAllPromise = result.current.runAll();
+      });
+
+      const handler = listeners[listeners.length - 1];
+
+      act(() => {
+        handler({ data: { type: "unknown" } });
+      });
+
+      await expect(runAllPromise).rejects.toThrow("Unexpected worker message type: unknown");
+      expect(mockWorker.removeEventListener).toHaveBeenCalledWith("message", expect.any(Function));
+    });
+  });
+
   it("maintains stable references across rerenders", () => {
     const { result, rerender } = renderHook(() => useBenchmarkWorker());
     const firstRun = result.current.run;

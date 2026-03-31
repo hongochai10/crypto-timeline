@@ -41,6 +41,7 @@ export function useBenchmarkWorker() {
           worker.removeEventListener("message", handler);
           if (e.data.type === "result") resolve(e.data.result);
           else if (e.data.type === "error") reject(new Error(e.data.message));
+          else reject(new Error(`Unexpected worker message type: ${(e.data as { type: string }).type}`));
         };
         worker.addEventListener("message", handler);
         worker.postMessage({ type: "run", algorithm });
@@ -64,6 +65,9 @@ export function useBenchmarkWorker() {
           } else if (e.data.type === "error") {
             worker.removeEventListener("message", handler);
             reject(new Error(e.data.message));
+          } else {
+            worker.removeEventListener("message", handler);
+            reject(new Error(`Unexpected worker message type: ${(e.data as { type: string }).type}`));
           }
         };
         worker.addEventListener("message", handler);
