@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { type EraId } from "@/lib/constants";
@@ -133,6 +133,14 @@ export default function StationQuiz({ eraId, color, questions }: StationQuizProp
   const [optionStates, setOptionStates] = useState<Record<number, "idle" | "selected" | "correct" | "wrong">>({});
   const [quizComplete, setQuizComplete] = useState(false);
   const [started, setStarted] = useState(false);
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+    };
+  }, []);
 
   // Mark quiz as completed in progress tracking
   useEffect(() => {
@@ -208,7 +216,7 @@ export default function StationQuiz({ eraId, color, questions }: StationQuizProp
       setAttempts((a) => a + 1);
       if (attempts === 0) setShowHint(true);
       // Reset selections after a short delay
-      setTimeout(() => {
+      resetTimeoutRef.current = setTimeout(() => {
         setSelectedOptions([]);
         setOptionStates({});
       }, 1200);

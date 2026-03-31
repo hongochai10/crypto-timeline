@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import {
@@ -150,16 +150,25 @@ export default function BenchmarkComparison() {
   const [currentAlgo, setCurrentAlgo] = useState<AlgorithmId | null>(null);
   const t = useTranslations("benchmarks");
   const { runAll } = useBenchmarkWorker();
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const handleRunAll = useCallback(async () => {
     setRunning(true);
     setResults([]);
 
     await runAll((result) => {
+      if (!mountedRef.current) return;
       setCurrentAlgo(result.algorithm);
       setResults((prev) => [...prev, result]);
     });
 
+    if (!mountedRef.current) return;
     setCurrentAlgo(null);
     setRunning(false);
   }, [runAll]);
