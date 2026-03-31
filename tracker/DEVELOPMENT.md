@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-787)
+> Cập nhật: 2026-03-31 (TEC-861)
 
 ## Tech Stack
 
@@ -46,7 +46,7 @@
 - [x] Refactor Demo components — extract shared components (79fc622)
 - [x] Progress tracking / completion badges (6231978, d0f52b5, 8757c17)
 
-### Phase 3 — UX Polish & Security (P0/P2) ⏳ 90% COMPLETE
+### Phase 3 — UX Polish & Security (P0/P2) ⏳ 95% COMPLETE
 - [x] **Upgrade Next.js 14→16** — fix 9 npm audit vulns (0b22608 / TEC-666)
 - [x] Add NODE_ENV guards cho console.log (11d85d2 / TEC-667)
 - [x] Move benchmarks to Web Worker (bb4caa8 / TEC-668)
@@ -58,14 +58,14 @@
 - [x] Fix VI locale navigation error (I-23) ✅ 0247fd8
 - [x] **Remove unsafe-eval from CSP script-src (I-24)** ✅ d754dd2 / TEC-764
 - [x] Investigate & fix coverage drop (I-25) ✅ 94.75% stmt / 81.48% branch
-- [ ] Persist theme preference via localStorage (I-18) **P1**
+- [x] Persist theme preference via localStorage + cross-tab sync (I-18) ✅ fa558ee
 - [ ] Migrate middleware → proxy convention (I-21) **P2**
-- [ ] Console.error NODE_ENV guard in i18n/request.ts (I-26) **P2**
-- [ ] ShareDemoButton setTimeout cleanup (I-27) **P2**
+- [x] Console.error NODE_ENV guard in i18n/request.ts (I-26) ✅ Already implemented
+- [x] ShareDemoButton setTimeout cleanup (I-27) ✅ 22a4a24
 
 ### Phase 4 — Advanced Features (P2/P3) ⏳ NEXT
 - [ ] Production Web Vitals analytics export (F-08)
-- [ ] Dependabot / automated vulnerability alerts (F-10)
+- [x] Dependabot / automated vulnerability alerts (F-10) ✅ 7164a60
 - [ ] Analytics dashboard cho educators (F-05)
 - [ ] Export/Print certificate (F-06)
 - [ ] Share quiz results to social media (F-07)
@@ -83,4 +83,4 @@
 - Console.logs trong production code đều được guard bởi NODE_ENV check
 - No TODO/FIXME/HACK comments — codebase sạch
 - Benchmarks chạy off-thread via Web Worker (bb4caa8)
-- Theme toggle: ThemeProvider + ThemeToggle components (cần persist localStorage — I-18)
+- Theme toggle: ThemeProvider + ThemeToggle with localStorage persistence + cross-tab sync (I-18 ✅)

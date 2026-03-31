@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-787)
+> Cập nhật: 2026-03-31 (TEC-861)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -30,16 +30,16 @@
 | I-23 | VI locale navigation error | P1 | 0247fd8 | ✅ Done |
 | I-24 | Remove unsafe-eval from CSP script-src | P0 | d754dd2 / TEC-764 | ✅ Done |
 | I-25 | Coverage regression — investigate & fix | P1 | 6909afd (94.75% stmt / 81.48% branch) | ✅ Done |
+| I-18 | Persist theme preference (localStorage + cross-tab sync) | P1 | fa558ee | ✅ Done |
+| I-26 | Console.error NODE_ENV guard trong i18n/request.ts | P2 | Already implemented (line 48-50) | ✅ Done |
+| I-27 | ShareDemoButton setTimeout cleanup on unmount | P2 | 22a4a24 | ✅ Done |
 
 ## Cải thiện (Improvements) — Open
 
 | ID | Tiêu đề | Priority | Owner | Status | Dependency |
 |----|---------|----------|-------|--------|------------|
-| I-18 | Persist theme preference (localStorage) | P1 | Senior Frontend Engineer | todo | — |
 | I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | Security Engineer | backlog | Framer Motion upstream |
 | I-21 | Middleware deprecated → proxy convention (Next.js 16) | P2 | Senior Frontend Engineer | backlog | — |
-| I-26 | Console.error thiếu NODE_ENV guard trong i18n/request.ts | P2 | Senior Frontend Engineer | backlog | — |
-| I-27 | ShareDemoButton setTimeout không cleanup on unmount | P2 | Senior Frontend Engineer | backlog | — |
 
 ## Tính năng mới (New Features) — Open
 
@@ -50,4 +50,4 @@
 | F-07 | Share quiz results to social media | P3 | Senior Frontend Engineer | backlog | — |
 | F-08 | Production Web Vitals analytics export | P2 | DevOps Engineer | backlog | — |
 | F-09 | Additional i18n languages (ES, ZH) | P3 | Technical Writer | backlog | — |
-| F-10 | Dependabot / automated vulnerability alerts | P2 | DevOps Engineer | backlog | — |
+| F-10 | Dependabot / automated vulnerability alerts | P2 | 7164a60 (config added) | ✅ Done |

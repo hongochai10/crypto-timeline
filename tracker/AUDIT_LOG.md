@@ -1,5 +1,67 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-31 (CEO Heartbeat TEC-861)
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass (Next.js 16.2.1 Turbopack) |
+| Unit Tests | ✅ 42/42 files, 415/415 tests pass |
+| Lint | ✅ Clean |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 94.75% statement, 81.48% branch |
+| npm audit | ✅ 0 vulnerabilities |
+| Security Headers | ✅ CSP nonce-based, no unsafe-eval |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — 1256 keys/locale |
+| PWA | ✅ Serwist service worker + offline indicator |
+| Git Status | ✅ Clean (all changes committed) |
+| Overall Score | ✅ 9.4/10 (stable) |
+
+### Tiến độ kể từ audit trước (TEC-787)
+
+| Commit | Tiêu đề | Issues Resolved |
+|--------|---------|----------------|
+| 22a4a24 | fix: add setTimeout cleanup ref in ShareDemoButton (I-27) | I-27 |
+| fa558ee | feat: add cross-tab theme sync via storage event (I-18) | I-18 |
+| 7164a60 | ci: add Dependabot config for npm and GitHub Actions updates | F-10 (partial) |
+
+### Vấn đề đã giải quyết (3 issues closed)
+
+| # | Vấn đề | Resolved By |
+|---|--------|-------------|
+| I-18 | Persist theme preference (localStorage + cross-tab sync) | ✅ fa558ee |
+| I-26 | Console.error NODE_ENV guard in i18n/request.ts | ✅ Already implemented (line 48-50) |
+| I-27 | ShareDemoButton setTimeout cleanup on unmount | ✅ 22a4a24 |
+
+### Vấn đề còn mở
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | 🔲 Open (upstream) |
+| I-21 | Middleware deprecated → proxy convention | P2 | 🔲 Open |
+
+### Build Metrics (so sánh)
+
+| Metric | TEC-787 | TEC-861 | Trend |
+|--------|---------|---------|-------|
+| Unit Tests | 415 / 42 files | 415 / 42 files | → Stable |
+| Coverage (statement) | 94.75% | 94.75% | → Stable |
+| Coverage (branch) | 81.48% | 81.48% | → Stable |
+| npm audit | 0 vulns | 0 vulns | → Clean |
+| First Load JS | 164 KB | 164 KB | → Stable |
+
+### Quyết định
+
+- **Không có blocker nghiêm trọng** — project score 9.4/10 (stable).
+- 3 issues resolved kể từ TEC-787 (I-18, I-26, I-27).
+- Phase 3 gần hoàn thành — chỉ còn 2 items (I-20 upstream, I-21 migration).
+- Dependabot đã được cấu hình (7164a60) — F-10 partially done.
+- Project ổn định, sẵn sàng cho Phase 4 kickoff.
+
+---
+
 ## Audit: 2026-03-30 (CEO Heartbeat TEC-787)
 
 ### Tổng quan
