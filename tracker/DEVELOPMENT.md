@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-888)
+> Cập nhật: 2026-03-31 (TEC-901)
 
 ## Tech Stack
 
@@ -13,7 +13,7 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-31 — TEC-888)
+## Build Metrics (2026-03-31 — TEC-901)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
@@ -59,6 +59,10 @@
 - [x] **Remove unsafe-eval from CSP script-src (I-24)** ✅ d754dd2 / TEC-764
 - [x] Investigate & fix coverage drop (I-25) ✅ 94.75% stmt / 81.48% branch
 - [x] Persist theme preference via localStorage + cross-tab sync (I-18) ✅ fa558ee
+- [ ] Fix Worker handler default case (I-30, I-34) **P1**
+- [ ] Fix StationQuiz setTimeout cleanup (I-31) **P1**
+- [ ] Fix BenchmarkComparison unmount guard (I-32) **P2**
+- [ ] Fix error.tsx NODE_ENV guard (I-33) **P2**
 - [ ] Migrate middleware → proxy convention (I-21) **P2**
 - [x] Console.error NODE_ENV guard in i18n/request.ts (I-26) ✅ Already implemented
 - [x] ShareDemoButton setTimeout cleanup (I-27) ✅ 22a4a24

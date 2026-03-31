@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-888)
+> Cập nhật: 2026-03-31 (TEC-901)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -42,6 +42,11 @@
 |----|---------|----------|-------|--------|------------|
 | I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | Security Engineer | backlog | Framer Motion upstream |
 | I-21 | Middleware deprecated → proxy convention (Next.js 16) | P2 | Senior Frontend Engineer | backlog | — |
+| I-30 | Worker `run()` handler missing default case (memory leak) | P1 | Senior Frontend Engineer | backlog | — |
+| I-31 | StationQuiz setTimeout not cleaned up on unmount | P1 | Senior Frontend Engineer | backlog | — |
+| I-32 | BenchmarkComparison unmounted state updates after await | P2 | Senior Frontend Engineer | backlog | — |
+| I-33 | error.tsx console.error without NODE_ENV guard | P2 | Senior Frontend Engineer | backlog | — |
+| I-34 | Worker `runAll()` handler missing default case | P2 | Senior Frontend Engineer | backlog | I-30 |
 
 ## Tính năng mới (New Features) — Open
 

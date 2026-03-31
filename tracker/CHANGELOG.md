@@ -1,5 +1,30 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-31 — CEO Audit #11 (TEC-901)
+
+### Identified (5 new issues)
+- I-30: Worker `run()` handler missing default case → memory leak risk (P1)
+- I-31: StationQuiz setTimeout not cleaned up on unmount (P1)
+- I-32: BenchmarkComparison unmounted state updates after await (P2)
+- I-33: error.tsx console.error without NODE_ENV guard (P2)
+- I-34: Worker `runAll()` handler missing default case (P2)
+
+### Created
+- TEC-902: Fix Worker handler default case (I-30, I-34) → Senior Frontend Engineer
+- TEC-903: Fix React cleanup issues (I-31, I-32, I-33) → Senior Frontend Engineer
+
+### Metrics
+- Unit Tests: 418 pass / 42 files (stable)
+- Coverage: 94.75% statement, 81.48% branch (stable)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.5/10 (stable)
+
+### Focus Areas
+- Deep lifecycle analysis: useEffect cleanup, Promise leak, unmount guards
+- No code changes this audit — pure audit + planning + delegation
+
+---
+
 ## 2026-03-31 — CEO Audit #10 (TEC-888)
 
 ### Fixed

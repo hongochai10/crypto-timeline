@@ -1,5 +1,69 @@
 # Audit Log — Crypto Timeline Project
 
+## Audit: 2026-03-31 (CEO Heartbeat TEC-901) — Audit #11
+
+### Tổng quan
+
+| Hạng mục | Kết quả |
+|----------|---------|
+| Build | ✅ Pass (Next.js 16.2.1 Turbopack) |
+| Unit Tests | ✅ 42/42 files, 418/418 tests pass |
+| Lint | ✅ Clean (`eslint src/`) |
+| TypeScript | ✅ Strict mode, zero type errors |
+| Coverage | ✅ 94.75% statement, 81.48% branch |
+| npm audit | ✅ 0 vulnerabilities |
+| Security Headers | ✅ CSP nonce-based, no unsafe-eval (prod) |
+| Accessibility | ✅ WCAG 2.1 AA + keyboard nav |
+| i18n | ✅ EN + VI — locale switching verified |
+| PWA | ✅ Serwist service worker + offline indicator |
+| Git Status | ✅ Clean (before audit changes) |
+| Overall Score | ✅ 9.5/10 (stable) |
+
+### Tiến độ kể từ audit trước (TEC-888)
+
+Không có commits mới kể từ TEC-888. Audit này tập trung vào deep lifecycle & memory leak analysis.
+
+### Vấn đề phát hiện mới
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| I-30 | Worker `run()` handler missing default case → memory leak | 🟡 P1 | 🔲 Open |
+| I-31 | StationQuiz setTimeout not cleaned up on unmount | 🟡 P1 | 🔲 Open |
+| I-32 | BenchmarkComparison unmounted state updates after await | 🟠 P2 | 🔲 Open |
+| I-33 | error.tsx console.error without NODE_ENV guard | 🟠 P2 | 🔲 Open |
+| I-34 | Worker `runAll()` handler missing default case | 🟠 P2 | 🔲 Open |
+
+### Subtasks Created
+
+| Task | Assigned To | Issues |
+|------|-------------|--------|
+| TEC-902: Fix Worker handler default case | Senior Frontend Engineer | I-30, I-34 |
+| TEC-903: Fix React cleanup issues | Senior Frontend Engineer | I-31, I-32, I-33 |
+
+### Vấn đề còn mở (total: 7)
+
+| # | Vấn đề | Severity | Status |
+|---|--------|----------|--------|
+| I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | 🔲 Open (upstream) |
+| I-21 | Middleware deprecated → proxy convention | P2 | 🔲 Open |
+| I-30 | Worker run() handler default case | P1 | 🔲 Open |
+| I-31 | StationQuiz setTimeout cleanup | P1 | 🔲 Open |
+| I-32 | BenchmarkComparison unmount guard | P2 | 🔲 Open |
+| I-33 | error.tsx NODE_ENV guard | P2 | 🔲 Open |
+| I-34 | Worker runAll() handler default case | P2 | 🔲 Open |
+
+### Build Metrics (so sánh)
+
+| Metric | TEC-888 | TEC-901 | Trend |
+|--------|---------|---------|-------|
+| Unit Tests | 418 / 42 files | 418 / 42 files | → Stable |
+| Coverage (statement) | 94.75% | 94.75% | → Stable |
+| Coverage (branch) | 81.48% | 81.48% | → Stable |
+| npm audit | 0 vulns | 0 vulns | → Clean |
+| Lint | ✅ Clean | ✅ Clean | → Stable |
+
+---
+
 ## Audit: 2026-03-31 (CEO Heartbeat TEC-888)
 
 ### Tổng quan
