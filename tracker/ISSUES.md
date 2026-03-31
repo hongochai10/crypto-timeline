@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-861)
+> Cập nhật: 2026-03-31 (TEC-888)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -33,6 +33,8 @@
 | I-18 | Persist theme preference (localStorage + cross-tab sync) | P1 | fa558ee | ✅ Done |
 | I-26 | Console.error NODE_ENV guard trong i18n/request.ts | P2 | Already implemented (line 48-50) | ✅ Done |
 | I-27 | ShareDemoButton setTimeout cleanup on unmount | P2 | 22a4a24 | ✅ Done |
+| I-28 | `next lint` broken trong Next.js 16 → migrate to `eslint src/` | P0 | TEC-888 | ✅ Done |
+| I-29 | ESLint react-hooks/set-state-in-effect trong ThemeProvider | P1 | TEC-888 | ✅ Done |
 
 ## Cải thiện (Improvements) — Open
 

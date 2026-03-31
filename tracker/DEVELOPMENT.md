@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-861)
+> Cập nhật: 2026-03-31 (TEC-888)
 
 ## Tech Stack
 
@@ -13,17 +13,17 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-30 — TEC-787)
+## Build Metrics (2026-03-31 — TEC-888)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
 | First Load JS | 164 KB (page) / 89.1 KB (shared) | Stable |
-| Unit Tests | 415 pass / 0 fail | ↑ +19 tests |
-| Test Files | 42/42 pass | ↑ +3 files |
-| Lint | Clean | — |
+| Unit Tests | 418 pass / 0 fail | ↑ +3 tests |
+| Test Files | 42/42 pass | → Stable |
+| Lint | Clean (`eslint src/`) | ↑ Fixed (`next lint` broken) |
 | TypeScript | Zero errors (strict mode) | — |
-| Statement Coverage | 94.75% | ↑ +6.29% (was 88.46%) |
-| Branch Coverage | 81.48% | ↑ +9.63% (was 71.85%) |
+| Statement Coverage | 94.75% | → Stable |
+| Branch Coverage | 81.48% | → Stable |
 | npm audit | ✅ 0 vulnerabilities | → Clean |
 | Coverage Threshold | 80% (lines/functions/branches/statements) | ✅ All above |
 

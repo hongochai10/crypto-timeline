@@ -1,5 +1,44 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-03-31 — CEO Audit #10 (TEC-888)
+
+### Fixed
+- I-28: `next lint` broken in Next.js 16 → migrated lint script to `eslint src/`
+- I-29: ESLint `react-hooks/set-state-in-effect` error in ThemeProvider.tsx → added eslint-disable comment (valid SSR-safe init pattern)
+
+### Metrics
+- Unit Tests: 418 pass / 42 files (↑3 from 415)
+- Coverage: 94.75% statement, 81.48% branch (stable)
+- npm audit: ✅ 0 vulnerabilities
+- Lint: ✅ Clean (migrated from broken `next lint` to `eslint src/`)
+- Overall Score: 9.5/10 (↑ from 9.4)
+
+### Deep Code Audit
+- Full codebase review: performance, security, accessibility, code duplication
+- No critical issues found — code quality excellent
+- Minor improvements identified for future Phase 4 work
+
+---
+
+## 2026-03-31 — CEO Audit #9 (TEC-861)
+
+### Completed Since Last Audit (3 issues resolved)
+- I-18: Theme preference persisted via localStorage + cross-tab sync (fa558ee)
+- I-26: Console.error NODE_ENV guard already implemented
+- I-27: ShareDemoButton setTimeout cleanup on unmount (22a4a24)
+
+### Still Open (2 items remaining in Phase 3)
+- I-20: CSP style-src unsafe-inline — depends on Framer Motion upstream (P3)
+- I-21: Middleware → proxy convention migration (P2)
+
+### Metrics
+- Unit Tests: 415 pass / 42 files (stable)
+- Coverage: 94.75% statement, 81.48% branch (stable)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.4/10 (stable)
+
+---
+
 ## 2026-03-30 — CEO Audit #8 (TEC-787)
 
 ### Completed Since Last Audit (8 issues resolved)

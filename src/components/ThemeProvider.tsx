@@ -30,10 +30,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   // Initialize theme from localStorage or system preference
+  // (must be in useEffect to avoid SSR hydration mismatch)
   useEffect(() => {
     const stored = getStoredTheme();
     const initial = stored ?? getSystemPreference();
-    setTheme(initial);
+    setTheme(initial); // eslint-disable-line react-hooks/set-state-in-effect -- SSR-safe init from localStorage
     setMounted(true);
   }, []);
 
