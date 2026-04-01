@@ -17,11 +17,31 @@ const ENGLISH_FREQ: Record<string, number> = {
   Q: 0.1, Z: 0.1,
 };
 
+const COMMON_WORDS = new Set([
+  "THE", "AND", "FOR", "ARE", "BUT", "NOT", "YOU", "ALL", "CAN", "HER",
+  "WAS", "ONE", "OUR", "OUT", "HIS", "HAS", "HIM", "HOW", "ITS", "MAY",
+  "NEW", "NOW", "OLD", "SEE", "WAY", "WHO", "DID", "GET", "LET", "SAY",
+  "SHE", "TOO", "USE", "MAN", "DAY", "HAD", "OWN", "PUT", "BIG", "END",
+  "WHY", "TRY", "ASK", "MEN", "RUN", "TOP", "SET", "RED", "WAR", "KEY",
+  "THAT", "WITH", "HAVE", "THIS", "WILL", "YOUR", "FROM", "THEY", "BEEN",
+  "MANY", "SOME", "THEM", "THAN", "EACH", "MAKE", "LIKE", "LONG", "LOOK",
+  "COME", "MADE", "FIND", "HERE", "KNOW", "TAKE", "WANT", "DOES", "ALSO",
+  "BACK", "JUST", "ONLY", "VERY", "WHEN", "WHAT", "MUCH", "TIME", "OVER",
+  "SUCH", "GOOD", "YEAR", "MOST", "WORK", "NEED", "KEEP", "GIVE", "HELP",
+  "HELLO", "WORLD", "ATTACK", "SECRET", "MESSAGE", "CIPHER", "ENCRYPTED",
+  "IS", "IT", "IN", "AT", "TO", "OF", "ON", "AN", "AS", "OR", "IF", "NO",
+  "SO", "BY", "DO", "GO", "HE", "ME", "MY", "UP", "WE", "BE", "AM",
+]);
+
 export default function CaesarAttack({ era }: Props) {
   const t = useTranslations("attacks.caesar");
   const tc = useTranslations("common");
-  const [ciphertext, setCiphertext] = useState("KHOOR ZRUOG");
+  // "HELLO WORLD THIS IS A SECRET MESSAGE ENCRYPTED WITH THE CAESAR CIPHER" shift=3
+  const [ciphertext, setCiphertext] = useState(
+    "KHOOR ZRUOG WKLV LV D VHFUHW PHVVDJH HQFUBSWHG ZLWK WKH FDHVDU FLSKHU"
+  );
   const [cracked, setCracked] = useState<string | null>(null);
+  const [detectedShift, setDetectedShift] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState(false);
 
   const rawFreq = letterFrequency(ciphertext);
@@ -38,13 +58,37 @@ export default function CaesarAttack({ era }: Props) {
     setCracked(null);
     await new Promise((r) => setTimeout(r, 800));
 
-    // Find most frequent letter, assume it maps to E
-    const sorted = Object.entries(freq).sort(([, a], [, b]) => b - a);
-    if (sorted.length > 0) {
-      const mostFreqLetter = sorted[0][0];
-      const shift = (mostFreqLetter.charCodeAt(0) - 69 + 26) % 26; // 69 = 'E'
-      setCracked(caesarDecrypt(ciphertext, shift).output);
+    // Try all 26 shifts, score each by correlation + common word detection
+    let bestShift = 0;
+    let bestScore = -Infinity;
+
+    for (let shift = 0; shift < 26; shift++) {
+      const decrypted = caesarDecrypt(ciphertext, shift).output;
+      const decFreq = letterFrequency(decrypted);
+      const total = Object.values(decFreq).reduce((a, b) => a + b, 0) || 1;
+
+      // Correlation with English letter frequencies
+      let score = 0;
+      for (const [letter, expectedPct] of Object.entries(ENGLISH_FREQ)) {
+        const observedPct = ((decFreq[letter.toLowerCase()] || 0) / total) * 100;
+        score += observedPct * expectedPct;
+      }
+
+      // Bonus for common English words (helps with short texts)
+      const words = decrypted.split(/\s+/).filter((w) => w.length > 0);
+      const commonCount = words.filter((w) => COMMON_WORDS.has(w.toUpperCase())).length;
+      if (words.length > 0) {
+        score += (commonCount / words.length) * 200;
+      }
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestShift = shift;
+      }
     }
+
+    setDetectedShift(bestShift);
+    setCracked(caesarDecrypt(ciphertext, bestShift).output);
     setIsRunning(false);
   };
 
@@ -60,7 +104,7 @@ export default function CaesarAttack({ era }: Props) {
       <InteractiveTextarea
         label={t("ciphertextToCrack")}
         value={ciphertext}
-        onChange={(v) => { setCiphertext(v.toUpperCase()); setCracked(null); }}
+        onChange={(v) => { setCiphertext(v.toUpperCase()); setCracked(null); setDetectedShift(null); }}
         color={era.color}
       />
 
@@ -112,7 +156,12 @@ export default function CaesarAttack({ era }: Props) {
           animate={{ opacity: 1, y: 0 }}
           className="rounded-lg border border-red-500/30 bg-red-500/10 p-3"
         >
-          <p className="mb-1 font-mono text-xs text-red-400 uppercase tracking-widest">{t("cracked")}</p>
+          <div className="mb-1 flex items-center justify-between">
+            <p className="font-mono text-xs text-red-400 uppercase tracking-widest">{t("cracked")}</p>
+            {detectedShift !== null && (
+              <p className="font-mono text-xs text-[var(--text-muted)]">shift = {detectedShift}</p>
+            )}
+          </div>
           <p className="font-mono text-sm text-[var(--text-primary)] tracking-wider">{cracked}</p>
         </motion.div>
       )}
