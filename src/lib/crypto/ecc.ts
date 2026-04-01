@@ -230,7 +230,5 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
   for (let i = 0; i < binary.length; i++) {
     bytes[i] = binary.charCodeAt(i);
   }
-  // .slice() creates a new Uint8Array with a fresh ArrayBuffer,
-  // avoiding Node.js shared buffer pool issues with SubtleCrypto
-  return bytes.slice().buffer;
+  return bytes.buffer;
 }

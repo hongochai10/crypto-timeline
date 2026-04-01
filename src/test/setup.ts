@@ -111,12 +111,14 @@ vi.mock("@/components/ThemeProvider", () => {
   };
 });
 
-// Mock IntersectionObserver for jsdom
-class MockIntersectionObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+// Mock IntersectionObserver for jsdom (skip in node environment)
+if (typeof window !== "undefined") {
+  class MockIntersectionObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+  Object.defineProperty(window, "IntersectionObserver", {
+    value: MockIntersectionObserver,
+  });
 }
-Object.defineProperty(window, "IntersectionObserver", {
-  value: MockIntersectionObserver,
-});

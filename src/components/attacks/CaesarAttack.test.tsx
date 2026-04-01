@@ -13,7 +13,7 @@ describe("CaesarAttack", () => {
 
   it("has a textarea with default ciphertext", () => {
     render(<CaesarAttack era={era} />);
-    expect(screen.getByDisplayValue("KHOOR ZRUOG")).toBeInTheDocument();
+    expect(screen.getByDisplayValue(/KHOOR ZRUOG/)).toBeInTheDocument();
   });
 
   it("renders frequency chart", () => {
@@ -29,7 +29,7 @@ describe("CaesarAttack", () => {
 
   it("disables crack button for empty ciphertext", () => {
     render(<CaesarAttack era={era} />);
-    const textarea = screen.getByDisplayValue("KHOOR ZRUOG");
+    const textarea = screen.getByDisplayValue(/KHOOR ZRUOG/);
     fireEvent.change(textarea, { target: { value: "" } });
     expect(screen.getByText(/Run Frequency Attack/)).toBeDisabled();
   });

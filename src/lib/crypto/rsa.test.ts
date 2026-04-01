@@ -1,6 +1,7 @@
+// @vitest-environment node
 /**
  * RSA — unit tests
- * Uses Web Crypto API (SubtleCrypto) — requires jsdom environment.
+ * Uses Web Crypto API (SubtleCrypto) — node environment avoids jsdom cross-realm ArrayBuffer issues.
  */
 import { describe, test, expect } from "vitest";
 import {

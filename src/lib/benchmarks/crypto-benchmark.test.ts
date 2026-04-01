@@ -1,3 +1,4 @@
+// @vitest-environment node
 /**
  * Crypto Benchmark Engine — unit tests
  */
