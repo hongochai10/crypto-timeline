@@ -276,3 +276,18 @@
     box-shadow: 0 0 20px -8px currentColor;
   }
 }
+
+/* ─── Vietnamese Font Fix ──────────────────────────────────────────────── */
+/* Geist Mono renders Vietnamese diacritics poorly — use Inter (sans) instead */
+:lang(vi) .font-mono {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+:lang(vi) .tracking-widest {
+  letter-spacing: 0.05em;
+}
+
+/* Preserve monospace for cipher/code output blocks */
+:lang(vi) .code-display {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+}
