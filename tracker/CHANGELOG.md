@@ -1,5 +1,30 @@
 # Changelog — Crypto Timeline Project
 
+## 2026-04-01 — CEO Audit #12 (TEC-1009)
+
+### Verified (5 fixes confirmed)
+- I-30, I-34: Worker handler default cases — FIXED (2375f6f)
+- I-31: StationQuiz setTimeout cleanup — FIXED (94ee7c5)
+- I-32: BenchmarkComparison unmount guard — FIXED (94ee7c5)
+- I-33: error.tsx NODE_ENV guard — FIXED (94ee7c5)
+
+### Metrics
+- Unit Tests: 420 pass / 42 files (↑ +2 tests)
+- Coverage: 94.75% statement, 81.48% branch (stable)
+- npm audit: ✅ 0 vulnerabilities
+- Overall Score: 9.4/10 (stable)
+
+### Tracker Updates
+- ISSUES.md: Moved I-30→I-34 from Open to Resolved
+- DEVELOPMENT.md: Phase 3 updated to 97% complete, build metrics refreshed
+- CHANGELOG.md: Audit #12 entry
+
+### Remaining Open (2 items — low priority)
+- I-20 (P3): CSP style-src unsafe-inline (Framer Motion upstream)
+- I-21 (P2): Middleware → proxy convention (Next.js 16 compat warning)
+
+---
+
 ## 2026-03-31 — CEO Audit #11 (TEC-901)
 
 ### Identified (5 new issues)

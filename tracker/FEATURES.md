@@ -1,6 +1,6 @@
 # Features — Crypto Timeline Project
 
-> Cập nhật: 2026-03-30 (TEC-787)
+> Cập nhật: 2026-04-01 (TEC-1009)
 
 ## Tính năng hiện có (Shipped)
 
@@ -10,7 +10,7 @@
 | Interactive Demos | Encrypt/decrypt trực tiếp trong browser | ✅ Done | — |
 | Attack Simulations | Demo tấn công cho mỗi thuật toán | ✅ Done | — |
 | Scroll-based Timeline | Museum exhibit style navigation | ✅ Done | — |
-| i18n (EN + VI) | 1236 keys/locale, next-intl + fallbacks | ✅ Done | TEC-525, TEC-596, TEC-597 |
+| i18n (EN + VI) | 1256 keys/locale, next-intl + fallbacks | ✅ Done | TEC-525, TEC-596, TEC-597 |
 | PWA / Offline | Serwist service worker + offline indicator | ✅ Done | TEC-509 |
 | Visual Regression Tests | Playwright screenshots 6 browser projects | ✅ Done | TEC-508 |
 | Accessibility Audit | axe-core WCAG 2.1 AA + keyboard nav + SVG a11y | ✅ Done | TEC-506, TEC-569 |
@@ -34,6 +34,10 @@
 | VI Locale Fix | Locale navigation error resolved | Small | P1 | ✅ Done (0247fd8) |
 | CSP Hardened (unsafe-eval) | CSP regression fixed | Small | P0 | ✅ Done (d754dd2) |
 | Test Coverage Recovery | 94.75% stmt / 81.48% branch | Medium | P1 | ✅ Done (6909afd) |
+| Theme Cross-tab Sync | localStorage + storage event sync | Small | P1 | ✅ Done (fa558ee) |
+| Dependabot Config | Automated npm + GitHub Actions alerts | Small | P2 | ✅ Done (7164a60) |
+| React Cleanup Fixes | StationQuiz, BenchmarkComparison, error.tsx | Small | P1 | ✅ Done (94ee7c5) |
+| Worker Default Handlers | Memory leak prevention in benchmark worker | Small | P1 | ✅ Done (2375f6f) |
 | Educator Analytics | Giá trị cho use case giáo dục | Large | P3 | backlog |
 | Completion Certificate | Gamification, shareable achievement | Small | P3 | backlog |
 | Social Share Quiz Results | Viral marketing, engagement | Small | P3 | backlog |

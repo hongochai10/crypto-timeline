@@ -1,6 +1,6 @@
 # Issues & Tasks — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-901)
+> Cập nhật: 2026-04-01 (TEC-1009)
 
 ## Đã hoàn thành (Recently Resolved)
 
@@ -35,6 +35,11 @@
 | I-27 | ShareDemoButton setTimeout cleanup on unmount | P2 | 22a4a24 | ✅ Done |
 | I-28 | `next lint` broken trong Next.js 16 → migrate to `eslint src/` | P0 | TEC-888 | ✅ Done |
 | I-29 | ESLint react-hooks/set-state-in-effect trong ThemeProvider | P1 | TEC-888 | ✅ Done |
+| I-30 | Worker `run()` handler missing default case (memory leak) | P1 | 2375f6f | ✅ Done |
+| I-31 | StationQuiz setTimeout not cleaned up on unmount | P1 | 94ee7c5 | ✅ Done |
+| I-32 | BenchmarkComparison unmounted state updates after await | P2 | 94ee7c5 | ✅ Done |
+| I-33 | error.tsx console.error without NODE_ENV guard | P2 | 94ee7c5 | ✅ Done |
+| I-34 | Worker `runAll()` handler missing default case | P2 | 2375f6f | ✅ Done |
 
 ## Cải thiện (Improvements) — Open
 
@@ -42,11 +47,6 @@
 |----|---------|----------|-------|--------|------------|
 | I-20 | CSP style-src unsafe-inline (Framer Motion) | P3 | Security Engineer | backlog | Framer Motion upstream |
 | I-21 | Middleware deprecated → proxy convention (Next.js 16) | P2 | Senior Frontend Engineer | backlog | — |
-| I-30 | Worker `run()` handler missing default case (memory leak) | P1 | Senior Frontend Engineer | backlog | — |
-| I-31 | StationQuiz setTimeout not cleaned up on unmount | P1 | Senior Frontend Engineer | backlog | — |
-| I-32 | BenchmarkComparison unmounted state updates after await | P2 | Senior Frontend Engineer | backlog | — |
-| I-33 | error.tsx console.error without NODE_ENV guard | P2 | Senior Frontend Engineer | backlog | — |
-| I-34 | Worker `runAll()` handler missing default case | P2 | Senior Frontend Engineer | backlog | I-30 |
 
 ## Tính năng mới (New Features) — Open
 

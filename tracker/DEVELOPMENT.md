@@ -1,6 +1,6 @@
 # Development Plan — Crypto Timeline Project
 
-> Cập nhật: 2026-03-31 (TEC-901)
+> Cập nhật: 2026-04-01 (TEC-1009)
 
 ## Tech Stack
 
@@ -13,15 +13,15 @@
 - **Testing**: Vitest 4.1.1 + Playwright 1.58.2 + axe-core
 - **Deploy**: Vercel + GitHub Actions CI (8 jobs)
 
-## Build Metrics (2026-03-31 — TEC-901)
+## Build Metrics (2026-04-01 — TEC-1009)
 
 | Metric | Value | Trend |
 |--------|-------|-------|
-| First Load JS | 164 KB (page) / 89.1 KB (shared) | Stable |
-| Unit Tests | 418 pass / 0 fail | ↑ +3 tests |
+| First Load JS | 164 KB (page) / 89.1 KB (shared) | → Stable |
+| Unit Tests | 420 pass / 0 fail | ↑ +2 tests |
 | Test Files | 42/42 pass | → Stable |
-| Lint | Clean (`eslint src/`) | ↑ Fixed (`next lint` broken) |
-| TypeScript | Zero errors (strict mode) | — |
+| Lint | Clean (`eslint src/`) | → Stable |
+| TypeScript | Zero errors (strict mode) | → Stable |
 | Statement Coverage | 94.75% | → Stable |
 | Branch Coverage | 81.48% | → Stable |
 | npm audit | ✅ 0 vulnerabilities | → Clean |
@@ -46,7 +46,7 @@
 - [x] Refactor Demo components — extract shared components (79fc622)
 - [x] Progress tracking / completion badges (6231978, d0f52b5, 8757c17)
 
-### Phase 3 — UX Polish & Security (P0/P2) ⏳ 95% COMPLETE
+### Phase 3 — UX Polish & Security (P0/P2) ⏳ 97% COMPLETE
 - [x] **Upgrade Next.js 14→16** — fix 9 npm audit vulns (0b22608 / TEC-666)
 - [x] Add NODE_ENV guards cho console.log (11d85d2 / TEC-667)
 - [x] Move benchmarks to Web Worker (bb4caa8 / TEC-668)
@@ -59,10 +59,10 @@
 - [x] **Remove unsafe-eval from CSP script-src (I-24)** ✅ d754dd2 / TEC-764
 - [x] Investigate & fix coverage drop (I-25) ✅ 94.75% stmt / 81.48% branch
 - [x] Persist theme preference via localStorage + cross-tab sync (I-18) ✅ fa558ee
-- [ ] Fix Worker handler default case (I-30, I-34) **P1**
-- [ ] Fix StationQuiz setTimeout cleanup (I-31) **P1**
-- [ ] Fix BenchmarkComparison unmount guard (I-32) **P2**
-- [ ] Fix error.tsx NODE_ENV guard (I-33) **P2**
+- [x] Fix Worker handler default case (I-30, I-34) ✅ 2375f6f
+- [x] Fix StationQuiz setTimeout cleanup (I-31) ✅ 94ee7c5
+- [x] Fix BenchmarkComparison unmount guard (I-32) ✅ 94ee7c5
+- [x] Fix error.tsx NODE_ENV guard (I-33) ✅ 94ee7c5
 - [ ] Migrate middleware → proxy convention (I-21) **P2**
 - [x] Console.error NODE_ENV guard in i18n/request.ts (I-26) ✅ Already implemented
 - [x] ShareDemoButton setTimeout cleanup (I-27) ✅ 22a4a24
