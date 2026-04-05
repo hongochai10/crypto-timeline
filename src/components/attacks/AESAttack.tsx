@@ -70,7 +70,7 @@ export default function AESAttack({ era }: Props) {
             </motion.div>
           ))}
         </div>
-        <p className="mt-2 font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{info.ratio}</p>
+        <p className="mt-2 font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{t("ratio")}</p>
       </div>
 
       {/* Known attack attempts */}

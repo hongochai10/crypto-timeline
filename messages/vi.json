@@ -760,7 +760,8 @@
           "status": "Giảm nửa lượng tử",
           "detail": "Giảm xuống 2¹²⁸ — AES-256 vẫn an toàn"
         }
-      }
+      },
+      "ratio": "Không gian khóa AES-256 nhỏ hơn ~1000× so với số nguyên tử trong vũ trụ, nhưng vẫn bất khả thi để vét cạn."
     },
     "rsa": {
       "subtitle": "Phân tích thừa số — bài toán khó mà RSA dựa vào",
@@ -775,7 +776,13 @@
       "steps": "Bước:",
       "divisions": "{count} phép chia",
       "toyCracked": "RSA đồ chơi bị phá trong {steps} bước. RSA-2048 thực tế cần ~10²⁰ bước.",
-      "keySizeSecurity": "Bảo mật kích thước khóa RSA"
+      "keySizeSecurity": "Bảo mật kích thước khóa RSA",
+      "keySizes": {
+        "0": { "status": "bị phá", "yearsToFactor": "< 1 giờ (phần cứng 2000s)" },
+        "1": { "status": "yếu", "yearsToFactor": "< 1 năm (phần cứng hiện đại)" },
+        "2": { "status": "an toàn", "yearsToFactor": "~300 nghìn tỷ năm (cổ điển)" },
+        "3": { "status": "mạnh", "yearsToFactor": "Bất khả thi về tính toán (cổ điển)" }
+      }
     },
     "ecc": {
       "subtitle": "ECDLP — bài toán logarit rời rạc trên đường cong elliptic",
@@ -844,7 +851,23 @@
       "threatAnalysis": "Phân tích mối đe dọa lượng tử",
       "brokenByQuantum": "⚠ BỊ PHÁ bởi lượng tử",
       "quantumSafe": "✓ An toàn lượng tử",
-      "nistStandardization": "Chuẩn hóa PQC của NIST"
+      "nistStandardization": "Chuẩn hóa PQC của NIST",
+      "quantumLabel": "Lượng tử",
+      "quantumSecurities": {
+        "0": "~0 bit (thuật toán Shor phân tích thừa số trong thời gian đa thức)",
+        "1": "~0 bit (thuật toán Shor giải DLP trong thời gian đa thức)",
+        "2": "~128 bit (thuật toán Grover giảm nửa độ dài khóa hiệu quả)",
+        "3": "~128 bit (không có tăng tốc lượng tử đã biết cho LWE)",
+        "4": "~128 bit (không có tăng tốc lượng tử đã biết)"
+      },
+      "nistEvents": {
+        "0": "NIST khởi động cuộc thi chuẩn hóa PQC",
+        "1": "69 đề xuất nhận được từ các nhà nghiên cứu toàn cầu",
+        "2": "Vòng 2: 26 ứng viên được chọn",
+        "3": "Vòng 3: 7 finalists + 8 dự bị",
+        "4": "NIST công bố 4 thuật toán để chuẩn hóa",
+        "5": "FIPS 203 (ML-KEM/Kyber), FIPS 204 (ML-DSA/Dilithium), FIPS 205 (SLH-DSA) được hoàn thiện"
+      }
     }
   },
   "errors": {

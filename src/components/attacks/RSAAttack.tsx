@@ -122,7 +122,7 @@ export default function RSAAttack({ era }: Props) {
       <div>
         <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("keySizeSecurity")}</p>
         <div className="space-y-2">
-          {securityInfo.sizes.map((sz) => (
+          {securityInfo.sizes.map((sz, i) => (
             <div
               key={sz.bits}
               className="flex items-center justify-between rounded-lg px-3 py-2"
@@ -142,10 +142,10 @@ export default function RSAAttack({ era }: Props) {
                     color: sz.status === "broken" ? "#f87171" : sz.status === "weak" ? "#fb923c" : "#4ade80",
                   }}
                 >
-                  {sz.status}
+                  {t(`keySizes.${i}.status`)}
                 </span>
               </div>
-              <span className="font-mono text-[10px] text-[var(--text-muted)] text-right max-w-[140px]">{sz.yearsToFactor}</span>
+              <span className="font-mono text-[10px] text-[var(--text-muted)] text-right max-w-[140px]">{t(`keySizes.${i}.yearsToFactor`)}</span>
             </div>
           ))}
         </div>

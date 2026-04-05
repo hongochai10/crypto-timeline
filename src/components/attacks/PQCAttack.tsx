@@ -94,7 +94,7 @@ export default function PQCAttack({ era }: Props) {
       <div>
         <p className="mb-3 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">{t("threatAnalysis")}</p>
         <div className="space-y-2">
-          {threats.map((threat) => (
+          {threats.map((threat, i) => (
             <div
               key={threat.algorithm}
               className="rounded-lg border px-3 py-2.5"
@@ -117,7 +117,7 @@ export default function PQCAttack({ era }: Props) {
                   {threat.broken ? t("brokenByQuantum") : t("quantumSafe")}
                 </span>
               </div>
-              <p className="font-mono text-[10px] text-[var(--text-muted)]">Quantum: {threat.quantumSecurity}</p>
+              <p className="font-mono text-[10px] text-[var(--text-muted)]">{t("quantumLabel")}: {t(`quantumSecurities.${i}`)}</p>
             </div>
           ))}
         </div>
@@ -131,7 +131,7 @@ export default function PQCAttack({ era }: Props) {
             <div key={i} className="flex items-start gap-3">
               <span className="font-mono text-[10px] shrink-0 pt-0.5" style={{ color: era.color }}>{item.year}</span>
               <div className="w-px self-stretch shrink-0" style={{ backgroundColor: era.color + "30" }} />
-              <p className="font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{item.event}</p>
+              <p className="font-mono text-[10px] text-[var(--text-muted)] leading-relaxed">{t(`nistEvents.${i}`)}</p>
             </div>
           ))}
         </div>

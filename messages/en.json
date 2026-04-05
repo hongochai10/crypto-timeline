@@ -760,7 +760,8 @@
           "status": "Quantum halving",
           "detail": "Reduces to 2¹²⁸ — AES-256 remains secure"
         }
-      }
+      },
+      "ratio": "AES-256 keyspace is ~1000× smaller than atoms in the universe, yet still computationally infeasible to brute-force."
     },
     "rsa": {
       "subtitle": "Integer factoring — the hard problem RSA relies on",
@@ -775,7 +776,13 @@
       "steps": "Steps:",
       "divisions": "{count} divisions",
       "toyCracked": "Toy RSA cracked in {steps} steps. Real RSA-2048 would require ~10²⁰ steps.",
-      "keySizeSecurity": "RSA key size security"
+      "keySizeSecurity": "RSA key size security",
+      "keySizes": {
+        "0": { "status": "broken", "yearsToFactor": "< 1 hour (2000s hardware)" },
+        "1": { "status": "weak", "yearsToFactor": "< 1 year (modern hardware)" },
+        "2": { "status": "safe", "yearsToFactor": "~300 trillion years (classical)" },
+        "3": { "status": "strong", "yearsToFactor": "Computationally infeasible (classical)" }
+      }
     },
     "ecc": {
       "subtitle": "ECDLP — the discrete logarithm problem on elliptic curves",
@@ -844,7 +851,23 @@
       "threatAnalysis": "Quantum threat analysis",
       "brokenByQuantum": "⚠ BROKEN by quantum",
       "quantumSafe": "✓ Quantum-safe",
-      "nistStandardization": "NIST PQC Standardization"
+      "nistStandardization": "NIST PQC Standardization",
+      "quantumLabel": "Quantum",
+      "quantumSecurities": {
+        "0": "~0 bits (Shor's algorithm factors in polynomial time)",
+        "1": "~0 bits (Shor's algorithm solves DLP in polynomial time)",
+        "2": "~128 bits (Grover's algorithm halves effective key length)",
+        "3": "~128 bits (no known quantum speedup for LWE)",
+        "4": "~128 bits (no known quantum speedup)"
+      },
+      "nistEvents": {
+        "0": "NIST launches PQC standardization competition",
+        "1": "69 submissions received from global researchers",
+        "2": "Round 2: 26 candidates selected",
+        "3": "Round 3: 7 finalists + 8 alternates",
+        "4": "NIST announces 4 algorithms for standardization",
+        "5": "FIPS 203 (ML-KEM/Kyber), FIPS 204 (ML-DSA/Dilithium), FIPS 205 (SLH-DSA) finalized"
+      }
     }
   },
   "errors": {
